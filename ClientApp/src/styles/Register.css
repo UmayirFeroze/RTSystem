@@ -1,0 +1,80 @@
+.register {
+  background-color: #1f1e1e;
+  margin: auto;
+  padding: 20px;
+  width: 33%;
+  align-items: center;
+  justify-content: center;
+}
+
+.register h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  margin-bottom: 50px;
+}
+
+.register h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.register input[type="text"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.register input[type="password"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.register input[type="tel"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.register button {
+  background-color: #1682db;
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0 10px 0;
+  border: none;
+  border-radius: 4px;
+  width: 20%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  width: 30%;
+}
+
+.register button:hover {
+  background-color: #008cff;
+}
+
+.register a {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 30px 10px 0 0;
+  color: white;
+  float: right;
+}
+
+.register a:hover {
+  color: #1682db;
+}

@@ -1,0 +1,53 @@
+.createBid {
+  text-align: center;
+
+  width: 100%;
+  /* margin: 100px auto 0 auto; */
+  background-color: #1f1e1e;
+  padding: 100px 20px 100px 20px;
+  /* height: 100%; */
+  float: right;
+}
+
+.createBid h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.createBid input[type="text"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.createBid input[type="number"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.createBid button {
+  background-color: #1682db;
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0 10px 0;
+  border: none;
+  border-radius: 4px;
+  width: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.createBid button:hover {
+  background-color: #008cff;
+}
