@@ -20,6 +20,7 @@ namespace RTSystem.Data
                 businessPhone = "0112729729",
                 businessAddress = "59/2, Peterson Lane, Wellawatte",
                 businessDescription = "Dealers in Rubber and Spices",
+                businessType="Dealer"
             },
 
             new User()
@@ -34,7 +35,7 @@ namespace RTSystem.Data
                 businessPhone = "0112729729",
                 businessAddress = "61, Kurunegala Road, Rambukkana",
                 businessDescription = "Exporters of Rubber and Spices",
-
+                businessType="Exporter"
             }
         };
     }

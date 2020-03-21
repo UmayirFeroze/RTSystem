@@ -35,6 +35,7 @@ namespace RTSystem.Data
                 userExist.businessDescription = user.businessDescription;
                 userExist.businessPhone = user.businessPhone;
                 userExist.businessAddress = user.businessAddress;
+                userExist.businessType = user.businessType;
             }
         }
         public void DeleteUser(int userId)

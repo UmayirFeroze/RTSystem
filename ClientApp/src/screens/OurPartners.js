@@ -51,6 +51,7 @@ class OurPartners extends Component {
             <div style={{ padding: 10 }}>
               <h2 style={{ margin: 3 }}>{user.businessName}</h2>
               <h4 style={{ marginTop: 10 }}>{user.businessDescription}</h4>
+              <p>Business Type: {user.businessType}</p>
               <p>Owner: {user.firstName + " " + user.lastName}</p>
               <p>
                 Phone: {user.phone} / {user.businessPhone}
@@ -76,6 +77,11 @@ class OurPartners extends Component {
         <div>
           <h1>Our Partners</h1>
           <h2>All users details will come here</h2>
+          <p>Sort By: </p>
+          <button>All Partners</button>
+          <button>Dealers</button>
+          <button>Exporters</button>
+          <button>Rubber Product Manufacturers</button>
           <div>{content}</div>
         </div>
       </div>

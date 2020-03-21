@@ -18,7 +18,8 @@ class Register extends Component {
       businessName: "",
       businessDescription: "",
       businessPhone: "",
-      businessAddress: ""
+      businessAddress: "",
+      businessType: ""
     };
   }
 
@@ -30,9 +31,8 @@ class Register extends Component {
     event.preventDefault();
     const { history } = this.props;
     let newUser = this.state;
-
-    axios.post("/api/Users/RegisterUser", newUser).then(result => {
-      history.push("/home");
+    axios.post("api/user/registeruser", newUser).then(result => {
+      history.push("/");
     });
   };
 
@@ -47,6 +47,7 @@ class Register extends Component {
             type="text"
             name="firstName"
             placeholder="First Name"
+            value={this.state.firstName}
             onChange={this.handleChange}
             required
           />
@@ -54,6 +55,7 @@ class Register extends Component {
             type="text"
             name="lastName"
             placeholder="Last Name"
+            value={this.state.lastName}
             onChange={this.handleChange}
             required
           />
@@ -63,6 +65,7 @@ class Register extends Component {
             name="phone"
             pattern="[0-9]{10}"
             placeholder="Phone"
+            value={this.state.phone}
             onChange={this.handleChange}
             required
           />
@@ -71,6 +74,7 @@ class Register extends Component {
             type="text"
             name="email"
             placeholder="Email"
+            value={this.state.email}
             onChange={this.handleChange}
             required
           />
@@ -79,6 +83,7 @@ class Register extends Component {
             type="password"
             name="password"
             placeholder="Password"
+            value={this.state.password}
             onChange={this.handleChange}
             required
           />
@@ -89,6 +94,7 @@ class Register extends Component {
             type="text"
             name="businessName"
             placeholder="Business Name"
+            value={this.state.businessName}
             onChange={this.handleChange}
             required
           />
@@ -97,6 +103,7 @@ class Register extends Component {
             type="text"
             name="businessDescription"
             placeholder="Business Description"
+            value={this.state.businessDescription}
             onChange={this.handleChange}
           />
 
@@ -105,6 +112,7 @@ class Register extends Component {
             name="businessPhone"
             pattern="[0-9]{10}"
             placeholder="Business Phone"
+            value={this.state.businessPhone}
             onChange={this.handleChange}
             required
           />
@@ -113,11 +121,16 @@ class Register extends Component {
             type="text"
             name="businessAddress"
             placeholder="Business Address"
+            value={this.state.businessAddress}
             onChange={this.handleChange}
             required
           />
 
-          <select>
+          <select
+            name="businessType"
+            onChange={this.handleChange}
+            value={this.state.businessType}
+          >
             <option disabled selected>
               BusinessType
             </option>

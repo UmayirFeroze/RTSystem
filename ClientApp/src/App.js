@@ -11,7 +11,6 @@ import Register from "./screens/Register";
 import Transactions from "./screens/Transactions";
 import MyBids from "./screens/MyBids";
 import UserManual from "./screens/UserManual";
-import Search from "./screens/OurPartners";
 import OurPartners from "./screens/OurPartners";
 
 function App() {
