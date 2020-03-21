@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/umairferoze/.dotnet/store/|arch|/|tfm|",
+      "/Users/umairferoze/.nuget/packages"
+    ]
+  }
+}
