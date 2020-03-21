@@ -117,12 +117,7 @@ class Register extends Component {
             required
           />
 
-          <select
-            id="businessType"
-            name="businessType"
-            placeholder="BusinessType"
-            required
-          >
+          <select>
             <option disabled selected>
               BusinessType
             </option>
