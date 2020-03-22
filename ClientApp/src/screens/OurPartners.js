@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import NavBar from "../components/Navbar";
 import axios from "axios";
+import { connect } from "react-redux";
+import { getAllUsers } from "../actions/userAction";
 
-class OurPartners extends Component {
+export class OurPartners extends Component {
   constructor(props) {
     super(props);
 
@@ -13,15 +15,22 @@ class OurPartners extends Component {
   }
 
   componentDidMount() {
-    this.PopulateUsersData();
+    // this.PopulateUsersData();
+    this.props.getAllUsers();
   }
 
-  PopulateUsersData = () => {
-    axios.get("/api/user/getusers").then(result => {
-      const response = result.data;
-      this.setState({ users: response, isLoading: false });
-    });
-  };
+  componentDidUpdate(prevProps) {
+    if (prevProps.users.data != this.props.users.data) {
+      this.setState({ users: this.props.users.data });
+    }
+  }
+
+  // PopulateUsersData = () => {
+  //   axios.get("/api/user/getusers").then(result => {
+  //     const response = result.data;
+  //     this.setState({ users: response, isLoading: false });
+  //   });
+  // };
 
   renderUser = users => {
     return (
@@ -59,6 +68,14 @@ class OurPartners extends Component {
               <p>Email: {user.email}</p>
               <p>Address: {user.businessAddress}</p>
             </div>
+            <div>
+              <button>View Profile</button>
+              <br />
+              <button>Request Purchase</button>
+              <br />
+              <button>Complaint</button>
+              <br />
+            </div>
           </div>
         ))}
       </div>
@@ -66,10 +83,10 @@ class OurPartners extends Component {
   };
 
   render() {
-    let content = this.state.isLoading ? (
+    let content = this.props.users.isLoading ? (
       <p>Loading...</p>
     ) : (
-      this.renderUser(this.state.users)
+      this.state.users.length && this.renderUser(this.state.users)
     );
     return (
       <div>
@@ -89,4 +106,8 @@ class OurPartners extends Component {
   }
 }
 
-export default OurPartners;
+const mapStateToProps = ({ users }) => ({
+  users
+});
+
+export default connect(mapStateToProps, { getAllUsers })(OurPartners);
