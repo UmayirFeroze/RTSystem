@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "../components/Navbar";
 import CreateBid from "../components/CreateBid";
-import YourProfile from "../components/YouProfile";
+import YourProfile from "../components/YourProfile";
 
 class Home extends Component {
   state = {};

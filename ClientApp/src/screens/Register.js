@@ -131,7 +131,7 @@ class Register extends Component {
             onChange={this.handleChange}
             value={this.state.businessType}
           >
-            <option disabled selected>
+            <option disabled selected value="">
               BusinessType
             </option>
             <option value="Dealer">Dealer</option>
