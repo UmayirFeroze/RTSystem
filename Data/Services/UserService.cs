@@ -1,12 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using RTSystem.Helpers;
 
 namespace RTSystem.Data
 {
     public class UserService : IUserService
     {
+        public async Task<User> Authenticate(string email, string password)
+        {
+            var user = await Task.Run(() => Data.Users.SingleOrDefault(x => x.email == email && x.password == password));
 
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user.WithoutPasswords();
+        }
         public List<User> GetAllUsers()
         {
             return Data.Users.ToList();

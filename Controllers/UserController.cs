@@ -1,16 +1,33 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 using RTSystem.Data;
 
 namespace RTSystem.Controllers
 {
+    [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private IUserService _service;
         public UserController(IUserService service)
         {
             this._service = service;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
+        {
+            var user = await _service.Authenticate(model.email, model.password);
+
+            if (user == null)
+            {
+                return BadRequest(new { message = "Email or password is incorrect" });
+            }
+            return Ok(user);
         }
 
         [HttpGet("GetUsers")]
