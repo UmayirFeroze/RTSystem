@@ -8,17 +8,16 @@ namespace RTSystem.Data
 {
     public class UserService : IUserService
     {
-        public async Task<User> Authenticate(string email, string password)
+        public async Task<User> Authenticate(AuthenticateModel user)
         {
-            var user = await Task.Run(() => Data.Users.SingleOrDefault(x => x.email == email && x.password == password));
-
-            if (user == null)
+            var userExist = await Task.Run(() => Data.Users.SingleOrDefault(x => x.email == user.email && x.password == user.password));
+            if (userExist == null)
             {
-                return null;
+                throw new Exception("Incorrect Email or Password");
             }
-
-            return user.WithoutPasswords();
+            return userExist.WithoutPasswords();
         }
+
         public List<User> GetAllUsers()
         {
             return Data.Users.ToList();

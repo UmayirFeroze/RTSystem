@@ -6,7 +6,7 @@ using RTSystem.Data;
 
 namespace RTSystem.Controllers
 {
-    [Authorize]
+
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -21,13 +21,20 @@ namespace RTSystem.Controllers
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
         {
-            var user = await _service.Authenticate(model.email, model.password);
-
-            if (user == null)
+            try
             {
-                return BadRequest(new { message = "Email or password is incorrect" });
+                var user = await _service.Authenticate(model);
+                return Ok(user);
+                // if (user == null)
+                // {
+                //     return BadRequest("Email or password is incorrect");
+                // }
             }
-            return Ok(user);
+            catch (Exception authException)
+            {
+                return BadRequest(authException.Message);
+            }
+
         }
 
         [HttpGet("GetUsers")]
@@ -43,7 +50,7 @@ namespace RTSystem.Controllers
                 return BadRequest(getalluserError.Message);
             }
         }
-
+        [Authorize]
         [HttpGet("GetUsers/{userId}")]
         public IActionResult GetUser(int userId)
         {
@@ -74,7 +81,7 @@ namespace RTSystem.Controllers
                 return BadRequest(resgisterError.Message);
             }
         }
-
+        [Authorize]
         [HttpPut("UpdateUser/{userId}")]
         public IActionResult UpdateUser(int userId, [FromBody]User user)
         {
@@ -89,7 +96,7 @@ namespace RTSystem.Controllers
             }
 
         }
-
+        [Authorize]
         [HttpDelete("DeleteUser/{userId}")]
         public IActionResult DeleteUser(int userId)
         {

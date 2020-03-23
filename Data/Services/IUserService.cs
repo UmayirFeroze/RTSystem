@@ -5,7 +5,7 @@ namespace RTSystem.Data
 {
     public interface IUserService
     {
-        Task<User> Authenticate(string email, string password);
+        Task<User> Authenticate(AuthenticateModel user);
         List<User> GetAllUsers();
         User GetUserById(int userId);
         void RegisterUser(User user);

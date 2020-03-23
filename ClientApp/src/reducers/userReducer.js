@@ -50,6 +50,24 @@ export default (state = INITIAL_STATE, action) => {
     //     hasError: true,
     //     error: action.payload
     //   };
+
+    case userConstants.LOGIN_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case userConstants.LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        data: action.payload
+      };
+    case userConstants.LOGIN_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
     default:
       return state;
   }

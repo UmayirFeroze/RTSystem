@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import "./../styles/LogIn.css";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
-class LogIn extends Component {
+import { connect } from "react-redux";
+import { loginUser } from "../actions/userAction";
+
+export default class LogIn extends Component {
   constructor(props) {
     super(props);
 
@@ -17,6 +22,10 @@ class LogIn extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log(this.state);
+  }
+
   handleChange = event => {
     let { user } = this.state;
     this.setState({
@@ -28,8 +37,18 @@ class LogIn extends Component {
     event.preventDefault();
     console.log(this.state.user);
     const { user } = this.state;
-    localStorage.setItem("userLogIn", user);
-    // axios back end
+
+    axios
+      .post("api/user/authenticate", user)
+      .then(result => {
+        localStorage.setItem("userLogIn", user);
+        console.log("User Authenticated");
+        // history.push("/home");
+      })
+      .catch(error => {
+        console.log(error);
+        window.location.reload(false);
+      });
   };
 
   render() {
@@ -61,4 +80,7 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+// const mapStateToProps = ({ state }) => ({
+//   state
+// });
+// export default connect(mapStateToProps, { loginUser })(LogIn);

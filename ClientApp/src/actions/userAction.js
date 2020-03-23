@@ -24,3 +24,26 @@ export const getAllUsers = () => dispatch => {
       return Promise.reject({});
     });
 };
+
+const loginSuccess = payload => ({
+  type: userConstants.LOGIN_SUCCESS,
+  payload
+});
+
+const loginFailure = payload => ({
+  type: userConstants.LOGIN_FAILURE,
+  payload
+});
+
+export const loginUser = () => dispatch => {
+  dispatch({ type: userConstants.LOGIN_REQUEST });
+  return axios
+    .post("api/user/authenticate")
+    .then(res => {
+      const response = res.data;
+      dispatch(loginSuccess(response));
+    })
+    .catch(error => {
+      dispatch(loginFailure(error));
+    });
+};
