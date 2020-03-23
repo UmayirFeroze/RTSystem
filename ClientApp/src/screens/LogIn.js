@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./../styles/LogIn.css";
-import axios from "axios";
-// import { axios } from "axios";
 
 class LogIn extends Component {
   constructor(props) {
@@ -11,19 +9,27 @@ class LogIn extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      email: "",
-      password: ""
+      user: {
+        email: "",
+        password: ""
+      },
+      isLoading: true
     };
   }
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    let { user } = this.state;
+    this.setState({
+      user: { ...user, [event.target.name]: event.target.value }
+    });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
-    var obj = axios.post("");
+    console.log(this.state.user);
+    const { user } = this.state;
+    localStorage.setItem("userLogIn", user);
+    // axios back end
   };
 
   render() {
@@ -34,7 +40,7 @@ class LogIn extends Component {
           <input
             type="text"
             name="email"
-            value={this.state.email}
+            value={this.state.user.email}
             placeholder="Email"
             onChange={this.handleChange}
             required
@@ -42,7 +48,7 @@ class LogIn extends Component {
           <input
             type="password"
             name="password"
-            value={this.state.password}
+            value={this.state.user.password}
             placeholder="Password"
             onChange={this.handleChange}
             required
