@@ -31,9 +31,12 @@ class Register extends Component {
     event.preventDefault();
     const { history } = this.props;
     let newUser = this.state;
-    axios.post("api/user/registeruser", newUser).then(result => {
-      history.push("/");
-    });
+    axios
+      .post("api/user/registeruser", newUser)
+      .then(result => {
+        history.push("/");
+      })
+      .catch(error => {});
   };
 
   render() {
@@ -134,7 +137,7 @@ class Register extends Component {
             value={this.state.businessType}
             required
           >
-            <option disabled selected value="">
+            <option disabled value="" defaultValue="">
               BusinessType
             </option>
             <option value="Dealer">Dealer</option>

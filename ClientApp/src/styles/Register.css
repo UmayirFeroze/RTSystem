@@ -51,7 +51,8 @@ select {
   font-size: 17px;
 }
 
-.register select {
+.register input[type="email"],
+select {
   border-radius: 4px;
   border: 1px solid #ccc;
   box-sizing: border-box;
