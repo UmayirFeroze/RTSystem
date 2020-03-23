@@ -64,6 +64,7 @@ class Register extends Component {
             type="tel"
             name="phone"
             pattern="[0-9]{10}"
+            maxLength="10"
             placeholder="Phone"
             value={this.state.phone}
             onChange={this.handleChange}
@@ -71,7 +72,7 @@ class Register extends Component {
           />
 
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Email"
             value={this.state.email}
@@ -111,6 +112,7 @@ class Register extends Component {
             type="tel"
             name="businessPhone"
             pattern="[0-9]{10}"
+            maxLength="10"
             placeholder="Business Phone"
             value={this.state.businessPhone}
             onChange={this.handleChange}
@@ -130,6 +132,7 @@ class Register extends Component {
             name="businessType"
             onChange={this.handleChange}
             value={this.state.businessType}
+            required
           >
             <option disabled selected value="">
               BusinessType

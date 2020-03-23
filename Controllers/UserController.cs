@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using RTSystem.Data;
 
@@ -15,39 +16,76 @@ namespace RTSystem.Controllers
         [HttpGet("GetUsers")]
         public IActionResult GetAllUsers()
         {
-            var allUsers = _service.GetAllUsers();
-            return Ok(allUsers);
+            try
+            {
+                var allUsers = _service.GetAllUsers();
+                return Ok(allUsers);
+            }
+            catch (Exception getalluserError)
+            {
+                return BadRequest(getalluserError.Message);
+            }
         }
 
         [HttpGet("GetUsers/{userId}")]
         public IActionResult GetUser(int userId)
         {
-            var user = _service.GetUserById(userId);
-            return Ok(user);
+            try
+            {
+                var user = _service.GetUserById(userId);
+                return Ok(user);
+            }
+            catch (Exception getUserError)
+            {
+                return NotFound(getUserError.Message);
+            }
         }
 
         [HttpPost("RegisterUser")]
         public IActionResult RegisterUser([FromBody]User user)
         {
-            if (user != null)
+            try
             {
-                _service.RegisterUser(user);
+                if (user != null)
+                {
+                    _service.RegisterUser(user);
+                }
+                return Ok(user);
             }
-            return Ok(user);
+            catch (Exception resgisterError)
+            {
+                return BadRequest(resgisterError.Message);
+            }
         }
 
         [HttpPut("UpdateUser/{userId}")]
         public IActionResult UpdateUser(int userId, [FromBody]User user)
         {
-            _service.UpdateUser(userId, user);
-            return Ok(user);
+            try
+            {
+                _service.UpdateUser(userId, user);
+                return Ok(user);
+            }
+            catch (Exception updateUserError)
+            {
+                return Conflict(updateUserError.Message);
+            }
+
         }
 
         [HttpDelete("DeleteUser/{userId}")]
         public IActionResult DeleteUser(int userId)
         {
-            _service.DeleteUser(userId);
-            return Ok();
+            try
+            {
+                _service.DeleteUser(userId);
+                return Ok("Successfully Deleted User");
+            }
+            catch (Exception deleteUserError)
+            {
+                return NotFound(deleteUserError.Message);
+            }
+
         }
     }
 };

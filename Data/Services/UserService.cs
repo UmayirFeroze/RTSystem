@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,12 +14,34 @@ namespace RTSystem.Data
 
         public User GetUserById(int userId)
         {
-            return Data.Users.FirstOrDefault(n => n.userId == userId);
+            var userExsits = Data.Users.FirstOrDefault(n => n.userId == userId);
+            if (userExsits == null)
+            {
+                throw new Exception("User Not Found");
+            }
+            else
+            {
+                return Data.Users.FirstOrDefault(n => n.userId == userId);
+            }
         }
 
         public void RegisterUser(User user)
         {
-            Data.Users.Add(user);
+            bool errorFlag = false;
+            if (Data.Users.FirstOrDefault(n => n.businessName == user.businessName) != null)
+            {
+                errorFlag = true;
+                throw new Exception("This Business is Already Registered");
+            }
+            if (Data.Users.FirstOrDefault(n => n.email == user.email) != null)
+            {
+                errorFlag = true;
+                throw new Exception("This User Already Exists");
+            }
+            if (errorFlag == false)
+            {
+                Data.Users.Add(user);
+            }
         }
 
         public void UpdateUser(int userId, User user)
@@ -37,13 +60,21 @@ namespace RTSystem.Data
                 userExist.businessAddress = user.businessAddress;
                 userExist.businessType = user.businessType;
             }
+            else
+            {
+                throw new Exception("Failed to Update");
+            }
         }
         public void DeleteUser(int userId)
         {
-            var user = Data.Users.FirstOrDefault(n => n.userId == userId);
-            if (user != null)
+            var userExist = Data.Users.FirstOrDefault(n => n.userId == userId);
+            if (userExist == null)
             {
-                Data.Users.Remove(user);
+                throw new Exception("User Not Found");
+            }
+            else
+            {
+                Data.Users.Remove(userExist);
             }
         }
     }

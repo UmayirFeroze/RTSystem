@@ -33,8 +33,27 @@ export class OurPartners extends Component {
 
   renderUser = users => {
     return (
-      <div>
-        <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          paddingRight: 20,
+          paddingLeft: 20,
+          color: "white"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "20%",
+            border: 1,
+            borderStyle: "solid",
+            borderColor: "blue",
+            marginRight: 100
+            // height: "100%"
+          }}
+        >
           <button>All Partners</button>
           <button>Dealers</button>
           <button>Exporters</button>
@@ -42,10 +61,10 @@ export class OurPartners extends Component {
         </div>
         <div
           style={{
-            marginLeft: "200",
-            marginRight: "200",
-            padding: 100,
+            marginRight: 150,
+            paddingLeft: 150,
             height: "100%",
+            width: "100%",
             border: 1,
             borderStyle: "solid",
             borderColor: "pink"
@@ -58,6 +77,7 @@ export class OurPartners extends Component {
                 display: "flex",
                 flexDirection: "row",
                 border: 1,
+                backgroundColor: "#1f1e1e",
                 borderStyle: "solid",
                 borderColor: "white",
                 marginBottom: 10
@@ -104,11 +124,6 @@ export class OurPartners extends Component {
         <div>
           <h1>Our Partners</h1>
           <h2>All users details will come here</h2>
-
-          <button>All Partners</button>
-          <button>Dealers</button>
-          <button>Exporters</button>
-          <button>Rubber Product Manufacturers</button>
           <div>{content}</div>
         </div>
       </div>
