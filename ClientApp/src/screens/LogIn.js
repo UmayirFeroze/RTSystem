@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import "./../styles/LogIn.css";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
 
 import { connect } from "react-redux";
-import { loginUser } from "../actions/userAction";
+import { loginUser, logoutUser } from "../actions/userAction";
 
-export default class LogIn extends Component {
+export class LogIn extends Component {
   constructor(props) {
     super(props);
 
@@ -17,13 +15,19 @@ export default class LogIn extends Component {
       user: {
         email: "",
         password: ""
-      },
-      isLoading: true
+      }
     };
   }
 
   componentDidMount() {
     console.log(this.state);
+    this.props.logoutUser();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.user !== this.props.user) {
+      this.setState({ user: this.props.user });
+    }
   }
 
   handleChange = event => {
@@ -37,19 +41,14 @@ export default class LogIn extends Component {
     event.preventDefault();
     console.log(this.state.user);
     const { user } = this.state;
-
-    axios
-      .post("api/user/authenticate", user)
-      .then(result => {
-        localStorage.setItem("userLogIn", user);
-        console.log("User Authenticated");
-        // history.push("/home");
-      })
-      .catch(error => {
-        console.log(error);
-        window.location.reload(false);
-      });
+    this.props.loginUser(user);
   };
+
+  // handleLogOut = event => {
+  //   event.preventDefault();
+  //   this.props.logoutUser();
+  //   window.location.reload();
+  // };
 
   render() {
     return (
@@ -80,7 +79,7 @@ export default class LogIn extends Component {
   }
 }
 
-// const mapStateToProps = ({ state }) => ({
-//   state
-// });
-// export default connect(mapStateToProps, { loginUser })(LogIn);
+const mapStateToProps = ({ state }) => ({
+  state
+});
+export default connect(mapStateToProps, { loginUser, logoutUser })(LogIn);

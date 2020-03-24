@@ -38,7 +38,7 @@ class CreateBid extends Component {
             value={this.state.quality}
             required
           >
-            <option disabled selected value="">
+            <option disabled defaultValue="" value="">
               Quality
             </option>
             <option value="RSS 1">RSS 1</option>
@@ -90,7 +90,7 @@ class CreateBid extends Component {
             value={this.state.paymentIn}
             required
           >
-            <option selected disabled value="">
+            <option disabled value="" defaultValue="">
               Payment in
             </option>
             <option value="2 Weeks">2 Weeks</option>

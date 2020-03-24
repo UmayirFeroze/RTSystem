@@ -15,7 +15,8 @@ namespace RTSystem.Data
             {
                 throw new Exception("Incorrect Email or Password");
             }
-            return userExist.WithoutPasswords();
+            // return userExist.WithoutPasswords()
+            return userExist;
         }
 
         public List<User> GetAllUsers()

@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 
 import { BrowserRouter, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 // Screen Imports
 import Landing from "./screens/Landing";
@@ -12,6 +13,8 @@ import Transactions from "./screens/Transactions";
 import MyBids from "./screens/MyBids";
 import UserManual from "./screens/UserManual";
 import OurPartners from "./screens/OurPartners";
+
+export const history = createBrowserHistory();
 
 function App() {
   return (

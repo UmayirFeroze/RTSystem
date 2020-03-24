@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   isLoading: false,
   hasError: false,
   error: null,
-  data: []
+  data: [],
+  isLoggedin: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -54,20 +55,25 @@ export default (state = INITIAL_STATE, action) => {
     case userConstants.LOGIN_REQUEST:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        isLoggedin: false
       };
     case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        isLoggedin: true,
         data: action.payload
       };
     case userConstants.LOGIN_FAILURE:
       return {
         ...state,
         isLoading: false,
+        isLoggedin: false,
         error: action.payload
       };
+    case userConstants.LOG_OUT:
+      return {};
     default:
       return state;
   }
