@@ -1,8 +1,10 @@
+// The register user screen
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { resgisterUser } from "../actions/userAction";
 import "../styles/Register.css";
-import axios from "axios";
 
-class Register extends Component {
+export class Register extends Component {
   constructor(props) {
     super(props);
 
@@ -10,33 +12,36 @@ class Register extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      password: "",
-      businessName: "",
-      businessDescription: "",
-      businessPhone: "",
-      businessAddress: "",
-      businessType: ""
+      user: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        businessName: "",
+        businessDescription: "",
+        businessPhone: "",
+        businessAddress: "",
+        businessType: ""
+      }
     };
   }
 
+  componentDidMount() {
+    console.log(this.state); // to be cleaned
+  }
+
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    let { user } = this.state;
+    this.setState({
+      user: { ...user, [event.target.name]: event.target.value }
+    });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    const { history } = this.props;
-    let newUser = this.state;
-    axios
-      .post("api/user/registeruser", newUser)
-      .then(result => {
-        history.push("/");
-      })
-      .catch(error => {});
+    const { user } = this.state;
+    this.props.resgisterUser(user);
   };
 
   render() {
@@ -50,7 +55,7 @@ class Register extends Component {
             type="text"
             name="firstName"
             placeholder="First Name"
-            value={this.state.firstName}
+            value={this.state.user.firstName}
             onChange={this.handleChange}
             required
           />
@@ -58,7 +63,7 @@ class Register extends Component {
             type="text"
             name="lastName"
             placeholder="Last Name"
-            value={this.state.lastName}
+            value={this.state.user.lastName}
             onChange={this.handleChange}
             required
           />
@@ -69,7 +74,7 @@ class Register extends Component {
             pattern="[0-9]{10}"
             maxLength="10"
             placeholder="Phone"
-            value={this.state.phone}
+            value={this.state.user.phone}
             onChange={this.handleChange}
             required
           />
@@ -78,7 +83,7 @@ class Register extends Component {
             type="email"
             name="email"
             placeholder="Email"
-            value={this.state.email}
+            value={this.state.user.email}
             onChange={this.handleChange}
             required
           />
@@ -87,7 +92,7 @@ class Register extends Component {
             type="password"
             name="password"
             placeholder="Password"
-            value={this.state.password}
+            value={this.state.user.password}
             onChange={this.handleChange}
             required
           />
@@ -98,7 +103,7 @@ class Register extends Component {
             type="text"
             name="businessName"
             placeholder="Business Name"
-            value={this.state.businessName}
+            value={this.state.user.businessName}
             onChange={this.handleChange}
             required
           />
@@ -107,7 +112,7 @@ class Register extends Component {
             type="text"
             name="businessDescription"
             placeholder="Business Description"
-            value={this.state.businessDescription}
+            value={this.state.user.businessDescription}
             onChange={this.handleChange}
           />
 
@@ -117,7 +122,7 @@ class Register extends Component {
             pattern="[0-9]{10}"
             maxLength="10"
             placeholder="Business Phone"
-            value={this.state.businessPhone}
+            value={this.state.user.businessPhone}
             onChange={this.handleChange}
             required
           />
@@ -126,7 +131,7 @@ class Register extends Component {
             type="text"
             name="businessAddress"
             placeholder="Business Address"
-            value={this.state.businessAddress}
+            value={this.state.user.businessAddress}
             onChange={this.handleChange}
             required
           />
@@ -134,7 +139,7 @@ class Register extends Component {
           <select
             name="businessType"
             onChange={this.handleChange}
-            value={this.state.businessType}
+            value={this.state.user.businessType}
             required
           >
             <option disabled value="" defaultValue="">
@@ -154,5 +159,7 @@ class Register extends Component {
     );
   }
 }
-
-export default Register;
+const mapStateToProps = ({ state }) => ({
+  state
+});
+export default connect(mapStateToProps, { resgisterUser })(Register);

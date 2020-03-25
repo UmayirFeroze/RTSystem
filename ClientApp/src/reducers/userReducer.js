@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   hasError: false,
   error: null,
   data: [],
-  isLoggedin: false
+  isLoggedin: false,
+  isRegistered: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,27 +32,6 @@ export default (state = INITIAL_STATE, action) => {
         error: action.payload
       };
 
-    // case userConstants.REGISTER_USER_REQUEST:
-    //   return {
-    //     ...state,
-    //     isLoading: true
-    //   };
-
-    // case userConstants.REGISTER_USER_SUCCESS:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     data: action.payload
-    //   };
-
-    // case userConstants.REGISTER_USER_FAILURE:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     hasError: true,
-    //     error: action.payload
-    //   };
-
     case userConstants.LOGIN_REQUEST:
       return {
         ...state,
@@ -74,6 +54,28 @@ export default (state = INITIAL_STATE, action) => {
       };
     case userConstants.LOG_OUT:
       return {};
+
+    case userConstants.REGISTER_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case userConstants.REGISTER_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isRegistered: true,
+        data: action.payload
+      };
+
+    case userConstants.REGISTER_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: true,
+        error: action.payload
+      };
     default:
       return state;
   }

@@ -1,8 +1,8 @@
+// The login Page
 import React, { Component } from "react";
-import "./../styles/LogIn.css";
-
 import { connect } from "react-redux";
 import { loginUser, logoutUser } from "../actions/userAction";
+import "./../styles/LogIn.css";
 
 export class LogIn extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export class LogIn extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state);
+    console.log(this.state); // TO BE CLEANED
     this.props.logoutUser();
   }
 
@@ -39,16 +39,10 @@ export class LogIn extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state.user);
+    console.log(this.state.user); // to be cleaned
     const { user } = this.state;
     this.props.loginUser(user);
   };
-
-  // handleLogOut = event => {
-  //   event.preventDefault();
-  //   this.props.logoutUser();
-  //   window.location.reload();
-  // };
 
   render() {
     return (
