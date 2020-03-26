@@ -38,5 +38,32 @@ namespace RTSystem.Data
                 businessType="Exporter"
             }
         };
+
+        public static List<BuyerBid> BuyerBids => allBuyerBids;
+
+        static List<BuyerBid> allBuyerBids = new List<BuyerBid>()
+        {
+            new BuyerBid()
+            {
+                buyerBidId = 1,
+                userId = 1,
+                quality = "RSS1",
+                quantity = 100,
+                price = 100,
+                status = "Pending"
+            },
+            new BuyerBid()
+            {
+                buyerBidId=2,
+                userId=1,
+                quality = "RSS5",
+                quantity = 100,
+                price = 100,
+                maxPrice = 101,
+                minPrice = 90,
+                status = "pending"
+
+            }
+        };
     }
 }
