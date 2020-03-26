@@ -23,11 +23,19 @@ function App() {
         <Route exact path="/" component={Landing} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/profile" component={Profile} />
-        <Route exact path="/register" component={Register} />
+        <Route
+          exact
+          path="/register"
+          render={props => <Register {...props} />}
+        />
         <Route exact path="/transactions" component={Transactions} />
         <Route exact path="/mybids" component={MyBids} />
         <Route exact path="/help" component={UserManual} />
-        <Route exact path="/our-partners" component={OurPartners} />
+        <Route
+          exact
+          path="/our-partners"
+          render={props => <OurPartners {...props} />}
+        />
       </div>
     </BrowserRouter>
   );
