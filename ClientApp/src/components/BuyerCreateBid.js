@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { createBid } from "../actions/BuyerBidActions";
 import "./../styles/CreateBid.css";
 
-class CreateBid extends Component {
+export class BuyerCreateBid extends Component {
   constructor(props) {
     super(props);
 
@@ -9,22 +11,33 @@ class CreateBid extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      quality: "",
-      quantity: "",
-      price: "",
-      maxPrice: "",
-      minPrice: "",
-      paymentIn: ""
+      buyerBid: {
+        quality: "",
+        quantity: "",
+        price: "",
+        maxPrice: "",
+        minPrice: "",
+        paymentIn: ""
+      }
     };
   }
 
+  componentDidMount() {
+    console.log(this.state); // to be cleaned
+  }
+
   setBidState = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    let { buyerBid } = this.state;
+    this.setState({
+      buyerBid: { ...buyerBid, [event.target.name]: event.target.value }
+    });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
+    console.log(this.state.buyerBid);
+    const { buyerBid } = this.state;
+    // this.props.createBid(buyerBid);
   };
 
   render() {
@@ -35,7 +48,7 @@ class CreateBid extends Component {
           <select
             name="quality"
             onChange={this.setBidState}
-            value={this.state.quality}
+            value={this.state.buyerBid.quality}
             required
           >
             <option disabled defaultValue="" value="">
@@ -46,13 +59,15 @@ class CreateBid extends Component {
             <option value="RSS 3">RSS 3</option>
             <option value="RSS 4">RSS 4</option>
             <option value="RSS 5">RSS 5</option>
+            <option value="Bulk RSS 3/4/5">Bulk RSS 3/4/5</option>
+            <option value="Bulk RSS 4/5">Bulk RSS 4/5</option>
           </select>
 
           <input
             type="number"
             name="quantity"
             placeholder="Quantity in Tonnes"
-            value={this.state.quantity}
+            value={this.state.buyerBid.quantity}
             onChange={this.setBidState}
             required
           />
@@ -61,7 +76,7 @@ class CreateBid extends Component {
             type="number"
             name="price"
             placeholder="Price in LKR/KG"
-            value={this.state.price}
+            value={this.state.buyerBid.price}
             onChange={this.setBidState}
             required
           />
@@ -70,7 +85,7 @@ class CreateBid extends Component {
             type="number"
             name="maxPrice"
             placeholder="Maxiumum Price in LKR/KG"
-            value={this.state.maxPrice}
+            value={this.state.buyerBid.maxPrice}
             onChange={this.setBidState}
             required
           />
@@ -79,7 +94,7 @@ class CreateBid extends Component {
             type="number"
             name="minPrice"
             placeholder="Minimum Price in LKR/KG"
-            value={this.state.minPrice}
+            value={this.state.buyerBid.minPrice}
             onChange={this.setBidState}
             required
           />
@@ -87,7 +102,7 @@ class CreateBid extends Component {
           <select
             name="paymentIn"
             onChange={this.setBidState}
-            value={this.state.paymentIn}
+            value={this.state.buyerBid.paymentIn}
             required
           >
             <option disabled value="" defaultValue="">
@@ -106,4 +121,8 @@ class CreateBid extends Component {
   }
 }
 
-export default CreateBid;
+const mapStateToProps = ({ state }) => ({
+  state
+});
+
+export default connect(mapStateToProps, { createBid })(BuyerCreateBid);

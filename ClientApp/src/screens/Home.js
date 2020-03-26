@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 import NavBar from "../components/Navbar";
-import CreateBid from "../components/CreateBid";
+import BuyerCreateBid from "../components/BuyerCreateBid";
 import YourProfile from "../components/YourProfile";
+import { BuyerBids } from "../components/BuyerBids";
 
 class Home extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div style={{ height: "100%" }}>
         <NavBar />
         <h1 style={{ color: "white" }}>Home Page</h1>
-        <div style={{ display: "flex", flexDirection: "row" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%"
+          }}
+        >
           <div
             style={{
               border: 1,
@@ -28,10 +35,20 @@ class Home extends Component {
               borderStyle: "solid",
               borderColor: "black"
             }}
-          ></div>
-          <div style={{ width: "20%" }}>
-            {" "}
-            <CreateBid />
+          >
+            <BuyerBids />
+          </div>
+          <div
+            style={{
+              width: "20%",
+              paddingRight: 20,
+              height: "100%",
+              // marginLeft: 20,
+              paddingLeft: 20,
+              backgroundColor: "#1f1e1e"
+            }}
+          >
+            <BuyerCreateBid />
           </div>
         </div>
       </div>
