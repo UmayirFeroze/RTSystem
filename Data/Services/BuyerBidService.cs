@@ -41,6 +41,7 @@ namespace RTSystem.Data
                 buyerBidExists.maxPrice = buyerBid.maxPrice;
                 buyerBidExists.minPrice = buyerBid.minPrice;
                 buyerBidExists.price = buyerBid.price;
+                buyerBidExists.paymentIn = buyerBid.paymentIn;
                 buyerBidExists.status = buyerBid.status;
             }
             else
@@ -54,7 +55,7 @@ namespace RTSystem.Data
             var buyerBidExists = Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
             if (buyerBidExists == null)
             {
-                throw new Exception("User Not Found");
+                throw new Exception("Bid Not Found");
             }
             else
             {

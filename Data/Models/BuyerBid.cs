@@ -11,6 +11,7 @@ namespace RTSystem.Data
         public int price { get; set; }
         public int maxPrice { get; set; }
         public int minPrice { get; set; }
+        public string paymentIn { get; set; }
         [Required] public string status { get; set; }
     }
 }

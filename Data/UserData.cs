@@ -50,6 +50,7 @@ namespace RTSystem.Data
                 quality = "RSS1",
                 quantity = 100,
                 price = 100,
+                paymentIn = "2 weeks",
                 status = "Pending"
             },
             new BuyerBid()
@@ -61,7 +62,8 @@ namespace RTSystem.Data
                 price = 100,
                 maxPrice = 101,
                 minPrice = 90,
-                status = "pending"
+                paymentIn = "2 weeks",
+                status = "pending",
 
             }
         };

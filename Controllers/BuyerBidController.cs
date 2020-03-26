@@ -82,7 +82,7 @@ namespace RTSystem.Controllers
             try
             {
                 _service.DeleteBuyerBid(buyerBidId);
-                return Ok("Successfully Deleted User");
+                return Ok("Successfully Deleted Bid");
             }
             catch (Exception deleteBidError)
             {
