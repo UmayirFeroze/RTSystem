@@ -15,29 +15,35 @@ export class BuyerCreateBid extends Component {
         quality: "",
         quantity: "",
         price: "",
-        maxPrice: "",
-        minPrice: "",
-        paymentIn: ""
+        paymentIn: "",
+        status: ""
       }
     };
   }
 
   componentDidMount() {
-    console.log(this.state); // to be cleaned
+    console.log(this.state.buyerBid); // to be cleaned
   }
 
   setBidState = event => {
     let { buyerBid } = this.state;
     this.setState({
-      buyerBid: { ...buyerBid, [event.target.name]: event.target.value }
+      buyerBid: {
+        ...buyerBid,
+        [event.target.name]:
+          event.target.type === "number"
+            ? parseFloat(event.target.value)
+            : event.target.value,
+        status: "pending"
+      }
     });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state.buyerBid);
+    console.log(this.state.buyerBid); //to be cleaned
     const { buyerBid } = this.state;
-    // this.props.createBid(buyerBid);
+    this.props.createBid(buyerBid);
   };
 
   render() {
@@ -65,38 +71,21 @@ export class BuyerCreateBid extends Component {
 
           <input
             type="number"
+            step="any"
             name="quantity"
             placeholder="Quantity in Tonnes"
-            value={this.state.buyerBid.quantity}
+            // value={this.state.buyerBid.quantity}
             onChange={this.setBidState}
             required
           />
 
           <input
             type="number"
+            step="any"
             name="price"
             placeholder="Price in LKR/KG"
-            value={this.state.buyerBid.price}
+            // value={this.state.buyerBid.price}
             onChange={this.setBidState}
-            required
-          />
-
-          <input
-            type="number"
-            name="maxPrice"
-            placeholder="Maxiumum Price in LKR/KG"
-            value={this.state.buyerBid.maxPrice}
-            onChange={this.setBidState}
-            required
-          />
-
-          <input
-            type="number"
-            name="minPrice"
-            placeholder="Minimum Price in LKR/KG"
-            value={this.state.buyerBid.minPrice}
-            onChange={this.setBidState}
-            required
           />
 
           <select
