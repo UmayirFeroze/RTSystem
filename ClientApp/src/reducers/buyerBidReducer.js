@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
         isLoading: false,
         data: action.payload
       };
-    case bidConstants.BUYER_DELETE_BID_FAILURE:
+    case bidConstants.BUYER_CREATE_BID_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -42,7 +42,10 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
+        hasError: true,
         error: action.payload
       };
+    default:
+      return state;
   }
 };

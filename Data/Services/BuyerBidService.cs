@@ -42,13 +42,14 @@ namespace RTSystem.Data
             var buyerBidExists = Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
             if (buyerBidExists != null)
             {
-                buyerBidExists.buyerBidId = buyerBid.buyerBidId;
-                buyerBidExists.userId = buyerBid.userId;
-                buyerBidExists.quality = buyerBid.quality;
-                buyerBidExists.quantity = buyerBid.quantity;
-                buyerBidExists.price = buyerBid.price;
-                buyerBidExists.paymentIn = buyerBid.paymentIn;
-                buyerBidExists.status = buyerBid.status;
+                // buyerBidExists.buyerBidId = buyerBid.buyerBidId;
+                // buyerBidExists.userId = buyerBid.userId;
+                if (buyerBid.quality != null) { buyerBidExists.quality = buyerBid.quality; }
+                if (buyerBid.quantity != 0.00) { buyerBidExists.quantity = buyerBid.quantity; }
+                if (buyerBid.price != 0.00) { buyerBidExists.price = buyerBid.price; }
+                if (buyerBid.paymentIn != null) { buyerBidExists.paymentIn = buyerBid.paymentIn; }
+
+                // buyerBidExists.status = buyerBid.status;
             }
             else
             {

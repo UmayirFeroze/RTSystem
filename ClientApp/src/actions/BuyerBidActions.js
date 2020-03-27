@@ -19,7 +19,8 @@ export const getAllBids = () => dispatch => {
       dispatch(getAllBidsSuccess(response));
     })
     .catch(error => {
-      return getAllBidsFailure(error);
+      dispatch(getAllBidsFailure(error));
+      return Promise.reject({});
     });
 };
 
