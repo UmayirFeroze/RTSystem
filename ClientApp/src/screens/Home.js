@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import NavBar from "../components/Navbar";
 import BuyerCreateBid from "../components/BuyerCreateBid";
 import YourProfile from "../components/YourProfile";
-import { BuyerBids } from "../components/BuyerBids";
+import BuyerBids from "../components/BuyerBids";
 
 class Home extends Component {
   state = {};
   render() {
     return (
-      <div style={{ height: "100%" }}>
+      <div>
         <NavBar />
         <h1 style={{ color: "white" }}>Home Page</h1>
         <div
@@ -42,7 +42,8 @@ class Home extends Component {
             style={{
               width: "20%",
               paddingRight: 20,
-              height: "100%",
+              paddingBottom: 20,
+              // height: "100%",
               // marginLeft: 20,
               paddingLeft: 20,
               backgroundColor: "#1f1e1e"

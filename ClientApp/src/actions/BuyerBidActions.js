@@ -30,7 +30,7 @@ const createBidSuccess = payload => ({
 });
 const createBidFailure = payload => ({
   type: bidConstants.BUYER_DELETE_BID_FAILURE,
-  paylaod
+  payload
 });
 export const createBid = () => dispatch => {
   dispatch({ type: bidConstants.BUYER_DELETE_BID_REQUEST });
