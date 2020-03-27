@@ -13,8 +13,8 @@ export class BuyerCreateBid extends Component {
     this.state = {
       buyerBid: {
         quality: "",
-        quantity: "",
-        price: "",
+        quantity: 0,
+        price: 0,
         paymentIn: "",
         status: ""
       }
@@ -31,7 +31,7 @@ export class BuyerCreateBid extends Component {
       buyerBid: {
         ...buyerBid,
         [event.target.name]:
-          event.target.type === "number"
+          event.target.type === "number" && event.target.value >= 0
             ? parseFloat(event.target.value)
             : event.target.value,
         status: "pending"

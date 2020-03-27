@@ -29,7 +29,7 @@ namespace RTSystem.Data
 
             if (buyerBid.quality == null || buyerBid.paymentIn == null)
             {
-                throw new Exception("Enter All Required Feilds");
+                throw new Exception("Incomplete Fields");
             }
             else
             {

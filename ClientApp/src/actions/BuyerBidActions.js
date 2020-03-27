@@ -29,19 +29,19 @@ const createBidSuccess = payload => ({
   payload
 });
 const createBidFailure = payload => ({
-  type: bidConstants.BUYER_DELETE_BID_FAILURE,
+  type: bidConstants.BUYER_CREATE_BID_FAILURE,
   payload
 });
-export const createBid = () => dispatch => {
-  dispatch({ type: bidConstants.BUYER_DELETE_BID_REQUEST });
+export const createBid = buyerBid => dispatch => {
+  dispatch({ type: bidConstants.BUYER_CREATE_BID_REQUEST });
   axios
-    .post("api/buyerbid/createbuyerbid")
+    .post("api/buyerbid/createbuyerbid", buyerBid)
     .then(result => {
       const response = result.data;
       dispatch(createBidSuccess(response));
     })
     .catch(error => {
-      return createBidFailure(error);
+      dispatch(createBidFailure(error));
     });
 };
 
