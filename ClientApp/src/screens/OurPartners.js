@@ -14,7 +14,6 @@ export class OurPartners extends Component {
   }
 
   componentDidMount() {
-    // this.PopulateUsersData();
     this.props.getAllUsers();
   }
 
@@ -23,13 +22,6 @@ export class OurPartners extends Component {
       this.setState({ users: this.props.users.data });
     }
   }
-
-  // PopulateUsersData = () => {
-  //   axios.get("/api/user/getusers").then(result => {
-  //     const response = result.data;
-  //     this.setState({ users: response, isLoading: false });
-  //   });
-  // };
 
   renderUser = users => {
     return (
@@ -84,7 +76,7 @@ export class OurPartners extends Component {
               }}
             >
               <div style={{ width: "25%" }}>
-                <img></img>
+                <h1>Image</h1>
               </div>
               <div style={{ padding: 10 }}>
                 <h2 style={{ margin: 3 }}>{user.businessName}</h2>

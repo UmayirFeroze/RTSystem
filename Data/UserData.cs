@@ -60,8 +60,6 @@ namespace RTSystem.Data
                 quality = "RSS5",
                 quantity = 100,
                 price = 100,
-                maxPrice = 101,
-                minPrice = 90,
                 paymentIn = "2 weeks",
                 status = "pending",
 

@@ -48,10 +48,7 @@ namespace RTSystem.Controllers
         {
             try
             {
-                if (buyerBid != null)
-                {
-                    _service.CreateBuyerBid(buyerBid);
-                }
+                _service.CreateBuyerBid(buyerBid);
                 return Ok(buyerBid);
             }
             catch (Exception createBidError)

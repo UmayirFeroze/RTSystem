@@ -26,7 +26,15 @@ namespace RTSystem.Data
         }
         public void CreateBuyerBid(BuyerBid buyerBid)
         {
-            Data.BuyerBids.Add(buyerBid);
+
+            if (buyerBid.quality == null || buyerBid.paymentIn == null)
+            {
+                throw new Exception("Enter All Required Feilds");
+            }
+            else
+            {
+                Data.BuyerBids.Add(buyerBid);
+            }
         }
 
         public void UpdateBuyerBid(int buyerBidId, BuyerBid buyerBid)
@@ -38,8 +46,6 @@ namespace RTSystem.Data
                 buyerBidExists.userId = buyerBid.userId;
                 buyerBidExists.quality = buyerBid.quality;
                 buyerBidExists.quantity = buyerBid.quantity;
-                buyerBidExists.maxPrice = buyerBid.maxPrice;
-                buyerBidExists.minPrice = buyerBid.minPrice;
                 buyerBidExists.price = buyerBid.price;
                 buyerBidExists.paymentIn = buyerBid.paymentIn;
                 buyerBidExists.status = buyerBid.status;
