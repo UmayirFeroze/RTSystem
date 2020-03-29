@@ -3,12 +3,14 @@ import NavBar from "../components/Navbar";
 import BuyerCreateBid from "../components/BuyerCreateBid";
 import YourProfile from "../components/YourProfile";
 import BuyerBids from "../components/BuyerBids";
+import Header from "../components/Header";
 
 class Home extends Component {
   state = {};
   render() {
     return (
       <div>
+        <Header />
         <NavBar />
         <h1 style={{ color: "white" }}>Home Page</h1>
         <div

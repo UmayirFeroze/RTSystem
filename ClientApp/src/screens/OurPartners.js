@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import NavBar from "../components/Navbar";
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
+import "../styles/OurPartners.css";
+import Header from "../components/Header";
 
 export class OurPartners extends Component {
   constructor(props) {
@@ -34,27 +36,17 @@ export class OurPartners extends Component {
           color: "white"
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "20%",
-            border: 1,
-            borderStyle: "solid",
-            borderColor: "blue",
-            marginRight: 100
-            // height: "100%"
-          }}
-        >
-          <button>All Partners</button>
-          <button>Dealers</button>
-          <button>Exporters</button>
-          <button>Rubber Product Manufacturers</button>
+        <div className="sideNavBar">
+          <span>All Partners</span>
+          <span>Dealers</span>
+          <span>Exporters</span>
+          <span>Rubber Product Manufacturers</span>
         </div>
         <div
           style={{
-            marginRight: 150,
-            paddingLeft: 150,
+            // marginRight: 150,
+            // paddingLeft: 150,
+
             height: "100%",
             width: "100%",
             border: 1,
@@ -76,11 +68,10 @@ export class OurPartners extends Component {
               }}
             >
               <div style={{ width: "25%" }}>
-                <h1>Image</h1>
-              </div>
-              <div style={{ padding: 10 }}>
                 <h2 style={{ margin: 3 }}>{user.businessName}</h2>
                 <h4 style={{ marginTop: 10 }}>{user.businessDescription}</h4>
+              </div>
+              <div style={{ padding: 10 }}>
                 <p>Business Type: {user.businessType}</p>
                 <p>Owner: {user.firstName + " " + user.lastName}</p>
                 <p>
@@ -90,12 +81,12 @@ export class OurPartners extends Component {
                 <p>Address: {user.businessAddress}</p>
               </div>
               <div>
-                <button>View Profile</button>
-                <br />
-                <button>Request Purchase</button>
-                <br />
-                <button>Complaint</button>
-                <br />
+                <a
+                  href="/profile"
+                  style={{ color: "white", textAlign: "center" }}
+                >
+                  Would you like to get to know more about {user.businessName} ?
+                </a>
               </div>
             </div>
           ))}
@@ -112,6 +103,7 @@ export class OurPartners extends Component {
     );
     return (
       <div>
+        <Header />
         <NavBar />
         <div>
           <h1>Our Partners</h1>

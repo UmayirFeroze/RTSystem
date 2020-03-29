@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import LogIn from "./LogIn";
+import Header from "../components/Header";
 
 class Landing extends Component {
   state = {};
   render() {
     return (
       <div>
-        <h1 style={{ color: "white" }}>Landing Page</h1>
+        <Header />
         <LogIn />
       </div>
     );

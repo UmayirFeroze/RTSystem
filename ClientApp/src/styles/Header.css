@@ -1,0 +1,28 @@
+.header {
+  background-color: #1f1e1e;
+  height: 60px;
+  overflow: hidden;
+  display: flex;
+  padding: 5px 5px 5px 5px;
+  /* transition: top 0.3s; // Make header disappear on scroll*/
+}
+
+.header img {
+  height: 60px;
+  width: 60px;
+  margin: 0 0 0 150px;
+}
+
+.header h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  float: center;
+  margin: auto;
+}
+
+.header p {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #808080;
+  float: right;
+  margin-top: 25px;
+}
