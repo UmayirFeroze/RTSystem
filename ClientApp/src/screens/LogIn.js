@@ -15,7 +15,9 @@ export class LogIn extends Component {
       user: {
         email: "",
         password: ""
-      }
+      },
+      isLoading: false,
+      hasError: false
     };
   }
 
@@ -30,10 +32,18 @@ export class LogIn extends Component {
     }
   }
 
+  // componentDidCatch(error, info) {
+  //   this.setState({ hasError: true });
+  //   console.log("Error:", error);
+  //   console.log("Info: ", info);
+  //   console.log(this.state.hasError);
+  // }
+
   handleChange = event => {
     let { user } = this.state;
     this.setState({
-      user: { ...user, [event.target.name]: event.target.value }
+      user: { ...user, [event.target.name]: event.target.value },
+      isLoading: true
     });
   };
 
@@ -45,18 +55,23 @@ export class LogIn extends Component {
   };
 
   render() {
+    let errorMessage = this.state.hasError ? (
+      <p>Invalid Username or Password</p>
+    ) : null;
+    let error = "error";
     return (
       <div className="loginComponent">
         <h1>Sign In</h1>
         <form onSubmit={this.handleSubmit}>
           <input
-            type="text"
+            type="email"
             name="email"
             value={this.state.user.email}
             placeholder="Email"
             onChange={this.handleChange}
             required
           />
+          <div>{errorMessage}</div>
           <input
             type="password"
             name="password"
@@ -65,6 +80,7 @@ export class LogIn extends Component {
             onChange={this.handleChange}
             required
           />
+          <div>{errorMessage}</div>
           <button>Sign In</button>
           <a href="/register">No Account?</a>
         </form>

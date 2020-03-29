@@ -12,7 +12,7 @@
   margin: 10px 0 10px 0;
 }
 
-.loginComponent input[type="text"],
+.loginComponent input[type="email"],
 select {
   border-radius: 4px;
   border: 1px solid #ccc;
