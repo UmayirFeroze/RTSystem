@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   isRegistered: false
 };
 
-export default (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     // Get All Users
     case userConstants.GET_ALL_USERS_REQUEST:
@@ -55,7 +55,8 @@ export default (state = INITIAL_STATE, action) => {
 
     // Logout User
     case userConstants.LOG_OUT:
-      return {};
+      return state;
+
     // Register user
     case userConstants.REGISTER_USER_REQUEST:
       return {
@@ -80,3 +81,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default userReducer;

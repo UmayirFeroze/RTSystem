@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { loginUser, logoutUser } from "../actions/userAction";
 import "./../styles/LogIn.css";
 
+// import axios from "axios";
+
 export class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -15,22 +17,22 @@ export class LogIn extends Component {
       user: {
         email: "",
         password: ""
-      },
-      isLoading: false,
-      hasError: false
+      }
     };
   }
 
   componentDidMount() {
+    console.log("component did mount");
     console.log(this.state); // TO BE CLEANED
-    this.props.logoutUser();
+    // this.props.logoutUser();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
-      this.setState({ user: this.props.user });
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   console.log("compoenent did update");
+  //   if (prevProps.user !== this.props.user) {
+  //     this.setState({ user: this.props.user });
+  //   }
+  // }
 
   // componentDidCatch(error, info) {
   //   this.setState({ hasError: true });
@@ -42,8 +44,7 @@ export class LogIn extends Component {
   handleChange = event => {
     let { user } = this.state;
     this.setState({
-      user: { ...user, [event.target.name]: event.target.value },
-      isLoading: true
+      user: { ...user, [event.target.name]: event.target.value }
     });
   };
 
@@ -51,14 +52,11 @@ export class LogIn extends Component {
     event.preventDefault();
     console.log(this.state.user); // to be cleaned
     const { user } = this.state;
-    this.props.loginUser(user);
+    // this.props.loginUser(user);
   };
 
   render() {
-    let errorMessage = this.state.hasError ? (
-      <p>Invalid Username or Password</p>
-    ) : null;
-    let error = "error";
+    console.log("Has Error:", this.props.hasError);
     return (
       <div className="loginComponent">
         <h1>Sign In</h1>
@@ -71,7 +69,11 @@ export class LogIn extends Component {
             onChange={this.handleChange}
             required
           />
-          <div>{errorMessage}</div>
+          <div>
+            {this.props.hasError ? (
+              <p style={{ color: "red" }}>Invalid Email or Password</p>
+            ) : null}
+          </div>
           <input
             type="password"
             name="password"
@@ -80,7 +82,6 @@ export class LogIn extends Component {
             onChange={this.handleChange}
             required
           />
-          <div>{errorMessage}</div>
           <button>Sign In</button>
           <a href="/register">No Account?</a>
         </form>
