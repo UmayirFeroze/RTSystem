@@ -1,7 +1,14 @@
-import { bidConstants } from "../constants/bidConstants";
+import {
+  BUYER_GET_ALL_BID_REQUEST,
+  BUYER_GET_ALL_BID_SUCCESS,
+  BUYER_GET_ALL_BID_FAILURE,
+  BUYER_CREATE_BID_REQUEST,
+  BUYER_CREATE_BID_SUCCESS,
+  BUYER_CREATE_BID_FAILURE
+} from "../actions/BuyerBidActions";
 
 const INITIAL_STATE = {
-  isLoading: false,
+  loading: false,
   hasError: false,
   error: null,
   data: []
@@ -9,36 +16,37 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case bidConstants.BUYER_CREATE_BID_REQUEST:
+    case BUYER_CREATE_BID_REQUEST:
       return {
         ...state,
         isLoading: true
       };
-    case bidConstants.BUYER_CREATE_BID_SUCCESS:
+    case BUYER_CREATE_BID_SUCCESS:
       return {
         ...state,
         isLoading: false,
         data: action.payload
       };
-    case bidConstants.BUYER_CREATE_BID_FAILURE:
+    case BUYER_CREATE_BID_FAILURE:
       return {
         ...state,
         isLoading: false,
         hasError: true,
         error: action.payload
       };
-    case bidConstants.BUYER_GET_ALL_BID_REQUEST:
+    case BUYER_GET_ALL_BID_REQUEST:
       return {
         ...state,
         isLoading: true
       };
-    case bidConstants.BUYER_GET_ALL_BID_SUCCESS:
+    case BUYER_GET_ALL_BID_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        hasError: false,
         data: action.payload
       };
-    case bidConstants.BUYER_GET_ALL_BID_FAILURE:
+    case BUYER_GET_ALL_BID_FAILURE:
       return {
         ...state,
         isLoading: false,

@@ -1,32 +1,98 @@
 import React, { Component } from "react";
 
-class BuyerBids extends Component {
+import { connect } from "react-redux";
+import { getAllBids } from "../actions/BuyerBidActions";
+
+import axios from "axios";
+
+import "./../styles/BuyerBids.css";
+
+export default class BuyerBids extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      buyerBids: [],
-      isLoading: true
+      postedBuyerBids: [],
+      loading: true,
+      failed: false,
+      error: ""
     };
   }
 
-  renderAllBuyerBids = () => {
+  componentDidMount() {
+    this.populateAllPostedBuyerBids();
+    // this.props.getAllBids();
+  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.postedBuyerBids.data !== this.props.postedBuyerBids.data) {
+  //     this.setState({ postedBuyerBids: this.props.postedBuyerBids.data });
+  //   }
+  // }
+
+  populateAllPostedBuyerBids = () => {
+    axios
+      .get("/api/buyerbid/getbuyerbids")
+      .then(result => {
+        const response = result.data;
+        this.setState({
+          postedBuyerBids: response,
+          loading: false,
+          failed: false,
+          error: ""
+        });
+      })
+      .catch(error => {
+        this.setState({
+          postedBuyerBids: [],
+          loading: false,
+          failed: true,
+          error: error
+        });
+      });
+  };
+
+  renderAllPostedBuyerBids = postedBuyerBids => {
     return (
       <div>
-        <p>Hello</p>
+        {/* If condition comes here to accomodate negotiated seller bids and buyer posted bids */}
+        {postedBuyerBids.map(postedBuyerbid => (
+          <div key={postedBuyerbid.buyerBidId} className="buyerBid">
+            <p>
+              Quality: {postedBuyerbid.quality} Quantity:{" "}
+              {postedBuyerbid.quantity} Price: {postedBuyerbid.price}
+            </p>
+            <p>
+              Payment In: {postedBuyerbid.paymentIn} Status:{" "}
+              {postedBuyerbid.status}
+            </p>
+          </div>
+        ))}
       </div>
     );
   };
 
   render() {
-    let content = this.renderAllBuyerBids();
+    let content = this.state.loading ? (
+      <p>Loading...</p>
+    ) : this.state.failed ? (
+      <p>{this.state.error}</p>
+    ) : (
+      this.renderAllPostedBuyerBids(this.state.postedBuyerBids)
+    );
+
     return (
       <div>
-        <h1>All News</h1>
+        <h2>Dashboard</h2>
+        <p>These organizations want to trade with you</p>
         {content}
       </div>
     );
   }
 }
 
-export default BuyerBids;
+// const mapStateToProps = ({ trips }) => ({
+//   trips
+// });
+
+// export default connect(mapStateToProps, { getAllBids })(BuyerBids);

@@ -34,7 +34,7 @@ export class BuyerCreateBid extends Component {
           event.target.type === "number" && event.target.value >= 0
             ? parseFloat(event.target.value)
             : event.target.value,
-        status: "pending"
+        status: "open"
       }
     });
   };
@@ -74,7 +74,6 @@ export class BuyerCreateBid extends Component {
             step="any"
             name="quantity"
             placeholder="Quantity in Tonnes"
-            // value={this.state.buyerBid.quantity}
             onChange={this.setBidState}
             required
           />
@@ -84,7 +83,6 @@ export class BuyerCreateBid extends Component {
             step="any"
             name="price"
             placeholder="Price in LKR/KG"
-            // value={this.state.buyerBid.price}
             onChange={this.setBidState}
           />
 
@@ -97,10 +95,11 @@ export class BuyerCreateBid extends Component {
             <option disabled value="" defaultValue="">
               Payment in
             </option>
+            <option value="Payment on Delivery">Payment on Delivery</option>
+            <option value="1 Week">1 Week</option>
             <option value="2 Weeks">2 Weeks</option>
+            <option value="3 Weeks">3 Weeks</option>
             <option value="4 Weeks">4 Weeks</option>
-            <option value="6 Weeks">6 Weeks</option>
-            <option value="8 Weeks">8 Weeks</option>
           </select>
 
           <button>Create Bid</button>

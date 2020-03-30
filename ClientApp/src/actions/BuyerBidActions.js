@@ -1,45 +1,56 @@
-import { bidConstants } from "../constants/bidConstants";
+// import { bidConstants } from "../actions/userAction";
 import axios from "axios";
+import { history } from "../App";
 
-// Buyer Get Bid by Id
+// Buyer Get All Bids
+export const BUYER_GET_ALL_BID_REQUEST = "BUYER_GET_ALL_BID_REQUEST";
+export const BUYER_GET_ALL_BID_SUCCESS = "BUYER_GET_ALL_BID_SUCCESS";
+export const BUYER_GET_ALL_BID_FAILURE = "BUYER_GET_ALL_BID_FAILURE";
+
 const getAllBidsSuccess = payload => ({
-  type: bidConstants.BUYER_GET_ALL_BID_SUCCESS,
+  type: BUYER_GET_ALL_BID_SUCCESS,
   payload
 });
 const getAllBidsFailure = payload => ({
-  type: bidConstants.BUYER_GET_ALL_BID_FAILURE,
+  type: BUYER_GET_ALL_BID_FAILURE,
   payload
 });
 export const getAllBids = () => dispatch => {
-  dispatch({ type: bidConstants.BUYER_GET_ALL_BID_REQUEST });
+  dispatch({ type: BUYER_GET_ALL_BID_REQUEST });
   return axios
     .get("api/buyerbid/getbuyerbids")
     .then(result => {
       const response = result.data;
       dispatch(getAllBidsSuccess(response));
+      window.location.reload();
     })
     .catch(error => {
-      dispatch(getAllBidsFailure(error));
+      dispatch(getAllBidsFailure("Something Went Wrong!"));
       return Promise.reject({});
     });
 };
 
 // Buyer Create Bid
+export const BUYER_CREATE_BID_REQUEST = "BUYER_CREATE_BID_REQUEST";
+export const BUYER_CREATE_BID_SUCCESS = "BUYER_CREATE_BID_SUCCESS";
+export const BUYER_CREATE_BID_FAILURE = "BUYER_CREATE_BID_FAILURE";
+
 const createBidSuccess = payload => ({
-  type: bidConstants.BUYER_CREATE_BID_SUCCESS,
+  type: BUYER_CREATE_BID_SUCCESS,
   payload
 });
 const createBidFailure = payload => ({
-  type: bidConstants.BUYER_CREATE_BID_FAILURE,
+  type: BUYER_CREATE_BID_FAILURE,
   payload
 });
 export const createBid = buyerBid => dispatch => {
-  dispatch({ type: bidConstants.BUYER_CREATE_BID_REQUEST });
+  dispatch({ type: BUYER_CREATE_BID_REQUEST });
   axios
     .post("api/buyerbid/createbuyerbid", buyerBid)
     .then(result => {
       const response = result.data;
       dispatch(createBidSuccess(response));
+      window.location.reload();
     })
     .catch(error => {
       dispatch(createBidFailure(error));

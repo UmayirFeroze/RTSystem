@@ -48,7 +48,6 @@ namespace RTSystem.Data
                 if (buyerBid.quantity != 0.00) { buyerBidExists.quantity = buyerBid.quantity; }
                 if (buyerBid.price != 0.00) { buyerBidExists.price = buyerBid.price; }
                 if (buyerBid.paymentIn != null) { buyerBidExists.paymentIn = buyerBid.paymentIn; }
-
                 // buyerBidExists.status = buyerBid.status;
             }
             else

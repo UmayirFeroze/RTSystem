@@ -1,0 +1,12 @@
+.buyerBid {
+  border: 1px;
+  border-color: white;
+  border-style: solid;
+
+  border-radius: 10px;
+  height: 80px;
+  color: white;
+  background-color: #292929;
+  margin: 5px 0 5px 0;
+  padding: 10px 0 10px 10px;
+}
