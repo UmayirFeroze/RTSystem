@@ -30,18 +30,17 @@ const loginSuccess = payload => ({
   type: userConstants.LOGIN_SUCCESS,
   payload
 });
-
 const loginFailure = payload => ({
   type: userConstants.LOGIN_FAILURE,
   payload
 });
-
 export const loginUser = user => dispatch => {
   dispatch({ type: userConstants.LOGIN_REQUEST });
   return axios
     .post("api/user/authenticate", user)
     .then(res => {
       const response = res.data;
+      console.log("response", response);
       dispatch(loginSuccess(response));
       if (localStorage.getItem("userLogIn") === null) {
         localStorage.setItem("userLogIn", user);
@@ -52,11 +51,12 @@ export const loginUser = user => dispatch => {
         console.log("User is logged in ");
       }
       console.log(res); //To be cleaned
-      history.push("/home");
-      window.location.reload();
+      // history.push("/home");
+      // window.location.reload();
     })
     .catch(error => {
-      dispatch(loginFailure(error));
+      dispatch(loginFailure(error.toString()));
+      // return Promise.reject({ error });
       // history.push("/");  Must not reload, must show error messages by clearning data
     });
 };
@@ -79,12 +79,10 @@ const registerSuccess = payload => ({
   type: userConstants.REGISTER_USER_SUCCESS,
   payload
 });
-
 const registerFailure = payload => ({
   type: userConstants.REGISTER_USER_FAILURE,
   payload
 });
-
 export const resgisterUser = user => dispatch => {
   dispatch({ type: userConstants.REGISTER_USER_REQUEST });
   return axios
