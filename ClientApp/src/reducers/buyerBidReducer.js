@@ -14,42 +14,44 @@ const INITIAL_STATE = {
   data: []
 };
 
-export default (state = INITIAL_STATE, action) => {
+const buyerBidReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case BUYER_CREATE_BID_REQUEST:
       return {
         ...state,
-        isLoading: true
+        loading: true
       };
     case BUYER_CREATE_BID_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         data: action.payload
       };
     case BUYER_CREATE_BID_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         hasError: true,
         error: action.payload
       };
+
     case BUYER_GET_ALL_BID_REQUEST:
       return {
         ...state,
-        isLoading: true
+        loading: true,
+        hasError: false
       };
     case BUYER_GET_ALL_BID_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         hasError: false,
         data: action.payload
       };
     case BUYER_GET_ALL_BID_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
         hasError: true,
         error: action.payload
       };
@@ -57,3 +59,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default buyerBidReducer;

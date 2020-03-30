@@ -26,8 +26,7 @@ function App() {
         <Route
           exact
           path="/buyerBids"
-          // render={props => <BuyerBids {...props} />}
-          component={BuyerBids}
+          render={props => <BuyerBids {...props} />}
         />
         <Route exact path="/profile" component={Profile} />
         <Route

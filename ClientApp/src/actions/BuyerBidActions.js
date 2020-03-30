@@ -1,6 +1,4 @@
-// import { bidConstants } from "../actions/userAction";
 import axios from "axios";
-import { history } from "../App";
 
 // Buyer Get All Bids
 export const BUYER_GET_ALL_BID_REQUEST = "BUYER_GET_ALL_BID_REQUEST";
@@ -22,10 +20,9 @@ export const getAllBids = () => dispatch => {
     .then(result => {
       const response = result.data;
       dispatch(getAllBidsSuccess(response));
-      window.location.reload();
     })
     .catch(error => {
-      dispatch(getAllBidsFailure("Something Went Wrong!"));
+      dispatch(getAllBidsFailure("Something Went wrong!"));
       return Promise.reject({});
     });
 };
