@@ -1,0 +1,42 @@
+body {
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 75vh;
+}
+
+.profile {
+  /* width: 20%;
+  border-style: solid;
+  border-color: white;
+  padding: 0 0 0 0; */
+  border: 1px;
+  border-color: white;
+  border-style: solid;
+  padding: 0 15px 0 15px;
+  background-color: #1f1e1e;
+  width: 20%;
+}
+
+.bids {
+  border: 1px;
+  border-style: solid;
+  border-color: white;
+  padding: 10px 20px 20px 20px;
+  overflow-x: hidden;
+  overflow-x: auto;
+  width: 60%;
+}
+
+.createBids {
+  width: 20%;
+  padding: 50px 20px 20px 20px;
+  background-color: #1f1e1e;
+  border: 1px;
+  border-style: solid;
+  border-color: white;
+}
