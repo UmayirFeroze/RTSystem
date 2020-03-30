@@ -13,6 +13,7 @@ import Transactions from "./screens/Transactions";
 import MyBids from "./screens/MyBids";
 import UserManual from "./screens/UserManual";
 import OurPartners from "./screens/OurPartners";
+import BuyerBids from "./components/BuyerBids";
 
 export const history = createBrowserHistory();
 
@@ -22,6 +23,12 @@ function App() {
       <div>
         <Route exact path="/" component={Landing} />
         <Route exact path="/home" component={Home} />
+        <Route
+          exact
+          path="/buyerBids"
+          // render={props => <BuyerBids {...props} />}
+          component={BuyerBids}
+        />
         <Route exact path="/profile" component={Profile} />
         <Route
           exact
