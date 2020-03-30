@@ -11,10 +11,11 @@ namespace RTSystem.Data
         public async Task<User> Authenticate(AuthenticateModel user)
         {
             var userExist = await Task.Run(() => Data.Users.SingleOrDefault(x => x.email == user.email && x.password == user.password));
-            if (userExist == null)
-            {
-                throw new Exception("Incorrect Email or Password");
-            }
+            // if (userExist == null)
+            // {
+            //     throw new Exception("Incorrect Email or Password");
+            // }
+            
             // return userExist.WithoutPasswords()
             return userExist;
         }

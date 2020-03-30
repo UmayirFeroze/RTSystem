@@ -24,22 +24,16 @@ export class LogIn extends Component {
   componentDidMount() {
     console.log("component did mount");
     console.log(this.state); // TO BE CLEANED
-    // this.props.logoutUser();
+    this.props.logoutUser();
   }
 
-  // componentDidUpdate(prevProps) {
-  //   console.log("compoenent did update");
-  //   if (prevProps.user !== this.props.user) {
-  //     this.setState({ user: this.props.user });
-  //   }
-  // }
-
-  // componentDidCatch(error, info) {
-  //   this.setState({ hasError: true });
-  //   console.log("Error:", error);
-  //   console.log("Info: ", info);
-  //   console.log(this.state.hasError);
-  // }
+  componentDidUpdate(prevProps) {
+    // console.log("compoenent did update");
+    // console.log("PReviosu Props: ", prevProps);
+    if (prevProps.user !== this.props.user) {
+      this.setState({ user: this.props.user });
+    }
+  }
 
   handleChange = event => {
     let { user } = this.state;
@@ -52,11 +46,12 @@ export class LogIn extends Component {
     event.preventDefault();
     console.log(this.state.user); // to be cleaned
     const { user } = this.state;
-    // this.props.loginUser(user);
+    this.props.loginUser(user);
   };
 
   render() {
-    console.log("Has Error:", this.props.hasError);
+    // console.log("Has Ecrror:", this.props.hasError);
+    // console.log("props: ", this.props);
     return (
       <div className="loginComponent">
         <h1>Sign In</h1>
@@ -91,6 +86,7 @@ export class LogIn extends Component {
 }
 
 const mapStateToProps = ({ state }) => ({
-  state
+  state // return map the vairbale frontend with value in back end
 });
+
 export default connect(mapStateToProps, { loginUser, logoutUser })(LogIn);

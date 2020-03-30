@@ -24,11 +24,11 @@ namespace RTSystem.Controllers
             try
             {
                 var user = await _service.Authenticate(model);
+                if (user == null)
+                {
+                    return BadRequest();
+                }
                 return Ok(user);
-                // if (user == null)
-                // {
-                //     return BadRequest("Email or password is incorrect");
-                // }
             }
             catch (Exception authException)
             {
