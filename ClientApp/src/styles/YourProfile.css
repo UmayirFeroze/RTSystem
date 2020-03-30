@@ -1,0 +1,20 @@
+.yourProfile {
+  /* background-color: #1f1e1e;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  margin: 0 0 0 0;
+  color: pink; */
+  border-style: solid;
+  border: 1px;
+}
+
+.yourProfile a {
+  background-color: #1682db;
+  width: 50%;
+  font-size: 17px;
+  text-decoration: none;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}

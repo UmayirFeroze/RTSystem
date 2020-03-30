@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../styles/YourProfile.css";
 
 class YourProfile extends Component {
   state = {};
@@ -9,37 +10,15 @@ class YourProfile extends Component {
 
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "#1f1e1e",
-          color: "white",
-          height: "100%",
-          alignItems: "center"
-        }}
-      >
-        <h2>My Profile</h2>
+      <div className="yourProfile">
+        <p>My Profile</p>
         <p>profile image</p>
         <p>Business Name </p>
         <p>Business Description</p>
         <p>Name: Owner Name</p>
         <p>Phone: 0112729729</p>
         <p>Address: no street, no country</p>
-        <a
-          style={{
-            backgroundColor: "#1682db",
-            color: "white",
-            width: "50%",
-            fontSize: "17px",
-            textDecoration: "none",
-            padding: "10px",
-            textAlign: "center"
-          }}
-          href="/Profile"
-        >
-          View Profile
-        </a>
+        <a href="/Profile">View Profile</a>
       </div>
     );
   }
