@@ -1,8 +1,14 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Text;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 using RTSystem.Data;
+using RTSystem.Helpers;
 
 namespace RTSystem.Controllers
 {
@@ -12,23 +18,42 @@ namespace RTSystem.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _service;
-        public UserController(IUserService service)
+        private readonly AppSettings _appSettings;
+        public UserController(IUserService service, IOptions<AppSettings> appSettings)
         {
             this._service = service;
+            this._appSettings = appSettings.Value;
         }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
+        public IActionResult Authenticate([FromBody]AuthenticateModel model)
         {
             try
             {
-                var user = await _service.Authenticate(model);
-                if (user == null)
+                var user = _service.Authenticate(model);
+                
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    return BadRequest();
-                }
-                return Ok(user);
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim(ClaimTypes.Name, user.userId.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddDays(7),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                };
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenString = tokenHandler.WriteToken(token);
+
+                return Ok(new
+                {
+                    UserId = user.userId,
+                    Email = user.email,
+                    Token = tokenString
+                });
             }
             catch (Exception authException)
             {
