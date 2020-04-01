@@ -15,7 +15,6 @@ namespace RTSystem.Data
             {
                 throw new Exception("Incorrect Email or Password");
             }
-            
             return userExist;
         }
 

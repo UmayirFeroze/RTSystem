@@ -2,29 +2,6 @@ import axios from "axios";
 import { history } from "../App";
 import { userConstants } from "../constants/userConstants";
 
-// Get all Users
-const getAllUsersSuccess = payload => ({
-  type: userConstants.GET_ALL_USERS_SUCCESS,
-  payload
-});
-const getAllUsersFailure = payload => ({
-  type: userConstants.GET_ALL_USERS_FAILURE,
-  payload
-});
-export const getAllUsers = () => dispatch => {
-  dispatch({ type: userConstants.GET_ALL_USERS_REQUEST });
-  return axios
-    .get("/api/user/getusers")
-    .then(res => {
-      const response = res.data;
-      dispatch(getAllUsersSuccess(response));
-    })
-    .catch(error => {
-      dispatch(getAllUsersFailure("Error: Failed to get all partners!"));
-      return Promise.reject({});
-    });
-};
-
 // Log in User
 const loginSuccess = payload => ({
   type: userConstants.LOGIN_SUCCESS,
@@ -51,13 +28,13 @@ export const loginUser = user => dispatch => {
         console.log("User is logged in ");
       }
       console.log(res); //To be cleaned
-      // history.push("/home");
-      // window.location.reload();
+      history.push("/home");
+      window.location.reload();
     })
     .catch(error => {
-      dispatch(loginFailure(error.toString()));
-      // return Promise.reject({ error });
-      // history.push("/");  Must not reload, must show error messages by clearning data
+      dispatch(loginFailure(error));
+      history.push("/");  //Must not reload, must show error messages by clearning data
+      return Promise.reject({ error });
     });
 };
 
@@ -69,7 +46,7 @@ export const logoutUser = () => dispatch => {
     console.log("logged out"); // To be cleaned
   } else {
     localStorage.clear();
-    console.log("No logged in user to logout"); //To be cleaned
+    console.log("Cleared All Login Sessions"); //To be cleaned
   }
   return {};
 };
@@ -98,5 +75,28 @@ export const resgisterUser = user => dispatch => {
       dispatch(registerFailure(error));
       console.log("error", error);
       // history.push("/register"); //Must not relaoad, must wheo erorr messages by clesring data
+    });
+};
+
+// Get all Users
+const getAllUsersSuccess = payload => ({
+  type: userConstants.GET_ALL_USERS_SUCCESS,
+  payload
+});
+const getAllUsersFailure = payload => ({
+  type: userConstants.GET_ALL_USERS_FAILURE,
+  payload
+});
+export const getAllUsers = () => dispatch => {
+  dispatch({ type: userConstants.GET_ALL_USERS_REQUEST });
+  return axios
+    .get("/api/user/getusers")
+    .then(res => {
+      const response = res.data;
+      dispatch(getAllUsersSuccess(response));
+    })
+    .catch(error => {
+      dispatch(getAllUsersFailure("Error: Failed to get all partners!"));
+      return Promise.reject({});
     });
 };
