@@ -24,6 +24,7 @@ namespace RTSystem.Data
                 return Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
             }
         }
+
         public void CreateBuyerBid(BuyerBid buyerBid)
         {
 

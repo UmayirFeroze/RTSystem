@@ -1,0 +1,86 @@
+/* TO be completed */
+
+.template {
+  /* background-color: #1f1e1e; */
+  border: 1px;
+  border-style: solid;
+  border-color: white;
+}
+
+.template-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* padding: 10px 10px 10px 10px; */
+  margin: auto;
+
+  /* border: 1px; */
+  /* border-style: solid; */
+  /* border-color: blue; */
+}
+
+.buyerBids {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  padding: 10px 50px 10px 50px;
+  margin: 0 0 10px 0;
+
+  /* border: 1px; */
+  /* border-style: solid; */
+  /* border-color: yellow; */
+  /* width: 50%; */
+  /* height: 100%; */
+}
+
+.vertical-line {
+  border-left: 1px solid grey;
+  height: 500px;
+  margin: 20px 0 20px 0;
+}
+
+.sellerBid {
+  width: 50%;
+  padding: 10px 50px 10px 50px;
+
+  /* border: 1px; */
+  /* border-color: teal; */
+  /* border-style: solid; */
+}
+
+.sellerBid input[type="number"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.sellerBid input[type="date"],
+select {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
+.sellerBid button {
+  background-color: #1682db;
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0 10px 0;
+  border: none;
+  border-radius: 4px;
+  width: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.sellerBid button:hover {
+  background-color: #008cff;
+}

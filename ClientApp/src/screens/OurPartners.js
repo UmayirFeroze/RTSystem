@@ -96,7 +96,6 @@ export class OurPartners extends Component {
   };
 
   render() {
-    console.log(this.props);
     let content = this.props.users.isLoading ? (
       <p>Loading...</p>
     ) : (
