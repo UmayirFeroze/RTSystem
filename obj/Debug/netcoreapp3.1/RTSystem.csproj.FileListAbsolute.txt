@@ -151,3 +151,10 @@ C:\Users\Uair\Desktop\RTSystem\obj\Debug\netcoreapp3.1\staticwebassets\RTSystem.
 C:\Users\Uair\Desktop\RTSystem\obj\Debug\netcoreapp3.1\RTSystem.dll
 C:\Users\Uair\Desktop\RTSystem\obj\Debug\netcoreapp3.1\RTSystem.pdb
 C:\Users\Uair\Desktop\RTSystem\obj\Debug\netcoreapp3.1\RTSystem.genruntimeconfig.cache
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Uair\Desktop\RTSystem\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
