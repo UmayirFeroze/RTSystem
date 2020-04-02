@@ -22,14 +22,11 @@ export class LogIn extends Component {
   }
 
   componentDidMount() {
-    console.log("component did mount");
     console.log(this.state); // TO BE CLEANED
     this.props.logoutUser();
   }
 
   componentDidUpdate(prevProps) {
-    // console.log("compoenent did update");
-    // console.log("PReviosu Props: ", prevProps);
     if (prevProps.user !== this.props.user) {
       this.setState({ user: this.props.user });
     }
@@ -45,13 +42,12 @@ export class LogIn extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log(this.state.user); // to be cleaned
-    const { user } = this.state;
-    this.props.loginUser(user);
+    // const { user } = this.state;
+    this.props.loginUser(this.state.user);
+    console.log("user is sent for action");
   };
 
   render() {
-    // console.log("Has Ecrror:", this.props.hasError);
-    // console.log("props: ", this.props);
     return (
       <div className="loginComponent">
         <h1>Sign In</h1>
@@ -65,7 +61,7 @@ export class LogIn extends Component {
             required
           />
           <div>
-            {this.props.hasError ? (
+            {this.props.users.hasError ? (
               <p style={{ color: "red" }}>Invalid Email or Password</p>
             ) : null}
           </div>
@@ -85,8 +81,8 @@ export class LogIn extends Component {
   }
 }
 
-const mapStateToProps = ({ state }) => ({
-  state // return map the vairbale frontend with value in back end
+const mapStateToProps = ({ users }) => ({
+  users // return map the vairbale frontend with value in back end
 });
 
 export default connect(mapStateToProps, { loginUser, logoutUser })(LogIn);

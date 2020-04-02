@@ -1,55 +1,37 @@
 import { userConstants } from "../constants/userConstants";
 
 const INITIAL_STATE = {
-  isLoading: false,
+  loading: false,
   hasError: false,
   error: null,
   data: [],
-  isLoggedin: false,
-  isRegistered: false
+  loggedIn: false,
+  registered: false,
+  currentUser: {}
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // Get All Users
-    case userConstants.GET_ALL_USERS_REQUEST:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case userConstants.GET_ALL_USERS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        data: action.payload
-      };
-    case userConstants.GET_ALL_USERS_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        hasError: true,
-        error: action.payload
-      };
-
     // Login User
     case userConstants.LOGIN_REQUEST:
       return {
         ...state,
-        isLoading: true,
-        isLoggedin: false
+        loading: true,
+        loggedIn: false
       };
     case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        isLoggedin: true,
+        loading: false,
+        loggedIn: true,
         data: action.payload
+        // currentUser: action.payload
       };
     case userConstants.LOGIN_FAILURE:
       return {
         ...state,
-        isLoading: false,
-        isLoggedin: false,
+        loading: false,
+        loggedIn: false,
         error: action.payload
       };
 
@@ -61,19 +43,40 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userConstants.REGISTER_USER_REQUEST:
       return {
         ...state,
-        isLoading: true
+        loading: true
       };
     case userConstants.REGISTER_USER_SUCCESS:
       return {
         ...state,
-        isLoading: false,
-        isRegistered: true,
+        loading: false,
+        registered: true,
         data: action.payload
       };
     case userConstants.REGISTER_USER_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        loading: false,
+        registered: false,
+        hasError: true,
+        error: action.payload
+      };
+
+    // Get All Users
+    case userConstants.GET_ALL_USERS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case userConstants.GET_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload
+      };
+    case userConstants.GET_ALL_USERS_FAILURE:
+      return {
+        ...state,
+        loading: false,
         hasError: true,
         error: action.payload
       };

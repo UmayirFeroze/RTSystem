@@ -1,7 +1,6 @@
 import axios from "axios";
 import { history } from "../App";
 import { userConstants } from "../constants/userConstants";
-
 // Log in User
 const loginSuccess = payload => ({
   type: userConstants.LOGIN_SUCCESS,
@@ -27,18 +26,16 @@ export const loginUser = user => dispatch => {
         localStorage.setItem("userLogIn", user);
         console.log("User is logged in ");
       }
-      console.log(res); //To be cleaned
-      // history.push("/home");
-      // window.location.reload();
+      console.log("Response: ", res);
+      //To be cleaned // history.push("/home"); // window.location.reload();
     })
     .catch(error => {
-      dispatch(loginFailure(error.toString()));
-      // return Promise.reject({ error });
-      // history.push("/");  Must not reload, must show error messages by clearning data
+      dispatch(loginFailure(error));
+      history.push("/"); //Must not reload, must show error messages by clearning data
+      return Promise.reject({ error });
     });
 };
-
-// Log out user
+//Log out user
 export const logoutUser = () => dispatch => {
   dispatch({ type: userConstants.LOG_OUT });
   if (localStorage.getItem("userLogIn") !== null) {
@@ -46,12 +43,11 @@ export const logoutUser = () => dispatch => {
     console.log("logged out"); // To be cleaned
   } else {
     localStorage.clear();
-    console.log("No logged in user to logout"); //To be cleaned
+    console.log("Cleared All Login Sessions"); //To be cleaned
   }
   return {};
 };
-
-// Regsiter User
+//Regsiter User
 const registerSuccess = payload => ({
   type: userConstants.REGISTER_USER_SUCCESS,
   payload
@@ -77,7 +73,6 @@ export const resgisterUser = user => dispatch => {
       // history.push("/register"); //Must not relaoad, must wheo erorr messages by clesring data
     });
 };
-
 // Get all Users
 const getAllUsersSuccess = payload => ({
   type: userConstants.GET_ALL_USERS_SUCCESS,

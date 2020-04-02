@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\Uair\\Desktop\\RTSystem\\RTSystem.csproj",
+  "FilePath": "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/RTSystem.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -20611,12 +20611,12 @@
   "RootNamespace": "RTSystem",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\Uair\\Desktop\\RTSystem\\Pages\\Error.cshtml",
+      "FilePath": "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/Pages/Error.cshtml",
       "TargetPath": "Pages\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Uair\\Desktop\\RTSystem\\Pages\\_ViewImports.cshtml",
+      "FilePath": "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/Pages/_ViewImports.cshtml",
       "TargetPath": "Pages\\_ViewImports.cshtml",
       "FileKind": "mvc"
     }
