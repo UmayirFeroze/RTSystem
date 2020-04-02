@@ -27,8 +27,8 @@ namespace RTSystem
             services.AddCors();
             services.AddControllersWithViews();
 
-            services.AddAuthentication("BasicAuthentication")
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            // services.AddAuthentication("BasicAuthentication")
+            //     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
