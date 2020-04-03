@@ -21,14 +21,14 @@ export const loginUser = user => dispatch => {
       dispatch(loginSuccess(res.data));
 
       if (localStorage.getItem("user") === null) {
-        localStorage.setItem("user", JSON.stringify(res.data));
+        localStorage.setItem("user", JSON.stringify(res.data.token));
         console.log("User is logged in"); //To be cleaned
       } else {
         localStorage.removeItem("user");
         // localStorage.setItem("user", JSON.stringify(res.data));
         console.log("User is logged in ");
       }
-      console.log(localStorage.getItem("user", JSON.stringify(res.data)));
+      console.log(localStorage.getItem("user", JSON.stringify(res.data.token)));
       console.log("Response: ", res);
 
       history.push("/home");

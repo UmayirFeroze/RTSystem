@@ -6,9 +6,28 @@ import BuyerBids from "../components/BuyerBids";
 import Header from "../components/Header";
 
 import "../styles/Home.css";
+import { connect } from "react-redux";
 
-class Home extends Component {
-  state = {};
+export default class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentUser: {},
+      loading: false
+    };
+  }
+
+  componentDidMount() {
+    let user = localStorage.getItem("user");
+    this.setState({
+      loading: false,
+      currentUser: localStorage.getItem("user")
+    });
+    console.log("Loaded Data: ", user);
+    console.log("State current user: ", this.state.currentUser);
+  }
+
   render() {
     return (
       <div>
@@ -31,4 +50,8 @@ class Home extends Component {
   }
 }
 
-export default Home;
+// const mapStateToProps = ({ authUser }) => ({
+//   authUser
+// });
+
+// export default connect(mapStateToProps)(Home);
