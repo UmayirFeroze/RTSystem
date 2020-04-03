@@ -1,10 +1,10 @@
 // The login Page
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { loginUser, logoutUser } from "../actions/userAction";
+import { logoutUser } from "../actions/userAction";
 import "./../styles/LogIn.css";
 
-// import axios from "axios";
+import { loginUser } from "../actions/authAction";
 
 export class LogIn extends Component {
   constructor(props) {
@@ -27,8 +27,8 @@ export class LogIn extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
-      this.setState({ user: this.props.user });
+    if (prevProps.users !== this.props.users) {
+      this.setState({ user: this.props.users });
     }
   }
 
@@ -42,9 +42,7 @@ export class LogIn extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log(this.state.user); // to be cleaned
-    // const { user } = this.state;
     this.props.loginUser(this.state.user);
-    console.log("user is sent for action");
   };
 
   render() {
@@ -60,11 +58,7 @@ export class LogIn extends Component {
             onChange={this.handleChange}
             required
           />
-          <div>
-            {this.props.users.hasError ? (
-              <p style={{ color: "red" }}>Invalid Email or Password</p>
-            ) : null}
-          </div>
+
           <input
             type="password"
             name="password"
@@ -81,8 +75,8 @@ export class LogIn extends Component {
   }
 }
 
-const mapStateToProps = ({ users }) => ({
-  users // return map the vairbale frontend with value in back end
+const mapStateToProps = ({ authUser }) => ({
+  authUser
 });
 
 export default connect(mapStateToProps, { loginUser, logoutUser })(LogIn);

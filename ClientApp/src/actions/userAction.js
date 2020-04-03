@@ -27,7 +27,9 @@ export const loginUser = user => dispatch => {
         console.log("User is logged in ");
       }
       console.log("Response: ", res);
-      //To be cleaned // history.push("/home"); // window.location.reload();
+      //To be cleaned
+      history.push("/home");
+      window.location.reload();
     })
     .catch(error => {
       dispatch(loginFailure(error));
