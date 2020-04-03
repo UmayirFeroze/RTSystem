@@ -30,9 +30,7 @@ namespace RTSystem.Data
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _RTSystemContext.User
-                .Include(user => user.BuyerBid)
-                .ToList();
+            return _RTSystemContext.User.ToList();
         }
 
         public User GetUserById(int userId)
