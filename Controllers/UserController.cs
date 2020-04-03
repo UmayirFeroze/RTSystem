@@ -12,12 +12,12 @@ using RTSystem.Helpers;
 
 namespace RTSystem.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private IUserService _service;
+        private readonly IUserService _service;
         private readonly AppSettings _appSettings;
         public UserController(IUserService service, IOptions<AppSettings> appSettings)
         {
@@ -39,7 +39,7 @@ namespace RTSystem.Controllers
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, user.userId.ToString())
+                        new Claim(ClaimTypes.Name, user.UserId.ToString())
                     }),
                     Expires = DateTime.UtcNow.AddDays(7),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -50,8 +50,8 @@ namespace RTSystem.Controllers
 
                 return Ok(new
                 {
-                    UserId = user.userId,
-                    Email = user.email,
+                    UserId = user.UserId,
+                    Email = user.Email,
                     Token = tokenString
                 });
             }
@@ -62,6 +62,7 @@ namespace RTSystem.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet("GetUsers")]
         public IActionResult GetAllUsers()
         {
@@ -75,7 +76,7 @@ namespace RTSystem.Controllers
                 return BadRequest(getalluserError.Message);
             }
         }
-        [Authorize]
+
         [HttpGet("GetUsers/{userId}")]
         public IActionResult GetUser(int userId)
         {
@@ -95,10 +96,12 @@ namespace RTSystem.Controllers
         {
             try
             {
-                if (user != null)
+                if (!ModelState.IsValid)
                 {
-                    _service.RegisterUser(user);
+                    return BadRequest();
                 }
+                
+                _service.RegisterUser(user);
                 return Ok(user);
             }
             catch (Exception resgisterError)
@@ -106,12 +109,17 @@ namespace RTSystem.Controllers
                 return BadRequest(resgisterError.Message);
             }
         }
-        [Authorize]
+
         [HttpPut("UpdateUser/{userId}")]
         public IActionResult UpdateUser(int userId, [FromBody]User user)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
                 _service.UpdateUser(userId, user);
                 return Ok(user);
             }
@@ -121,7 +129,7 @@ namespace RTSystem.Controllers
             }
 
         }
-        [Authorize]
+
         [HttpDelete("DeleteUser/{userId}")]
         public IActionResult DeleteUser(int userId)
         {

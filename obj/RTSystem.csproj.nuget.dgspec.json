@@ -1,25 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/RTSystem.csproj": {}
+    "C:\\Users\\Uair\\Desktop\\RTSystem\\RTSystem.csproj": {}
   },
   "projects": {
-    "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/RTSystem.csproj": {
+    "C:\\Users\\Uair\\Desktop\\RTSystem\\RTSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/RTSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Uair\\Desktop\\RTSystem\\RTSystem.csproj",
         "projectName": "RTSystem",
-        "projectPath": "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/RTSystem.csproj",
-        "packagesPath": "/Users/umairferoze/.nuget/packages/",
-        "outputPath": "/Users/umairferoze/Desktop/RubberTradeSystem/RTSystem/obj/",
+        "projectPath": "C:\\Users\\Uair\\Desktop\\RTSystem\\RTSystem.csproj",
+        "packagesPath": "C:\\Users\\Uair\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Uair\\Desktop\\RTSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/umairferoze/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Uair\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,6 +49,16 @@
               "target": "Package",
               "version": "[3.1.2, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.3, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -67,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.102/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

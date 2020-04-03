@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,23 +18,27 @@ namespace RTSystem
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<RTSystemContext>(opts => opts.UseSqlServer(_configuration["ConnectionString:RTSystemDB"]));
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBuyerBidService, BuyerBidService>();
+
             services.AddCors();
             services.AddControllersWithViews();
 
             // services.AddAuthentication("BasicAuthentication")
             //     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
@@ -75,9 +80,6 @@ namespace RTSystem
             {
                 configuration.RootPath = "ClientApp/build";
             });
-
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IBuyerBidService, BuyerBidService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
