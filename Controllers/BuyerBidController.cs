@@ -8,7 +8,7 @@ namespace RTSystem.Controllers
     [Route("api/[controller]")]
     public class BuyerBidController : ControllerBase
     {
-        private IBuyerBidService _service;
+        private readonly IBuyerBidService _service;
         public BuyerBidController(IBuyerBidService service)
         {
             this._service = service;
@@ -48,6 +48,11 @@ namespace RTSystem.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                
                 _service.CreateBuyerBid(buyerBid);
                 return Ok(buyerBid);
             }
@@ -64,6 +69,11 @@ namespace RTSystem.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
                 _service.UpdateBuyerBid(buyerBidId, buyerBid);
                 return Ok(buyerBid);
             }

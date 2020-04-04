@@ -6,7 +6,7 @@ namespace RTSystem.Data
     public interface IUserService
     {
         User Authenticate(AuthenticateModel user);
-        List<User> GetAllUsers();
+        IEnumerable<User> GetAllUsers();
         User GetUserById(int userId);
         void RegisterUser(User user);
         void UpdateUser(int userId, User user);

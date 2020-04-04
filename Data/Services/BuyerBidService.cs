@@ -7,49 +7,57 @@ namespace RTSystem.Data
 {
     public class BuyerBidService : IBuyerBidService
     {
-        public List<BuyerBid> GetAllBuyerBids()
+        readonly RTSystemContext _RTSystemContext;
+
+        public BuyerBidService(RTSystemContext systemContext)
         {
-            return Data.BuyerBids.ToList();
+            _RTSystemContext = systemContext;
+        }
+        public IEnumerable<BuyerBid> GetAllBuyerBids()
+        {
+            return _RTSystemContext.BuyerBid.ToList();
         }
 
         public BuyerBid GetBuyerBidById(int buyerBidId)
         {
-            var BuyerBidExists = Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
+            var BuyerBidExists = _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (BuyerBidExists == null)
             {
                 throw new Exception("Bid Not Found");
             }
             else
             {
-                return Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
+                return _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             }
         }
 
         public void CreateBuyerBid(BuyerBid buyerBid)
         {
 
-            if (buyerBid.quality == null || buyerBid.paymentIn == null)
+            if (buyerBid.Quality == null || buyerBid.PaymentIn == null)
             {
                 throw new Exception("Incomplete Fields");
             }
             else
             {
-                Data.BuyerBids.Add(buyerBid);
+                _RTSystemContext.BuyerBid.Add(buyerBid);
+                _RTSystemContext.SaveChanges();
             }
         }
 
         public void UpdateBuyerBid(int buyerBidId, BuyerBid buyerBid)
         {
-            var buyerBidExists = Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
+            var buyerBidExists = _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (buyerBidExists != null)
             {
                 // buyerBidExists.buyerBidId = buyerBid.buyerBidId;
                 // buyerBidExists.userId = buyerBid.userId;
-                if (buyerBid.quality != null) { buyerBidExists.quality = buyerBid.quality; }
-                if (buyerBid.quantity != 0.00) { buyerBidExists.quantity = buyerBid.quantity; }
-                if (buyerBid.price != 0.00) { buyerBidExists.price = buyerBid.price; }
-                if (buyerBid.paymentIn != null) { buyerBidExists.paymentIn = buyerBid.paymentIn; }
+                if (buyerBid.Quality != null) { buyerBidExists.Quality = buyerBid.Quality; }
+                if (buyerBid.Quantity != 0.00) { buyerBidExists.Quantity = buyerBid.Quantity; }
+                if (buyerBid.Price != 0.00) { buyerBidExists.Price = buyerBid.Price; }
+                if (buyerBid.PaymentIn != null) { buyerBidExists.PaymentIn = buyerBid.PaymentIn; }
                 // buyerBidExists.status = buyerBid.status;
+                _RTSystemContext.SaveChanges();
             }
             else
             {
@@ -59,14 +67,15 @@ namespace RTSystem.Data
 
         public void DeleteBuyerBid(int buyerBidId)
         {
-            var buyerBidExists = Data.BuyerBids.FirstOrDefault(n => n.buyerBidId == buyerBidId);
+            var buyerBidExists = _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (buyerBidExists == null)
             {
                 throw new Exception("Bid Not Found");
             }
             else
             {
-                Data.BuyerBids.Remove(buyerBidExists);
+                _RTSystemContext.BuyerBid.Remove(buyerBidExists);
+                _RTSystemContext.SaveChanges();
             }
         }
     }
