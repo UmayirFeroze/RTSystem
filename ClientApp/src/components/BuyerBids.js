@@ -43,6 +43,7 @@ export class BuyerBids extends Component {
             <p>
               Payment In: {buyerBid.paymentIn} Status: {buyerBid.status}
             </p>
+            <button>Make Bid</button>
           </div>
         ))}
       </div>

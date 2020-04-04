@@ -26,7 +26,7 @@ function App() {
           exact
           path="/home"
           component={Home}
-          render={props => <Home {...props} />}
+          // render={props => <Home {...props} />}
         />
         <Route
           exact

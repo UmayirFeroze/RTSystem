@@ -6,7 +6,6 @@ import BuyerBids from "../components/BuyerBids";
 import Header from "../components/Header";
 
 import "../styles/Home.css";
-import { connect } from "react-redux";
 
 export default class Home extends Component {
   constructor(props) {
@@ -25,7 +24,6 @@ export default class Home extends Component {
       currentUser: localStorage.getItem("user")
     });
     console.log("Loaded Data: ", user);
-    console.log("State current user: ", this.state.currentUser);
   }
 
   render() {

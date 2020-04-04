@@ -31,8 +31,8 @@ export const loginUser = user => dispatch => {
       console.log(localStorage.getItem("user", JSON.stringify(res.data.token)));
       console.log("Response: ", res);
 
-      history.push("/home");
-      window.location.reload();
+      //   history.push("/home");
+      //   window.location.reload();
     })
     .catch(error => {
       dispatch(loginFailure(error));
@@ -53,12 +53,14 @@ const getUserByIdFailure = payload => ({
 });
 export const getUserById = userId => dispatch => {
   dispatch({ type: USER_BY_ID_REQUEST });
-  return axios.post("api/user/getusers/{userId}", userId).then(res => {
-    dispatch(getUserByIdSuccess(res.data));
-    console.log("Successfully Got User: ", res.data);
-  });
-  // .catch(error => {
-  //     dispatch({getUserByIdFailure(error)})
-  //     // return Promise.reject({});
-  // });
+  return axios
+    .post("api/user/getusers/{userId}", userId)
+    .then(res => {
+      dispatch(getUserByIdSuccess(res.data));
+      console.log("Successfully Got User: ", res.data);
+    })
+    .catch(error => {
+      dispatch(getUserByIdFailure(error.data));
+      // return Promise.reject({});
+    });
 };
