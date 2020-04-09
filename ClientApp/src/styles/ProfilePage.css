@@ -1,0 +1,17 @@
+.profilePage {
+  align-items: center;
+  border: 1px solid blue;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.profilePage div {
+  text-align: center;
+  border: 1px red solid;
+  padding: 30px;
+  margin: auto;
+  border-radius: 40px;
+}

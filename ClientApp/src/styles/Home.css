@@ -6,18 +6,13 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 75vh;
+  height: 77.8vh;
 }
 
 .profile {
-  /* width: 20%;
-  border-style: solid;
-  border-color: white;
-  padding: 0 0 0 0; */
   border: 1px;
   border-color: white;
   border-style: solid;
-  padding: 0 15px 0 15px;
   background-color: #1f1e1e;
   width: 20%;
 }

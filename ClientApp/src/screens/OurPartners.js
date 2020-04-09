@@ -11,12 +11,13 @@ export class OurPartners extends Component {
 
     this.state = {
       users: [],
-      isLoading: true
+      isLoading: true,
     };
   }
 
   componentDidMount() {
     this.props.getAllUsers();
+    console.log("All USers:", this.props.users);
   }
 
   componentDidUpdate(prevProps) {
@@ -25,7 +26,7 @@ export class OurPartners extends Component {
     }
   }
 
-  renderUser = users => {
+  renderUser = (users) => {
     return (
       <div
         style={{
@@ -33,7 +34,7 @@ export class OurPartners extends Component {
           flexDirection: "row",
           paddingRight: 20,
           paddingLeft: 20,
-          color: "white"
+          color: "white",
         }}
       >
         <div className="sideNavBar">
@@ -51,20 +52,20 @@ export class OurPartners extends Component {
             width: "100%",
             border: 1,
             borderStyle: "solid",
-            borderColor: "pink"
+            borderColor: "pink",
           }}
         >
-          {users.map(user => (
+          {users.map((user) => (
             <div
               key={user.userId}
               style={{
                 display: "flex",
                 flexDirection: "row",
                 border: 1,
-                backgroundColor: "#1f1e1e",
+
                 borderStyle: "solid",
                 borderColor: "white",
-                marginBottom: 10
+                marginBottom: 10,
               }}
             >
               <div style={{ width: "25%" }}>
@@ -116,7 +117,7 @@ export class OurPartners extends Component {
 }
 
 const mapStateToProps = ({ users }) => ({
-  users
+  users,
 });
 
 export default connect(mapStateToProps, { getAllUsers })(OurPartners);

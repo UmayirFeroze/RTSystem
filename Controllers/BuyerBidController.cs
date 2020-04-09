@@ -43,8 +43,36 @@ namespace RTSystem.Controllers
             }
         }
 
+        [HttpGet("getbuyerbids/user/{userId}")]
+        public IActionResult GetBuyerBidByUserId(int userId)
+        {
+            try
+            {
+                var buyerBids = _service.GetBuyerBidByUserId(userId);
+                return Ok(buyerBids);
+            }
+            catch (Exception getBidUserError)
+            {
+                return NotFound(getBidUserError.Message);
+            }
+        }
+
+        [HttpGet("getbuyerbids/usernot/{userId}")]
+        public IActionResult GetBuyerBidNotByUserId(int userId)
+        {
+            try
+            {
+                var buyerBids = _service.GetBuyerBidNotByUserId(userId);
+                return Ok(buyerBids);
+            }
+            catch (Exception getBuyerUserError)
+            {
+                return NotFound(getBuyerUserError.Message);
+            }
+        }
+
         [HttpPost("createBuyerBid")]
-        public IActionResult CreateBuyerBid([FromBody]BuyerBid buyerBid)
+        public IActionResult CreateBuyerBid([FromBody]BuyerBids buyerBid)
         {
             try
             {
@@ -52,7 +80,7 @@ namespace RTSystem.Controllers
                 {
                     return BadRequest();
                 }
-                
+
                 _service.CreateBuyerBid(buyerBid);
                 return Ok(buyerBid);
             }
@@ -60,12 +88,10 @@ namespace RTSystem.Controllers
             {
                 return BadRequest(createBidError.Message);
             }
-
-
         }
 
         [HttpPut("updateBuyerBid/{buyerBidId}")]
-        public IActionResult UpdateBuyerBid(int buyerBidId, BuyerBid buyerBid)
+        public IActionResult UpdateBuyerBid(int buyerBidId, BuyerBids buyerBid)
         {
             try
             {
@@ -95,7 +121,6 @@ namespace RTSystem.Controllers
             {
                 return NotFound(deleteBidError.Message);
             }
-
         }
     }
 }

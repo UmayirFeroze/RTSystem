@@ -12,7 +12,7 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="navbar">
-        <NavLink to="/home">Home</NavLink>
+        <NavLink to="/home/">Home</NavLink>
         <NavLink to="/profile">Profile</NavLink>
         <NavLink to="/transactions">Transactions</NavLink>
         <NavLink to="/mybids">My Bids</NavLink>

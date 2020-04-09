@@ -34,6 +34,12 @@ select {
   font-size: 17px;
 }
 
+.loginComponent p {
+  color: red;
+  padding: 0 0 0 0px;
+  margin: 1px 0 2px 0;
+}
+
 .loginComponent button {
   background-color: #1682db;
   color: white;

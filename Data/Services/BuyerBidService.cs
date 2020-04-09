@@ -7,31 +7,57 @@ namespace RTSystem.Data
 {
     public class BuyerBidService : IBuyerBidService
     {
-        readonly RTSystemContext _RTSystemContext;
+        readonly RTSystemsContext _RTSystemContext;
 
-        public BuyerBidService(RTSystemContext systemContext)
+        public BuyerBidService(RTSystemsContext systemContext)
         {
             _RTSystemContext = systemContext;
         }
-        public IEnumerable<BuyerBid> GetAllBuyerBids()
+        public IEnumerable<BuyerBids> GetAllBuyerBids()
         {
-            return _RTSystemContext.BuyerBid.ToList();
+            return _RTSystemContext.BuyerBids.ToList();
         }
 
-        public BuyerBid GetBuyerBidById(int buyerBidId)
+        public BuyerBids GetBuyerBidById(int buyerBidId)
         {
-            var BuyerBidExists = _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
+            var BuyerBidExists = _RTSystemContext.BuyerBids.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (BuyerBidExists == null)
             {
                 throw new Exception("Bid Not Found");
             }
             else
             {
-                return _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
+                return _RTSystemContext.BuyerBids.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             }
         }
 
-        public void CreateBuyerBid(BuyerBid buyerBid)
+        public IEnumerable<BuyerBids> GetBuyerBidByUserId(int userId)
+        {
+            var BuyerBidExists = _RTSystemContext.BuyerBids.FirstOrDefault(n => n.UserId == userId);
+            if (BuyerBidExists == null)
+            {
+                throw new Exception("No Bids Found");
+            }
+            else
+            {
+                return _RTSystemContext.BuyerBids.Where(n => n.UserId == userId).ToList();
+            }
+        }
+
+        public IEnumerable<BuyerBids> GetBuyerBidNotByUserId(int userId)
+        {
+            var UserExists = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
+            if (UserExists == null)
+            {
+                throw new Exception("User does not exist");
+            }
+            else
+            {
+                return _RTSystemContext.BuyerBids.Where(n => n.UserId != userId).ToList();
+            }
+        }
+
+        public void CreateBuyerBid(BuyerBids buyerBid)
         {
 
             if (buyerBid.Quality == null || buyerBid.PaymentIn == null)
@@ -40,14 +66,14 @@ namespace RTSystem.Data
             }
             else
             {
-                _RTSystemContext.BuyerBid.Add(buyerBid);
+                _RTSystemContext.BuyerBids.Add(buyerBid);
                 _RTSystemContext.SaveChanges();
             }
         }
 
-        public void UpdateBuyerBid(int buyerBidId, BuyerBid buyerBid)
+        public void UpdateBuyerBid(int buyerBidId, BuyerBids buyerBid)
         {
-            var buyerBidExists = _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
+            var buyerBidExists = _RTSystemContext.BuyerBids.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (buyerBidExists != null)
             {
                 // buyerBidExists.buyerBidId = buyerBid.buyerBidId;
@@ -67,14 +93,14 @@ namespace RTSystem.Data
 
         public void DeleteBuyerBid(int buyerBidId)
         {
-            var buyerBidExists = _RTSystemContext.BuyerBid.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
+            var buyerBidExists = _RTSystemContext.BuyerBids.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (buyerBidExists == null)
             {
                 throw new Exception("Bid Not Found");
             }
             else
             {
-                _RTSystemContext.BuyerBid.Remove(buyerBidExists);
+                _RTSystemContext.BuyerBids.Remove(buyerBidExists);
                 _RTSystemContext.SaveChanges();
             }
         }

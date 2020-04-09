@@ -4,28 +4,10 @@ import BuyerCreateBid from "../components/BuyerCreateBid";
 import YourProfile from "../components/YourProfile";
 import BuyerBids from "../components/BuyerBids";
 import Header from "../components/Header";
-
+import { connect } from "react-redux";
 import "../styles/Home.css";
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentUser: {},
-      loading: false
-    };
-  }
-
-  componentDidMount() {
-    let user = localStorage.getItem("user");
-    this.setState({
-      loading: false,
-      currentUser: localStorage.getItem("user")
-    });
-    console.log("Loaded Data: ", user);
-  }
-
+export class Home extends Component {
   render() {
     return (
       <div>
@@ -48,8 +30,10 @@ export default class Home extends Component {
   }
 }
 
-// const mapStateToProps = ({ authUser }) => ({
-//   authUser
-// });
+// Must clean code below
 
-// export default connect(mapStateToProps)(Home);
+const mapStateToProps = ({ authUser }) => ({
+  authUser,
+});
+
+export default connect(mapStateToProps)(Home);

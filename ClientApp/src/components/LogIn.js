@@ -1,10 +1,8 @@
 // The login Page
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logoutUser } from "../actions/userAction";
 import "./../styles/LogIn.css";
-
-import { loginUser } from "../actions/authAction";
+import { loginUser, logoutUser } from "../actions/authAction";
 
 export class LogIn extends Component {
   constructor(props) {
@@ -16,8 +14,8 @@ export class LogIn extends Component {
     this.state = {
       user: {
         email: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   }
 
@@ -32,14 +30,14 @@ export class LogIn extends Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     let { user } = this.state;
     this.setState({
-      user: { ...user, [event.target.name]: event.target.value }
+      user: { ...user, [event.target.name]: event.target.value },
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state.user); // to be cleaned
     this.props.loginUser(this.state.user);
@@ -58,7 +56,6 @@ export class LogIn extends Component {
             onChange={this.handleChange}
             required
           />
-
           <input
             type="password"
             name="password"
@@ -67,6 +64,9 @@ export class LogIn extends Component {
             onChange={this.handleChange}
             required
           />
+          {this.props.authUser.error ? (
+            <p>Incorrect Email or Password</p>
+          ) : null}
           <button>Sign In</button>
           <a href="/register">No Account?</a>
         </form>
@@ -76,7 +76,12 @@ export class LogIn extends Component {
 }
 
 const mapStateToProps = ({ authUser }) => ({
-  authUser
+  authUser,
 });
 
-export default connect(mapStateToProps, { loginUser, logoutUser })(LogIn);
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser: (user) => dispatch(logoutUser()),
+  loginUser: (user) => dispatch(loginUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

@@ -32,7 +32,7 @@ namespace RTSystem.Controllers
             try
             {
                 var user = _service.Authenticate(model);
-                
+
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
@@ -78,6 +78,7 @@ namespace RTSystem.Controllers
         }
 
         [HttpGet("GetUsers/{userId}")]
+        [AllowAnonymous]
         public IActionResult GetUser(int userId)
         {
             try
@@ -92,15 +93,16 @@ namespace RTSystem.Controllers
         }
 
         [HttpPost("RegisterUser")]
-        public IActionResult RegisterUser([FromBody]User user)
+        [AllowAnonymous]
+        public IActionResult RegisterUser([FromBody]Users user)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest();
+                    return BadRequest("Please Enter Valid Data");
                 }
-                
+
                 _service.RegisterUser(user);
                 return Ok(user);
             }
@@ -111,7 +113,8 @@ namespace RTSystem.Controllers
         }
 
         [HttpPut("UpdateUser/{userId}")]
-        public IActionResult UpdateUser(int userId, [FromBody]User user)
+
+        public IActionResult UpdateUser(int userId, [FromBody]Users user)
         {
             try
             {
@@ -129,7 +132,7 @@ namespace RTSystem.Controllers
             }
 
         }
-
+        [AllowAnonymous]
         [HttpDelete("DeleteUser/{userId}")]
         public IActionResult DeleteUser(int userId)
         {

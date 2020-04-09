@@ -1,30 +1,29 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RTSystem.Data
 {
-    public class Users
+    public partial class Users
     {
-        [Required] public int userId { get; set; }
+        public Users()
+        {
+            BuyerBids = new HashSet<BuyerBids>();
+            SellerBids = new HashSet<SellerBids>();
+        }
 
-        [Required] public string firstName { get; set; }
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string BusinessName { get; set; }
+        public string BusinessDescription { get; set; }
+        public string BusinessPhone { get; set; }
+        public string BusinessAddress { get; set; }
+        public string BusinessType { get; set; }
 
-        [Required] public string lastName { get; set; }
-
-        [Required] public string phone { get; set; }
-
-        [Required] [EmailAddress] public string email { get; set; }
-
-        [Required] public string password { get; set; }
-
-        [Required] public string businessName { get; set; }
-
-        public string businessDescription { get; set; }
-
-        public string businessPhone { get; set; }
-
-        [Required] public string businessAddress { get; set; }
-
-        [Required] public string businessType { get; set; }
-
+        public virtual ICollection<BuyerBids> BuyerBids { get; set; }
+        public virtual ICollection<SellerBids> SellerBids { get; set; }
     }
 }

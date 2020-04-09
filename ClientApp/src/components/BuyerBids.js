@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { getAllBids } from "../actions/BuyerBidActions";
+import { getBuyerBidsNotByUserId } from "../actions/BuyerBidActions";
 import "../reducers/buyerBidReducer";
 
 // import axios from "axios";
@@ -16,12 +16,12 @@ export class BuyerBids extends Component {
       postedBuyerBids: [],
       loading: true,
       failed: false,
-      error: ""
+      error: "",
     };
   }
 
   componentDidMount() {
-    this.props.getAllBids();
+    this.props.getBuyerBidsNotByUserId();
   }
 
   componentDidUpdate(prevProps) {
@@ -30,11 +30,11 @@ export class BuyerBids extends Component {
     }
   }
 
-  renderAllPostedBuyerBids = postedBuyerBids => {
+  renderAllPostedBuyerBids = (postedBuyerBids) => {
     return (
       <div>
         {/* If condition comes here to accomodate negotiated seller bids and buyer posted bids */}
-        {postedBuyerBids.map(buyerBid => (
+        {postedBuyerBids.map((buyerBid) => (
           <div key={buyerBid.buyerBidId} className="buyerBid">
             <p>
               Quality: {buyerBid.quality} Quantity: {buyerBid.quantity} Price:{" "}
@@ -56,7 +56,7 @@ export class BuyerBids extends Component {
     ) : this.state.failed ? (
       <p>{this.state.error}</p>
     ) : (
-      this.state.postedBuyerBids.length &&
+      this.state.postedBuyerBids.length > 0 &&
       this.renderAllPostedBuyerBids(this.state.postedBuyerBids)
     );
     return (
@@ -70,7 +70,7 @@ export class BuyerBids extends Component {
 }
 
 const mapStateToProps = ({ buyerBids }) => ({
-  buyerBids
+  buyerBids,
 });
 
-export default connect(mapStateToProps, { getAllBids })(BuyerBids);
+export default connect(mapStateToProps, { getBuyerBidsNotByUserId })(BuyerBids);

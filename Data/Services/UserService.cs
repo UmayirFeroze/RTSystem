@@ -9,15 +9,15 @@ namespace RTSystem.Data
 {
     public class UserService : IUserService
     {
-        readonly RTSystemContext _RTSystemContext;
+        readonly RTSystemsContext _RTSystemContext;
 
-        public UserService(RTSystemContext systemContext)
+        public UserService(RTSystemsContext systemContext)
         {
             _RTSystemContext = systemContext;
         }
-        public User Authenticate(AuthenticateModel user)
+        public Users Authenticate(AuthenticateModel user)
         {
-            var userExists = _RTSystemContext.User
+            var userExists = _RTSystemContext.Users
                 .SingleOrDefault(u => u.Email == user.email && u.Password == user.password);
 
             if (userExists == null)
@@ -28,19 +28,17 @@ namespace RTSystem.Data
             return userExists;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<Users> GetAllUsers()
         {
-            return _RTSystemContext.User.ToList();
+            return _RTSystemContext.Users.ToList();
         }
 
-        public User GetUserById(int userId)
+        public Users GetUserById(int userId)
         {
-            var userExists = _RTSystemContext.User
-                .SingleOrDefault(u => u.UserId == userId);
-
+            var userExists = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
             if (userExists == null)
             {
-                throw new Exception("User not found");
+                throw new Exception("User not Found");
             }
             else
             {
@@ -48,27 +46,32 @@ namespace RTSystem.Data
             }
         }
 
-        public void RegisterUser(User user)
+        public void RegisterUser(Users user)
         {
-            if (_RTSystemContext.User.SingleOrDefault(u => u.Email == user.Email) != null)
+
+            if (user.FirstName == null || user.LastName == null || user.Phone == null || user.Email == null || user.Password == null || user.BusinessName == null || user.BusinessPhone == null || user.BusinessAddress == null || user.BusinessType == null)
+            {
+                throw new Exception("All Data is Required");
+            }
+            if ((_RTSystemContext.Users.SingleOrDefault(u => u.Email == user.Email) != null))
             {
                 throw new Exception("This User Already Exists");
             }
-            else if (_RTSystemContext.User.SingleOrDefault(u => u.BusinessName == user.BusinessName) != null)
+            else if (_RTSystemContext.Users.SingleOrDefault(u => u.BusinessName == user.BusinessName) != null)
             {
                 throw new Exception("This Business is Already Registered");
             }
             else
             {
-                _RTSystemContext.User.Add(user);
+                _RTSystemContext.Users.Add(user);
                 _RTSystemContext.SaveChanges();
             }
         }
 
-        public void UpdateUser(int userId, User user)
+        public void UpdateUser(int userId, Users user)
         {
-            var userToUpdate = _RTSystemContext.User
-                .Single(u => u.UserId == userId);
+            var userToUpdate = _RTSystemContext.Users
+                .FirstOrDefault(u => u.UserId == userId);
 
             if (userToUpdate == null)
             {
@@ -77,11 +80,11 @@ namespace RTSystem.Data
 
             if (!string.IsNullOrWhiteSpace(user.FirstName))
             {
-                userToUpdate.FirstName = user.FirstName; 
+                userToUpdate.FirstName = user.FirstName;
             }
             if (!string.IsNullOrWhiteSpace(user.LastName))
             {
-                userToUpdate.LastName = user.LastName; 
+                userToUpdate.LastName = user.LastName;
             }
             if (!string.IsNullOrWhiteSpace(user.Phone))
             {
@@ -89,7 +92,7 @@ namespace RTSystem.Data
             }
             if (!string.IsNullOrWhiteSpace(user.Email) && user.Email != userToUpdate.Email)
             {
-                if (_RTSystemContext.User.Any(u => u.Email == user.Email))
+                if (_RTSystemContext.Users.Any(u => u.Email == user.Email))
                 {
                     throw new Exception("Email is already registered");
                 }
@@ -102,7 +105,7 @@ namespace RTSystem.Data
             }
             if (!string.IsNullOrWhiteSpace(user.BusinessName) && user.BusinessName != userToUpdate.BusinessName)
             {
-                if (_RTSystemContext.User.Any(u => u.BusinessName == user.BusinessName))
+                if (_RTSystemContext.Users.Any(u => u.BusinessName == user.BusinessName))
                 {
                     throw new Exception("Business Name is already registered");
                 }
@@ -130,8 +133,7 @@ namespace RTSystem.Data
         }
         public void DeleteUser(int userId)
         {
-            var userToDelete = _RTSystemContext.User
-                .Single(u => u.UserId == userId);
+            var userToDelete = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
 
             if (userToDelete == null)
             {

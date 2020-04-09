@@ -1,7 +1,7 @@
 // The register user screen
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { resgisterUser } from "../actions/userAction";
+import { resgisterUser } from "../actions/authAction";
 import "../styles/Register.css";
 import Header from "../components/Header";
 
@@ -23,8 +23,8 @@ export class Register extends Component {
         businessDescription: "",
         businessPhone: "",
         businessAddress: "",
-        businessType: ""
-      }
+        businessType: "",
+      },
     };
   }
 
@@ -32,17 +32,18 @@ export class Register extends Component {
     console.log(this.state); // to be cleaned
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     let { user } = this.state;
     this.setState({
-      user: { ...user, [event.target.name]: event.target.value }
+      user: { ...user, [event.target.name]: event.target.value },
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { user } = this.state;
     this.props.resgisterUser(user);
+    console.log(this.state.user); //tbc
   };
 
   render() {
@@ -170,7 +171,7 @@ export class Register extends Component {
     );
   }
 }
-const mapStateToProps = ({ state }) => ({
-  state
+const mapStateToProps = ({ authUser }) => ({
+  authUser,
 });
 export default connect(mapStateToProps, { resgisterUser })(Register);

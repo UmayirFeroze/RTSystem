@@ -28,15 +28,12 @@ namespace RTSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RTSystemContext>(opts => opts.UseSqlServer(_configuration["ConnectionString:RTSystemDB"]));
+            services.AddDbContext<RTSystemsContext>(opts => opts.UseSqlServer(_configuration["ConnectionString:RTSystemDB"]));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBuyerBidService, BuyerBidService>();
 
             services.AddCors();
             services.AddControllersWithViews();
-
-            // services.AddAuthentication("BasicAuthentication")
-            //     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

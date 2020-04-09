@@ -4,10 +4,12 @@ namespace RTSystem.Data
 {
     public interface IBuyerBidService
     {
-        IEnumerable<BuyerBid> GetAllBuyerBids();
-        BuyerBid GetBuyerBidById(int buyerBidId);
-        void CreateBuyerBid(BuyerBid buyerBid);
-        void UpdateBuyerBid(int buyerBidId, BuyerBid buyerbid);
+        IEnumerable<BuyerBids> GetAllBuyerBids();
+        BuyerBids GetBuyerBidById(int buyerBidId);
+        IEnumerable<BuyerBids> GetBuyerBidByUserId(int userId);
+        IEnumerable<BuyerBids> GetBuyerBidNotByUserId(int userId);
+        void CreateBuyerBid(BuyerBids buyerBid);
+        void UpdateBuyerBid(int buyerBidId, BuyerBids buyerbid);
         void DeleteBuyerBid(int buyerBidId);
     }
 }

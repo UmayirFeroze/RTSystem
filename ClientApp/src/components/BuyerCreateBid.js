@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createBid } from "../actions/BuyerBidActions";
+
 import "./../styles/CreateBid.css";
 
 export class BuyerCreateBid extends Component {
@@ -12,39 +13,47 @@ export class BuyerCreateBid extends Component {
 
     this.state = {
       buyerBid: {
+        userId: 0,
         quality: "",
         quantity: 0,
         price: 0,
         paymentIn: "",
-        status: ""
-      }
+        status: "",
+      },
+      user: 0,
     };
   }
 
   componentDidMount() {
-    console.log(this.state.buyerBid); // to be cleaned
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.setState({ user: user.userId });
   }
 
-  setBidState = event => {
+  setBidState = (event, user) => {
     let { buyerBid } = this.state;
     this.setState({
       buyerBid: {
         ...buyerBid,
+        userId: this.state.user,
         [event.target.name]:
           event.target.type === "number" && event.target.value >= 0
             ? parseFloat(event.target.value)
             : event.target.value,
-        status: "open"
-      }
+        status: "open",
+      },
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state.buyerBid); //to be cleaned
     const { buyerBid } = this.state;
     this.props.createBid(buyerBid);
   };
+
+  printFinal() {
+    console.log(this.props.buyerBid);
+  }
 
   render() {
     return (
@@ -109,8 +118,8 @@ export class BuyerCreateBid extends Component {
   }
 }
 
-const mapStateToProps = ({ state }) => ({
-  state
+const mapStateToProps = ({ buyerBid }) => ({
+  buyerBid,
 });
 
 export default connect(mapStateToProps, { createBid })(BuyerCreateBid);

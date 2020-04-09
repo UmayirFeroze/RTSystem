@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace RTSystem.Data
 {
-    public partial class SellerBid
+    public partial class SellerBids
     {
-        public SellerBid()
+        public SellerBids()
         {
-            Order = new HashSet<Order>();
+            Orders = new HashSet<Orders>();
         }
 
         public int SellerBidId { get; set; }
@@ -20,8 +20,8 @@ namespace RTSystem.Data
         public string Status { get; set; }
         public int ValidityPeriod { get; set; }
 
-        public virtual BuyerBid BuyerBid { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual BuyerBids BuyerBid { get; set; }
+        public virtual Users User { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }
