@@ -7,9 +7,9 @@ namespace RTSystem.Data
 {
     public class BuyerBidService : IBuyerBidService
     {
-        readonly RTSystemContext _RTSystemContext;
+        readonly RTSystemsContext _RTSystemContext;
 
-        public BuyerBidService(RTSystemContext systemContext)
+        public BuyerBidService(RTSystemsContext systemContext)
         {
             _RTSystemContext = systemContext;
         }

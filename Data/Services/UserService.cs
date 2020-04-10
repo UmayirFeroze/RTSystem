@@ -9,9 +9,9 @@ namespace RTSystem.Data
 {
     public class UserService : IUserService
     {
-        readonly RTSystemContext _RTSystemContext;
+        readonly RTSystemsContext _RTSystemContext;
 
-        public UserService(RTSystemContext systemContext)
+        public UserService(RTSystemsContext systemContext)
         {
             _RTSystemContext = systemContext;
         }

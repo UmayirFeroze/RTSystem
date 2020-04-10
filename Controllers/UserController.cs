@@ -62,7 +62,6 @@ namespace RTSystem.Controllers
 
         }
 
-        [AllowAnonymous]
         [HttpGet("GetUsers")]
         public IActionResult GetAllUsers()
         {
@@ -91,6 +90,7 @@ namespace RTSystem.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("RegisterUser")]
         public IActionResult RegisterUser([FromBody]User user)
         {

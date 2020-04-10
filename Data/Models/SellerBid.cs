@@ -19,6 +19,7 @@ namespace RTSystem.Data
         public double? BestPrice { get; set; }
         public string Status { get; set; }
         public int ValidityPeriod { get; set; }
+        public DateTime? TimeStamp { get; set; }
 
         public virtual BuyerBid BuyerBid { get; set; }
         public virtual User User { get; set; }

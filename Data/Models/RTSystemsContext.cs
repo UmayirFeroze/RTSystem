@@ -1,18 +1,21 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace RTSystem.Data
 {
-    public partial class RTSystemContext : DbContext
+    public partial class RTSystemsContext : DbContext
     {
-        public RTSystemContext()
+        private readonly IConfiguration _configuration;
+        public RTSystemsContext()
         {
         }
 
-        public RTSystemContext(DbContextOptions<RTSystemContext> options)
+        public RTSystemsContext(DbContextOptions<RTSystemsContext> options, IConfiguration configuration)
             : base(options)
         {
+            _configuration = configuration;
         }
 
         public virtual DbSet<BuyerBid> BuyerBid { get; set; }
@@ -24,7 +27,8 @@ namespace RTSystem.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-4BPN7Q5;Database=RTSystem;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("RTSystemDB")); 
+                                        // ("Server=DESKTOP-4BPN7Q5;Database=RTSystems;Trusted_Connection=True;");
             }
         }
 
@@ -37,7 +41,7 @@ namespace RTSystem.Data
                 entity.Property(e => e.PaymentIn)
                     .IsRequired()
                     .HasColumnName("paymentIn")
-                    .HasMaxLength(10)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Price).HasColumnName("price");
@@ -45,7 +49,7 @@ namespace RTSystem.Data
                 entity.Property(e => e.Quality)
                     .IsRequired()
                     .HasColumnName("quality")
-                    .HasMaxLength(5)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
@@ -61,7 +65,7 @@ namespace RTSystem.Data
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.BuyerBid)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__BuyerBid__userId__267ABA7A");
+                    .HasConstraintName("FK__BuyerBid__userId__286302EC");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -75,12 +79,12 @@ namespace RTSystem.Data
                 entity.HasOne(d => d.BuyerBid)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.BuyerBidId)
-                    .HasConstraintName("FK__Order__buyerBidI__2F10007B");
+                    .HasConstraintName("FK__Order__buyerBidI__31EC6D26");
 
                 entity.HasOne(d => d.SellerBid)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.SellerBidId)
-                    .HasConstraintName("FK__Order__sellerBid__300424B4");
+                    .HasConstraintName("FK__Order__sellerBid__32E0915F");
             });
 
             modelBuilder.Entity<SellerBid>(entity =>
@@ -105,6 +109,11 @@ namespace RTSystem.Data
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.Property(e => e.TimeStamp)
+                    .HasColumnName("timeStamp")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
                 entity.Property(e => e.ValidityPeriod).HasColumnName("validityPeriod");
@@ -112,16 +121,24 @@ namespace RTSystem.Data
                 entity.HasOne(d => d.BuyerBid)
                     .WithMany(p => p.SellerBid)
                     .HasForeignKey(d => d.BuyerBidId)
-                    .HasConstraintName("FK__SellerBid__buyer__2B3F6F97");
+                    .HasConstraintName("FK__SellerBid__buyer__2D27B809");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.SellerBid)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__SellerBid__userI__2A4B4B5E");
+                    .HasConstraintName("FK__SellerBid__userI__2C3393D0");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.HasIndex(e => e.BusinessName)
+                    .HasName("UQ__User__4B0B5668472A05BB")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Email)
+                    .HasName("UQ__User__AB6E6164EC50B416")
+                    .IsUnique();
+
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
                 entity.Property(e => e.BusinessAddress)
@@ -132,6 +149,8 @@ namespace RTSystem.Data
                 entity.Property(e => e.BusinessDescription)
                     .HasColumnName("businessDescription")
                     .IsUnicode(false);
+
+                entity.Property(e => e.BusinessImage).HasColumnName("businessImage");
 
                 entity.Property(e => e.BusinessName)
                     .IsRequired()
@@ -179,6 +198,8 @@ namespace RTSystem.Data
                     .HasColumnName("phone")
                     .HasMaxLength(10)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UserImage).HasColumnName("userImage");
             });
 
             OnModelCreatingPartial(modelBuilder);

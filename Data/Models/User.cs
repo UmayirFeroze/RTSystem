@@ -22,6 +22,8 @@ namespace RTSystem.Data
         public string BusinessPhone { get; set; }
         public string BusinessAddress { get; set; }
         public string BusinessType { get; set; }
+        public byte[] UserImage { get; set; }
+        public byte[] BusinessImage { get; set; }
 
         public virtual ICollection<BuyerBid> BuyerBid { get; set; }
         public virtual ICollection<SellerBid> SellerBid { get; set; }
