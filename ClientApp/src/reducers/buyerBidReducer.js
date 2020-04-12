@@ -1,17 +1,4 @@
-import {
-  BUYER_GET_ALL_BID_REQUEST,
-  BUYER_GET_ALL_BID_SUCCESS,
-  BUYER_GET_ALL_BID_FAILURE,
-  BUYER_CREATE_BID_REQUEST,
-  BUYER_CREATE_BID_SUCCESS,
-  BUYER_CREATE_BID_FAILURE,
-  BUYER_BIDS_BY_USER_REQUEST,
-  BUYER_BIDS_BY_USER_SUCCESS,
-  BUYER_BIDS_BY_USER_FAILURE,
-  BUYER_BIDS_POSTED_REQUEST,
-  BUYER_BIDS_POSTED_SUCCESS,
-  BUYER_BIDS_POSTED_FAILURE,
-} from "../actions/BuyerBidActions";
+import { bidConstants } from "../constants/bidConstants";
 
 const INITIAL_STATE = {
   loading: false,
@@ -22,18 +9,11 @@ const INITIAL_STATE = {
 
 const buyerBidReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case BUYER_CREATE_BID_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-    case BUYER_CREATE_BID_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-      };
-    case BUYER_CREATE_BID_FAILURE:
+    case bidConstants.BUYER_GET_ALL_BID_REQUEST: // Get all buyer bids
+      return { ...state, loading: true, hasError: false };
+    case bidConstants.BUYER_GET_ALL_BID_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case bidConstants.BUYER_GET_ALL_BID_FAILURE:
       return {
         ...state,
         loading: false,
@@ -41,57 +21,47 @@ const buyerBidReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
 
-    case BUYER_GET_ALL_BID_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        hasError: false,
-      };
-    case BUYER_GET_ALL_BID_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-      };
-    case BUYER_GET_ALL_BID_FAILURE:
+    case bidConstants.BUYER_BID_BY_ID_REQUEST: // Get Buyer Bid By BuyerBidId
+      return { ...state, loading: true, hasError: false };
+    case bidConstants.BUYER_BID_BY_ID_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case bidConstants.BUYER_BID_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,
         hasError: true,
         error: action.payload,
       };
-    case BUYER_BIDS_BY_USER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        hasError: false,
-      };
-    case BUYER_BIDS_BY_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-      };
-    case BUYER_BIDS_BY_USER_FAILURE:
+
+    case bidConstants.BUYER_CREATE_BID_REQUEST: // Create buyer Bid
+      return { ...state, loading: true };
+    case bidConstants.BUYER_CREATE_BID_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case bidConstants.BUYER_CREATE_BID_FAILURE:
       return {
         ...state,
         loading: false,
         hasError: true,
         error: action.payload,
       };
-    case BUYER_BIDS_POSTED_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        hasError: false,
-      };
-    case BUYER_BIDS_POSTED_SUCCESS:
+
+    case bidConstants.BUYER_BIDS_BY_USER_REQUEST: // Get buyer bids by user Id
+      return { ...state, loading: true, hasError: false };
+    case bidConstants.BUYER_BIDS_BY_USER_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case bidConstants.BUYER_BIDS_BY_USER_FAILURE:
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        hasError: true,
+        error: action.payload,
       };
-    case BUYER_BIDS_POSTED_FAILURE:
+
+    case bidConstants.BUYER_BIDS_POSTED_REQUEST: // Get Buyer Bids posted by other users
+      return { ...state, loading: true, hasError: false };
+    case bidConstants.BUYER_BIDS_POSTED_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case bidConstants.BUYER_BIDS_POSTED_FAILURE:
       return {
         ...state,
         loading: false,

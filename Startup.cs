@@ -31,6 +31,7 @@ namespace RTSystem
             services.AddDbContext<RTSystemsContext>(opts => opts.UseSqlServer(_configuration["ConnectionString:RTSystemDB"]));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBuyerBidService, BuyerBidService>();
+            services.AddScoped<ISellerBidService, SellerBidService>();
 
             services.AddCors();
             services.AddControllersWithViews();

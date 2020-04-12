@@ -21,6 +21,27 @@ export const getAllUsers = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch(getAllUsersFailure("Error: Failed to get all partners!"));
-      return Promise.reject({});
+    });
+};
+
+// Get user by userId
+const getUserByIdSuccess = (payload) => ({
+  type: userConstants.GET_USER_BY_ID_SUCCESS,
+  payload,
+});
+const getUserByIdFailure = (payload) => ({
+  type: userConstants.GET_USER_BY_ID_FAILURE,
+  payload,
+});
+export const getUserByUserId = (userId) => (dispatch) => {
+  dispatch({ type: userConstants.GET_USER_BY_ID_REQUEST });
+  return axios
+    .get(`api/user/GetUsers/${userId}`)
+    .then((res) => {
+      const response = res.data;
+      dispatch(getUserByIdSuccess(response));
+    })
+    .catch((error) => {
+      dispatch(getUserByIdFailure(error));
     });
 };

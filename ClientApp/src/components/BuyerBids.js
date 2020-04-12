@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
 import { getBuyerBidsNotByUserId } from "../actions/BuyerBidActions";
 import "../reducers/buyerBidReducer";
 
-// import axios from "axios";
-
 import "./../styles/BuyerBids.css";
+import IndividualBuyerBid from "./IndividualBuyerBid";
 
 export class BuyerBids extends Component {
   constructor(props) {
@@ -17,6 +15,7 @@ export class BuyerBids extends Component {
       loading: true,
       failed: false,
       error: "",
+      user: [],
     };
   }
 
@@ -35,16 +34,7 @@ export class BuyerBids extends Component {
       <div>
         {/* If condition comes here to accomodate negotiated seller bids and buyer posted bids */}
         {postedBuyerBids.map((buyerBid) => (
-          <div key={buyerBid.buyerBidId} className="buyerBid">
-            <p>
-              Quality: {buyerBid.quality} Quantity: {buyerBid.quantity} Price:{" "}
-              {buyerBid.price}
-            </p>
-            <p>
-              Payment In: {buyerBid.paymentIn} Status: {buyerBid.status}
-            </p>
-            <button>Make Bid</button>
-          </div>
+          <IndividualBuyerBid buyerBid={buyerBid} key={buyerBid.buyerBidId} />
         ))}
       </div>
     );
@@ -69,8 +59,9 @@ export class BuyerBids extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBids }) => ({
+const mapStateToProps = ({ buyerBids, users }) => ({
   buyerBids,
+  users,
 });
 
 export default connect(mapStateToProps, { getBuyerBidsNotByUserId })(BuyerBids);

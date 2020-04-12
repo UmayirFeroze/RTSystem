@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace RTSystem.Data
 {
     public class BuyerBidService : IBuyerBidService

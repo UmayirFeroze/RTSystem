@@ -5,26 +5,27 @@ const INITIAL_STATE = {
   hasError: false,
   error: null,
   data: [],
-  loggedIn: false,
-  registered: false,
-  currentUser: {},
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // Get All Users
-    case userConstants.GET_ALL_USERS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
+    case userConstants.GET_ALL_USERS_REQUEST: // Get All Users
+      return { ...state, loading: true };
     case userConstants.GET_ALL_USERS_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case userConstants.GET_ALL_USERS_FAILURE:
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        hasError: true,
+        error: action.payload,
       };
-    case userConstants.GET_ALL_USERS_FAILURE:
+
+    case userConstants.GET_USER_BY_ID_REQUEST: // Get User by Id
+      return { ...state, loading: true, hasError: false };
+    case userConstants.GET_USER_BY_ID_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case userConstants.GET_USER_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,
