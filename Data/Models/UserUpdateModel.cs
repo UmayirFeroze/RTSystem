@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RTSystem.Data
 {
-    public partial class Users
+    public partial class UserUpdateModel
     {
-        public Users()
-        {
-            BuyerBids = new HashSet<BuyerBids>();
-            SellerBids = new HashSet<SellerBids>();
-        }
-
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -22,10 +17,7 @@ namespace RTSystem.Data
         public string BusinessPhone { get; set; }
         public string BusinessAddress { get; set; }
         public string BusinessType { get; set; }
-        public byte[] UserImage { get; set; }
-        public byte[] BusinessImage { get; set; }
-
-        public virtual ICollection<BuyerBids> BuyerBids { get; set; }
-        public virtual ICollection<SellerBids> SellerBids { get; set; }
+        public IFormFile UserImage { get; set; }
+        public IFormFile BusinessImage { get; set; }
     }
 }

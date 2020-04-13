@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 namespace RTSystem.Data
-
 {
     public partial class Orders
     {

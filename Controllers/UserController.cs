@@ -114,7 +114,7 @@ namespace RTSystem.Controllers
 
         [HttpPut("UpdateUser/{userId}")]
 
-        public IActionResult UpdateUser(int userId, [FromBody]Users user)
+        public IActionResult UpdateUser(int userId, [FromForm]UserUpdateModel user)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace RTSystem.Controllers
                 }
 
                 _service.UpdateUser(userId, user);
-                return Ok(user);
+                return Ok(_service.GetUserById(userId));
             }
             catch (Exception updateUserError)
             {
