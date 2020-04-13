@@ -19,6 +19,8 @@ namespace RTSystem.Data
         public string PaymentIn { get; set; }
         public string Status { get; set; }
 
+        public DateTime? TimeStamp { get; set; }
+
         public virtual Users User { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
         public virtual ICollection<SellerBids> SellerBids { get; set; }
