@@ -75,13 +75,11 @@ namespace RTSystem.Data
             var buyerBidExists = _RTSystemContext.BuyerBids.FirstOrDefault(n => n.BuyerBidId == buyerBidId);
             if (buyerBidExists != null)
             {
-                // buyerBidExists.buyerBidId = buyerBid.buyerBidId;
-                // buyerBidExists.userId = buyerBid.userId;
                 if (buyerBid.Quality != null) { buyerBidExists.Quality = buyerBid.Quality; }
                 if (buyerBid.Quantity != 0.00) { buyerBidExists.Quantity = buyerBid.Quantity; }
                 if (buyerBid.Price != 0.00) { buyerBidExists.Price = buyerBid.Price; }
                 if (buyerBid.PaymentIn != null) { buyerBidExists.PaymentIn = buyerBid.PaymentIn; }
-                // buyerBidExists.status = buyerBid.status;
+                if (buyerBid.Status != null) { buyerBidExists.Status = buyerBid.Status; }
                 _RTSystemContext.SaveChanges();
             }
             else

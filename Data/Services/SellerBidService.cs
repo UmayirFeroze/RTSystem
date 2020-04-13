@@ -70,13 +70,15 @@ namespace RTSystem.Data
         public void UpdateSellerBid(int sellerBidId, SellerBids sellerBid)
         {
             var sellerBidExist = _RTSystemContext.SellerBids.FirstOrDefault(s => s.SellerBidId == sellerBidId);
-            if (sellerBidExist == null)
+            if (sellerBidExist != null)
             {
                 if (sellerBid.Price != 00.00) { sellerBidExist.Price = sellerBid.Price; }
                 if (sellerBid.Quantity != 00.00) { sellerBidExist.Quantity = sellerBid.Quantity; }
                 if (sellerBid.DeliveryDate != null) { sellerBidExist.DeliveryDate = sellerBid.DeliveryDate; }
-                if (sellerBid.ValidityPeriod != 00.00) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
-                // to be completed and ammendded
+                if (sellerBid.ValidityPeriod != null) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
+                if (sellerBid.BestPrice != 00.00) { sellerBidExist.BestPrice = sellerBid.BestPrice; }
+                if (sellerBid.Status != null) { sellerBidExist.Status = sellerBid.Status; }
+                _RTSystemContext.SaveChanges();
             }
             else
             {
