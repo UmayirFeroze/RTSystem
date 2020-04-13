@@ -1,18 +1,21 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace RTSystem.Data
 {
     public partial class RTSystemsContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public RTSystemsContext()
         {
         }
 
-        public RTSystemsContext(DbContextOptions<RTSystemsContext> options)
+        public RTSystemsContext(DbContextOptions<RTSystemsContext> options, IConfiguration configuration)
             : base(options)
         {
+            _configuration = configuration;
         }
 
         public virtual DbSet<BuyerBids> BuyerBids { get; set; }
@@ -24,8 +27,8 @@ namespace RTSystem.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-4BPN7Q5;Database=RTSystems;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("RTSystemDB")); 
+                                        // ("Server=DESKTOP-4BPN7Q5;Database=RTSystems;Trusted_Connection=True;");
             }
         }
 
