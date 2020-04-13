@@ -9,7 +9,7 @@ namespace RTSystem.Data
         IEnumerable<User> GetAllUsers();
         User GetUserById(int userId);
         void RegisterUser(User user);
-        void UpdateUser(int userId, User user);
+        void UpdateUser(int userId, UserUpdateModel user);
         void DeleteUser(int userId);
     }
 }

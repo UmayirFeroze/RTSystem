@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -111,17 +112,17 @@ namespace RTSystem.Controllers
         }
 
         [HttpPut("UpdateUser/{userId}")]
-        public IActionResult UpdateUser(int userId, [FromBody]User user)
+        public IActionResult UpdateUser(int userId, [FromForm]UserUpdateModel user)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest();
+                    return BadRequest("Invalid Data Man!");
                 }
-
+                
                 _service.UpdateUser(userId, user);
-                return Ok(user);
+                return Ok(_service.GetUserById(userId));
             }
             catch (Exception updateUserError)
             {

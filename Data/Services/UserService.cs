@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace RTSystem.Data
             }
         }
 
-        public void UpdateUser(int userId, User user)
+        public void UpdateUser(int userId, UserUpdateModel user)
         {
             var userToUpdate = _RTSystemContext.User
                 .Single(u => u.UserId == userId);
@@ -124,6 +125,18 @@ namespace RTSystem.Data
             if (!string.IsNullOrWhiteSpace(user.BusinessType))
             {
                 userToUpdate.BusinessType = user.BusinessType;
+            }
+            if (user.UserImage != null && user.UserImage.Length > 0)
+            {
+                var userImageStream = new MemoryStream();
+                user.UserImage.CopyTo(userImageStream);
+                userToUpdate.UserImage = userImageStream.ToArray();
+            }
+            if (user.BusinessImage != null && user.BusinessImage.Length > 0)
+            {
+                var businessImageStream = new MemoryStream();
+                user.BusinessImage.CopyTo(businessImageStream);
+                userToUpdate.BusinessImage = businessImageStream.ToArray();
             }
 
             _RTSystemContext.SaveChanges();
