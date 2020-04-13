@@ -76,13 +76,9 @@ namespace RTSystem.Data
                 if (sellerBid.Quantity != 00.00) { sellerBidExist.Quantity = sellerBid.Quantity; }
                 if (sellerBid.DeliveryDate != null) { sellerBidExist.DeliveryDate = sellerBid.DeliveryDate; }
                 if (sellerBid.ValidityPeriod != null) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
-<<<<<<< HEAD
                 if (sellerBid.BestPrice != 00.00) { sellerBidExist.BestPrice = sellerBid.BestPrice; }
                 if (sellerBid.Status != null) { sellerBidExist.Status = sellerBid.Status; }
                 _RTSystemContext.SaveChanges();
-=======
-                // to be completed and ammendded
->>>>>>> 0c8b3adccd79fb04487410c7c1f1e9fac10133a5
             }
             else
             {
@@ -103,6 +99,5 @@ namespace RTSystem.Data
                 _RTSystemContext.SaveChanges();
             }
         }
-
     }
 }
