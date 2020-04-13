@@ -75,7 +75,7 @@ namespace RTSystem.Data
                 if (sellerBid.Price != 00.00) { sellerBidExist.Price = sellerBid.Price; }
                 if (sellerBid.Quantity != 00.00) { sellerBidExist.Quantity = sellerBid.Quantity; }
                 if (sellerBid.DeliveryDate != null) { sellerBidExist.DeliveryDate = sellerBid.DeliveryDate; }
-                if (sellerBid.ValidityPeriod != 00.00) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
+                if (sellerBid.ValidityPeriod != null) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
                 // to be completed and ammendded
             }
             else

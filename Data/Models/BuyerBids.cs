@@ -15,7 +15,7 @@ namespace RTSystem.Data
         public int? UserId { get; set; }
         public string Quality { get; set; }
         public double Quantity { get; set; }
-        public double? Price { get; set; }
+        public double Price { get; set; }
         public string PaymentIn { get; set; }
         public string Status { get; set; }
 
