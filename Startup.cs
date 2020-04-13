@@ -28,7 +28,7 @@ namespace RTSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RTSystemsContext>(opts => opts.UseSqlServer(_configuration["ConnectionString:RTSystemDB"]));
+            services.AddDbContext<RTSystemsContext>(opts => opts.UseSqlServer(_configuration.GetConnectionString("RTSystemDB")));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBuyerBidService, BuyerBidService>();
             services.AddScoped<ISellerBidService, SellerBidService>();
