@@ -10,13 +10,13 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import Register from "./screens/Register";
 import Transactions from "./screens/Transactions";
-import MyBids from "./screens/MyBids";
 import UserManual from "./screens/UserManual";
 import OurPartners from "./screens/OurPartners";
 import BuyerBids from "./components/BuyerBids";
 import IndividualBuyerBid from "./components/IndividualBuyerBid";
-// import SellerCreateBid from "./components/SellerCreateBid";
-
+import { SellerCreateBid } from "./components/SellerCreateBid";
+import MyRequests from "./screens/MyRequests";
+import MyQuotations from "./screens/MyQuotations";
 export const history = createBrowserHistory();
 
 const App = () => (
@@ -37,7 +37,12 @@ const App = () => (
         render={(props) => <Register {...props} />}
       />
       <Route exact path="/transactions" component={Transactions} />
-      <Route exact path="/mybids" render={(props) => <MyBids {...props} />} />
+      <Route
+        exact
+        path="/requests"
+        render={(props) => <MyRequests {...props} />}
+      />
+      <Route exact path="/quotations" component={MyQuotations} />
       <Route exact path="/help" component={UserManual} />
       <Route
         exact
@@ -46,18 +51,12 @@ const App = () => (
       />
 
       {/* Navigation Components */}
-      {/* <Route
-        exact
-        path="/sellerbid"
-        component={SellerCreateBid}
-        // render={(props) => <SellerCreateBid {...props} />}
-      /> */}
-
       <Route
         exact
         path="/buyerBid"
         render={(props) => <IndividualBuyerBid {...props} />}
       />
+      <Route exact path="/sellerBid" component={SellerCreateBid} />
     </Switch>
   </BrowserRouter>
 );

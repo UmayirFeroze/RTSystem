@@ -2,9 +2,15 @@ import React, { Component } from "react";
 
 import "../styles/SellerCreateBid.css";
 
-class SellerCreateBid extends Component {
+import { connect } from "react-redux";
+import { CreateSellerBid } from "../actions/SellerBidActions";
+
+export class SellerCreateBid extends Component {
   constructor(props) {
     super(props);
+
+    this.SetBidState = this.SetBidState.bind(this);
+    this.CreateSellerBid = this.CreateSellerBid.bind(this);
 
     this.state = {
       sellerBid: {
@@ -12,33 +18,25 @@ class SellerCreateBid extends Component {
         buyerBidId: 0,
         quantity: 0,
         price: 0,
-        deliveryDate: "",
-        validityPeriod: "",
+        deliveryDate: null,
+        validityPeriod: null,
         status: "",
       },
-      buyerBid: {},
+      buyerBid: [],
       user: [],
       today: "",
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    const { user, buyerBid } = this.props;
+    this.setState({ buyerBid: buyerBid, user: user });
+  }
 
-  componentDidUpdate(prevProps) {}
-
-  getCurrentDate = () => {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = "0" + dd;
+  componentDidUpdate(prevProps) {
+    if (prevProps.sellerBids.data !== this.props.sellerBids.data) {
+      this.setState({ sellerBid: this.props.sellerBids.data });
     }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    today = yyyy + "-" + mm + "-" + dd;
-    this.setState({ today: today });
-  };
+  }
 
   renderBidDetails = (buyerBid) => {
     return (
@@ -56,19 +54,58 @@ class SellerCreateBid extends Component {
     );
   };
 
+  SetBidState = (event) => {
+    let { sellerBid } = this.state;
+    this.setState({
+      sellerBid: {
+        ...sellerBid,
+        userId: this.state.user.userId,
+        buyerBidId: this.state.buyerBid.buyerBidId,
+        [event.target.name]:
+          event.target.type === "number" && event.target.value >= 0
+            ? parseFloat(event.target.value)
+            : event.target.value,
+        status: "pending",
+      },
+    });
+  };
+
+  CreateSellerBid = (event) => {
+    event.preventDefault();
+    this.props.CreateSellerBid(this.state.sellerBid);
+    window.location.reload();
+  };
+
   renderForm = () => {
     return (
-      <form className="form">
+      <form className="form" onSubmit={this.CreateSellerBid}>
         <h3>Quote your Price</h3>
-        <input type="float" name="quantity" placeholder="Quantity" />
-        <input type="float" name="price" placeholder="Price in LKR" />
+        <input
+          type="number"
+          step="any"
+          name="quantity"
+          placeholder="Quantity"
+          onChange={this.SetBidState}
+        />
+        <input
+          type="number"
+          step="any"
+          name="price"
+          placeholder="Price in LKR"
+          onChange={this.SetBidState}
+        />
         <input
           type="date"
           name="validityPeriod"
-          min={this.state.today}
           placeholder="Validity Period"
+          onChange={this.SetBidState}
         />
-        <input type="date" name="deliveryDate" placeholder="Delivery Date" />
+        <input
+          type="date"
+          name="deliveryDate"
+          placeholder="Delivery Date"
+          onChange={this.SetBidState}
+        />
         <button>Submit</button>
       </form>
     );
@@ -79,25 +116,23 @@ class SellerCreateBid extends Component {
     console.log("BuyerBid Details: ", this.state.buyerBid);
 
     return (
-      <div className="sellerBidComponent">
-        <div className="sellerBidComponentHeader">
-          <p>Quote Your Offer</p>
-          <span>&times;</span>
-        </div>
-        <div className="quotation">
-          <h1>{user.businessName}</h1>
-          <p>
-            {user.firstName + " " + user.lastName} | {user.phone} | {user.email}
-          </p>
-          <div className="Details">
-            {this.renderBidDetails(buyerBid)}
-            <div className="vertical"> </div>
-            {this.renderForm()}
-          </div>
+      <div className="quotation">
+        <h1>{user.businessName}</h1>
+        <p>
+          {user.firstName + " " + user.lastName} | {user.phone} | {user.email}
+        </p>
+        <div className="Details">
+          {this.renderBidDetails(buyerBid)}
+          <div className="vertical"> </div>
+          {this.renderForm()}
         </div>
       </div>
     );
   }
 }
 
-export default SellerCreateBid;
+const mapStateToProps = ({ sellerBids }) => ({
+  sellerBids,
+});
+
+export default connect(mapStateToProps, { CreateSellerBid })(SellerCreateBid);

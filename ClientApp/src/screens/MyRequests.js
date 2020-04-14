@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { getBuyerBidsByUserId } from "../actions/BuyerBidActions";
 import { connect } from "react-redux";
 
-class MyBids extends Component {
+class MyRequests extends Component {
   constructor(props) {
     super(props);
 
@@ -68,8 +68,8 @@ class MyBids extends Component {
         <NavBar />
         <h1 style={{ color: "white" }}>My Bids</h1>
         <p style={{ color: "white" }}>
-          All bids posted by seller, and all bids posted by buyer for each
-          seller bid
+          All bids posted by buyer, and all bids posted by buyer for each seller
+          bid
         </p>
         <div
           style={{
@@ -90,4 +90,4 @@ const mapStateToProps = ({ buyerBids }) => ({
   buyerBids,
 });
 
-export default connect(mapStateToProps, { getBuyerBidsByUserId })(MyBids);
+export default connect(mapStateToProps, { getBuyerBidsByUserId })(MyRequests);

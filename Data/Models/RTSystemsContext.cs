@@ -27,8 +27,8 @@ namespace RTSystem.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("RTSystemDB")); 
-                                        // ("Server=DESKTOP-4BPN7Q5;Database=RTSystems;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("RTSystemDB"));
+                // ("Server=DESKTOP-4BPN7Q5;Database=RTSystems;Trusted_Connection=True;");
             }
         }
 
@@ -62,6 +62,11 @@ namespace RTSystem.Data
                     .HasColumnName("status")
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.Property(e => e.TimeStamp)
+                .HasColumnName("timeStamp")
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
