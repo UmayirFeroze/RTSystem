@@ -25,9 +25,14 @@ export class YourProfile extends Component {
 
   render() {
     const { currentUser } = this.state;
+    console.log("Current User: ", currentUser);
+
     return (
       <div className="yourProfile">
-        <img src={require("../Images/logo.jpg")} alt="CompanyLogo" />
+        {currentUser.userImage === null ? (
+          <img src={require("../Images/avatar-profile.png")} alt="UserAvatar" />
+        ) : null}
+
         <div>
           <h2>{currentUser.businessName}</h2>
           <h4>{currentUser.businessDescription}</h4>

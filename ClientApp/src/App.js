@@ -17,6 +17,7 @@ import IndividualBuyerBid from "./components/IndividualBuyerBid";
 import { SellerCreateBid } from "./components/SellerCreateBid";
 import MyRequests from "./screens/MyRequests";
 import MyQuotations from "./screens/MyQuotations";
+import ResetPassword from "./components/ResetPassword";
 export const history = createBrowserHistory();
 
 const App = () => (
@@ -57,6 +58,7 @@ const App = () => (
         render={(props) => <IndividualBuyerBid {...props} />}
       />
       <Route exact path="/sellerBid" component={SellerCreateBid} />
+      <Route exact path="/resetpassword" component={ResetPassword} />
     </Switch>
   </BrowserRouter>
 );

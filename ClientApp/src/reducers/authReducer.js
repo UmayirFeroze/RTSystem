@@ -9,6 +9,9 @@ import {
   USER_BY_ID_REQUEST,
   USER_BY_ID_SUCCESS,
   USER_BY_ID_FAILURE,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
 } from "../actions/authAction";
 
 const INITIAL_STATE = {
@@ -19,13 +22,8 @@ const INITIAL_STATE = {
 };
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // Log In User
-    case LOGIN_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        loggedIn: false,
-      };
+    case LOGIN_REQUEST: // Log In User
+      return { ...state, loading: true, loggedIn: false };
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -33,7 +31,6 @@ const authReducer = (state = INITIAL_STATE, action) => {
         loggedIn: true,
         data: action.payload,
       };
-
     case LOGIN_FAILURE:
       return {
         ...state,
@@ -42,35 +39,18 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
 
-    //Logout User
-    case LOGOUT_USER:
+    case LOGOUT_USER: //Logout User
       return state;
 
-    // Register user
-    case REGISTER_USER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
+    case REGISTER_USER_REQUEST: // Register user
+      return { ...state, loading: true };
     case REGISTER_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: action.payload,
-      };
+      return { ...state, loading: false, data: action.payload };
     case REGISTER_USER_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+      return { ...state, loading: false, error: action.payload };
 
-    // Get Logged In User
-    case USER_BY_ID_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
+    case USER_BY_ID_REQUEST: // Get Logged In User
+      return { ...state, loading: true };
     case USER_BY_ID_SUCCESS:
       return {
         ...state,
@@ -85,6 +65,14 @@ const authReducer = (state = INITIAL_STATE, action) => {
         loggedIn: false,
         error: action.payload,
       };
+
+    case UPDATE_USER_REQUEST: // Update User
+      return { ...state, loading: true };
+    case UPDATE_USER_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case UPDATE_USER_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }

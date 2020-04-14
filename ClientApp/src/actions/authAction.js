@@ -121,6 +121,31 @@ export const getAuthUser = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch(getUserByIdFailure(error.data));
-      Promise.reject({ error });
+    });
+};
+
+// Update User Information
+export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+const UpdateUserSuccess = (payload) => ({
+  type: UPDATE_USER_SUCCESS,
+  payload,
+});
+const UpdateUserFailure = (payload) => ({
+  type: UPDATE_USER_FAILURE,
+  payload,
+});
+export const UpdateUser = (user) => (dispatch) => {
+  const userId = getUserId();
+  dispatch({ type: UPDATE_USER_REQUEST });
+  return axios
+    .put(`api/user/updateUser/${userId}`, user)
+    .then((res) => {
+      const response = res.data;
+      dispatch(UpdateUserSuccess(response));
+    })
+    .catch((error) => {
+      dispatch(UpdateUserFailure(error));
     });
 };

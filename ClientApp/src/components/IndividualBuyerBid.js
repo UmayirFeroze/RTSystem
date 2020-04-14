@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
 
-import { getUserByUserId } from "../actions/userAction";
 import { getAuthUser } from "../actions/authAction";
 import SellerCreateBid from "./SellerCreateBid";
 import { connect } from "react-redux";
@@ -50,7 +49,6 @@ class IndividualBuyerBid extends Component {
           contentStyle={{
             border: "none",
             padding: 0,
-            border: 1,
             borderColor: "white",
             borderStyle: "solid",
           }}
