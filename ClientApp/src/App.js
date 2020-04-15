@@ -60,7 +60,12 @@ const App = () => (
       />
       <Route exact path="/sellerBid" component={SellerCreateBid} />
       <Route exact path="/resetpassword" component={ResetPassword} />
-      <Route exact path="/editUser" component={EditUser} />
+      <Route
+        exact
+        path="/editUser"
+        render={(props) => <EditUser {...props} />}
+        // component={EditUser}
+      />
     </Switch>
   </BrowserRouter>
 );

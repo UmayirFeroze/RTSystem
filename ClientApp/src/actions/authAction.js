@@ -112,15 +112,16 @@ const getUserByIdFailure = (payload) => ({
 export const getAuthUser = () => (dispatch) => {
   dispatch({ type: USER_BY_ID_REQUEST });
   const userId = getUserId();
-  console.log("User Id: ", userId); //tbc
+  // console.log("User Id: ", userId); //tbc
   return axios
     .get(`/api/user/getusers/${userId}`)
     .then((res) => {
-      dispatch(getUserByIdSuccess(res.data));
+      const response = res.data;
+      dispatch(getUserByIdSuccess(response));
       console.log("Successfully Got User: ", res.data);
     })
     .catch((error) => {
-      dispatch(getUserByIdFailure(error.data));
+      dispatch(getUserByIdFailure(error));
     });
 };
 
