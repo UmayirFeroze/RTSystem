@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import NavBar from "../components/Navbar";
 import Header from "../components/Header";
 import Popup from "reactjs-popup";
+
+import ResetPassword from "../components/ResetPassword";
+import EditUser from "../components/EditUser";
+
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
 
 import "../styles/ProfilePage.css";
-import ResetPassword from "../components/ResetPassword";
 
 export class Profile extends Component {
   constructor(props) {
@@ -55,8 +58,14 @@ export class Profile extends Component {
             modal
             trigger={<button>Edit Profile</button>}
             closeOnDocumentClick
+            contentStyle={{
+              border: "none",
+              padding: 0,
+              borderColor: "white",
+              borderStyle: "solid",
+            }}
           >
-            <div>Edit Profile</div>
+            <EditUser user={this.state.currentUser} />
           </Popup>
 
           <Popup
