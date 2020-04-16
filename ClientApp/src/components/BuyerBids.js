@@ -15,7 +15,6 @@ export class BuyerBids extends Component {
       loading: true,
       failed: false,
       error: "",
-      user: [],
     };
   }
 
@@ -59,9 +58,6 @@ export class BuyerBids extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBids, users }) => ({
-  buyerBids,
-  users,
-});
+const mapStateToProps = ({ buyerBids }) => ({ buyerBids });
 
 export default connect(mapStateToProps, { getBuyerBidsNotByUserId })(BuyerBids);

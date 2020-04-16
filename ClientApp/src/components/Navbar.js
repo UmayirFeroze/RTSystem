@@ -15,7 +15,7 @@ class NavBar extends Component {
         <NavLink to="/our-partners">Our Partners</NavLink>
         <NavLink to="/help">User Manual</NavLink>
         <div className="search">
-          <input type="text" placeholder="Search.." />
+          <input type="text" placeholder="Looking for Someone..." />
           <a href="/search">Search</a>
           <NavLink to="/">LogOut</NavLink>
         </div>

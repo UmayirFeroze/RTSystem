@@ -6,9 +6,9 @@ class ResetPassword extends Component {
     super(props);
 
     this.HandleChange = this.HandleChange.bind(this);
+    this.ResetPassword = this.ResetPassword.bind(this);
 
     this.state = {
-      currentUser: {},
       updatedUser: {
         currentPassword: "",
         newPassword: "",
@@ -16,11 +16,6 @@ class ResetPassword extends Component {
       },
       error: "",
     };
-  }
-
-  componentDidMount() {
-    const user = this.props.user;
-    this.setState({ currentUser: user });
   }
 
   HandleChange = (event) => {
@@ -43,9 +38,7 @@ class ResetPassword extends Component {
   };
 
   render() {
-    console.log("Error: ", this.state.error);
-    const errorMessage =
-      this.state.error !== null ? <p>{this.state.error}</p> : null;
+    let errorMessage = this.state.error !== null ? null : null;
 
     return (
       <div className="resetPassword">

@@ -18,6 +18,7 @@ import { SellerCreateBid } from "./components/SellerCreateBid";
 import MyRequests from "./screens/MyRequests";
 import MyQuotations from "./screens/MyQuotations";
 import ResetPassword from "./components/ResetPassword";
+import EditUser from "./components/EditUser";
 export const history = createBrowserHistory();
 
 const App = () => (
@@ -59,6 +60,12 @@ const App = () => (
       />
       <Route exact path="/sellerBid" component={SellerCreateBid} />
       <Route exact path="/resetpassword" component={ResetPassword} />
+      <Route
+        exact
+        path="/editUser"
+        render={(props) => <EditUser {...props} />}
+        // component={EditUser}
+      />
     </Switch>
   </BrowserRouter>
 );

@@ -2,18 +2,27 @@ import React, { Component } from "react";
 import NavBar from "../components/Navbar";
 import Header from "../components/Header";
 import Popup from "reactjs-popup";
+
+import ResetPassword from "../components/ResetPassword";
+import EditUser from "../components/EditUser";
+
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
 
 import "../styles/ProfilePage.css";
-import ResetPassword from "../components/ResetPassword";
 
 export class Profile extends Component {
   constructor(props) {
     super(props);
 
+    this.OpenModal = this.OpenModal.bind(this);
+    this.CloseModal = this.CloseModal.bind(this);
+
     this.state = {
       currentUser: {},
+      showResetPassword: false,
+      showEditUser: false,
+      showDeactivateAccount: false,
     };
   }
 
@@ -27,6 +36,26 @@ export class Profile extends Component {
     }
   }
 
+  OpenModal = (event) => {
+    if (event.target.name === "resetPassword") {
+      this.setState({ showResetPassword: true });
+    }
+    if (event.target.name === "editUser") {
+      this.setState({ showEditUser: true });
+    }
+    if (event.target.name === "deactivateAccount") {
+      this.setState({ showDeactivateAccount: true });
+    }
+  };
+
+  CloseModal = () => {
+    this.setState({
+      showResetPassword: false,
+      showEditUser: false,
+      showDeactivateAccount: false,
+    });
+  };
+
   renderProfile = (currentUser) => {
     return (
       <div className="container">
@@ -35,36 +64,29 @@ export class Profile extends Component {
           <p>{currentUser.firstName + " " + currentUser.lastName}</p>
           <p>{currentUser.phone}</p>
           <p>{currentUser.email}</p>
-          <Popup
-            modal
-            trigger={<button>Change Password</button>}
-            closeDocumentOnClick
-            contentStyle={{
-              border: "none",
-              padding: 0,
-              borderColor: "white",
-              borderStyle: "solid",
-            }}
-          >
+
+          <button name="resetPassword" onClick={this.OpenModal}>
+            Reset Password
+          </button>
+          <button name="editUser" onClick={this.OpenModal}>
+            Edit User
+          </button>
+          <button name="deactivateAccount" onClick={this.OpenModal}>
+            Deactivate Account
+          </button>
+
+          <Popup open={this.state.showResetPassword} onClose={this.CloseModal}>
+            <ResetPassword user={this.state.currentUser} />
+          </Popup>
+
+          <Popup open={this.state.showEditUser} onClose={this.CloseModal}>
+            <EditUser user={this.state.currentUser} />
+          </Popup>
+
+          <Popup>
             <div>
-              <ResetPassword user={this.state.currentUser} />
+              <p>Deactivate Account</p>
             </div>
-          </Popup>
-
-          <Popup
-            modal
-            trigger={<button>Edit Profile</button>}
-            closeOnDocumentClick
-          >
-            <div>Edit Profile</div>
-          </Popup>
-
-          <Popup
-            modal
-            trigger={<button>Disable Account</button>}
-            closeOnDocumentClick
-          >
-            <div>Deactivate Accoutn</div>
           </Popup>
         </div>
         <div className="business">
@@ -109,3 +131,5 @@ const mapStateToProps = ({ authUser }) => ({
 });
 
 export default connect(mapStateToProps, { getAuthUser })(Profile);
+// export default connect(mapStateToProps)(Profile);
+// export default Profile;
