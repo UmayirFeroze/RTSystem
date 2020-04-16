@@ -108,6 +108,10 @@ namespace RTSystem.Data
                 {
                     throw new Exception("Current Password is Incorrect");
                 }
+                if (VerifyPassword(userToUpdate.Password, user.CurrentPassword))
+                {
+                    throw new Exception("Your new password cannot be the same as your current password");
+                }
 
                 var passwordHash = HashPassword(user.NewPassword);
                 userToUpdate.Password = passwordHash;
