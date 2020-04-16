@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RTSystem.Helpers;
@@ -19,9 +20,9 @@ namespace RTSystem.Data
         public Users Authenticate(AuthenticateModel user)
         {
             var userExists = _RTSystemContext.Users
-                .SingleOrDefault(u => u.Email == user.email && u.Password == user.password);
+                .SingleOrDefault(u => u.Email == user.email);
 
-            if (userExists == null)
+            if (userExists == null || !VerifyPassword(userExists.Password, user.password))
             {
                 throw new Exception("Incorrect Email or Password");
             }
@@ -58,15 +59,16 @@ namespace RTSystem.Data
             {
                 throw new Exception("This User Already Exists");
             }
-            else if (_RTSystemContext.Users.SingleOrDefault(u => u.BusinessName == user.BusinessName) != null)
+            if (_RTSystemContext.Users.SingleOrDefault(u => u.BusinessName == user.BusinessName) != null)
             {
                 throw new Exception("This Business is Already Registered");
             }
-            else
-            {
-                _RTSystemContext.Users.Add(user);
-                _RTSystemContext.SaveChanges();
-            }
+            
+            var passwordHash = HashPassword(user.Password);
+            user.Password = passwordHash;
+
+            _RTSystemContext.Users.Add(user);
+            _RTSystemContext.SaveChanges();
         }
 
         public void UpdateUser(int userId, UserUpdateModel user)
@@ -102,12 +104,13 @@ namespace RTSystem.Data
             }
             if (!string.IsNullOrWhiteSpace(user.CurrentPassword) && !string.IsNullOrWhiteSpace(user.NewPassword))
             {
-                if (user.CurrentPassword != userToUpdate.Password)
+                if (!VerifyPassword(userToUpdate.Password, user.CurrentPassword))
                 {
                     throw new Exception("Current Password is Incorrect");
                 }
 
-                userToUpdate.Password = user.NewPassword;
+                var passwordHash = HashPassword(user.NewPassword);
+                userToUpdate.Password = passwordHash;
             }
             if (!string.IsNullOrWhiteSpace(user.BusinessName) && user.BusinessName != userToUpdate.BusinessName)
             {
@@ -160,6 +163,36 @@ namespace RTSystem.Data
 
             _RTSystemContext.Remove(userToDelete);
             _RTSystemContext.SaveChanges();
+        }
+
+        private static string HashPassword(string password)
+        {
+            var algorithm = new Rfc2898DeriveBytes(password, 16, 10000);
+
+            var key = Convert.ToBase64String(algorithm.GetBytes(32));
+            var salt = Convert.ToBase64String(algorithm.Salt);
+
+            return $"{salt}|{key}";
+        }
+
+        private static bool VerifyPassword(string passwordHash, string password)
+        {
+            var parts = passwordHash.Split('|', 2);
+
+            if (parts.Length != 2)
+            {
+                throw new FormatException("Unexpected hash format");
+            }
+
+            var salt = Convert.FromBase64String(parts[0]);
+            var key = Convert.FromBase64String(parts[1]);
+
+            using (var algorithm = new Rfc2898DeriveBytes(password, salt, 10000))
+            {
+                var keyToCheck = algorithm.GetBytes(32);
+
+                return keyToCheck.SequenceEqual(key);
+            }
         }
     }
 }
