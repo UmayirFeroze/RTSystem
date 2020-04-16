@@ -100,12 +100,14 @@ namespace RTSystem.Data
 
                 userToUpdate.Email = user.Email;
             }
-            if (!string.IsNullOrWhiteSpace(user.OldPassword) && !string.IsNullOrWhiteSpace(user.NewPassword))
+            if (!string.IsNullOrWhiteSpace(user.CurrentPassword) && !string.IsNullOrWhiteSpace(user.NewPassword))
             {
-                if (user.OldPassword == userToUpdate.Password)
+                if (user.CurrentPassword != userToUpdate.Password)
                 {
-                    userToUpdate.Password = user.NewPassword;
+                    throw new Exception("Current Password is Incorrect");
                 }
+
+                userToUpdate.Password = user.NewPassword;
             }
             if (!string.IsNullOrWhiteSpace(user.BusinessName) && user.BusinessName != userToUpdate.BusinessName)
             {
