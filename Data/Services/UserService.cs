@@ -100,9 +100,12 @@ namespace RTSystem.Data
 
                 userToUpdate.Email = user.Email;
             }
-            if (!string.IsNullOrWhiteSpace(user.Password))
+            if (!string.IsNullOrWhiteSpace(user.OldPassword) && !string.IsNullOrWhiteSpace(user.NewPassword))
             {
-                userToUpdate.Password = user.Password;
+                if (user.OldPassword == userToUpdate.Password)
+                {
+                    userToUpdate.Password = user.NewPassword;
+                }
             }
             if (!string.IsNullOrWhiteSpace(user.BusinessName) && user.BusinessName != userToUpdate.BusinessName)
             {

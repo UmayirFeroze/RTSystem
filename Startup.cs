@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,9 +33,14 @@ namespace RTSystem
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBuyerBidService, BuyerBidService>();
             services.AddScoped<ISellerBidService, SellerBidService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddCors();
             services.AddControllersWithViews();
+
+            services.AddMvc()
+            .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             var appSettingsSection = _configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
