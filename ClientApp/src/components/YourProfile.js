@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-
+import "../styles/YourProfile.css";
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
-import "../styles/YourProfile.css";
 
 export class YourProfile extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { currentUser: {} };
+    this.state = {
+      currentUser: [],
+      loading: true,
+    };
   }
 
   componentDidMount() {
@@ -23,7 +25,7 @@ export class YourProfile extends Component {
 
   render() {
     const { currentUser } = this.state;
-    // console.log("Current User: ", currentUser);
+    console.log("Current User: ", currentUser);
 
     return (
       <div className="yourProfile">
@@ -44,6 +46,9 @@ export class YourProfile extends Component {
     );
   }
 }
-const mapStateToProps = ({ authUser }) => ({ authUser });
+
+const mapStateToProps = ({ authUser }) => ({
+  authUser,
+});
 
 export default connect(mapStateToProps, { getAuthUser })(YourProfile);

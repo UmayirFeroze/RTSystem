@@ -6,7 +6,7 @@ class ResetPassword extends Component {
     super(props);
 
     this.HandleChange = this.HandleChange.bind(this);
-    this.ResetPassword = this.ResetPassword.bind(this);
+    // this.ResetPassword = this.ResetPassword.bind(this);
 
     this.state = {
       updatedUser: {
@@ -38,7 +38,9 @@ class ResetPassword extends Component {
   };
 
   render() {
-    let errorMessage = this.state.error !== null ? null : null;
+    console.log("Error: ", this.state.error);
+    const errorMessage =
+      this.state.error !== null ? <p>{this.state.error}</p> : null;
 
     return (
       <div className="resetPassword">

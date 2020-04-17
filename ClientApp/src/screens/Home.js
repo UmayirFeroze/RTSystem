@@ -4,12 +4,11 @@ import BuyerCreateBid from "../components/BuyerCreateBid";
 import YourProfile from "../components/YourProfile";
 import BuyerBids from "../components/BuyerBids";
 import Header from "../components/Header";
-
+import { connect } from "react-redux";
 import "../styles/Home.css";
 
 export class Home extends Component {
   render() {
-    // console.log("Current User: ", this.state.currentUser);
     return (
       <div>
         <Header />
@@ -31,4 +30,10 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+// Must clean code below
+
+const mapStateToProps = ({ authUser }) => ({
+  authUser,
+});
+
+export default connect(mapStateToProps)(Home);

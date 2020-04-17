@@ -9,9 +9,6 @@ class IndividualBuyerBid extends Component {
   constructor(props) {
     super(props);
 
-    this.OpenModal = this.OpenModal.bind(this);
-    this.CloseModal = this.CloseModal.bind(this);
-
     this.state = {
       buyerBid: [],
       user: [],
@@ -34,14 +31,6 @@ class IndividualBuyerBid extends Component {
     }
   }
 
-  OpenModal = () => {
-    this.setState({ showModal: true });
-  };
-
-  CloseModal = () => {
-    this.setState({ showModal: false });
-  };
-
   render() {
     const { buyerBid } = this.state;
     return (
@@ -53,13 +42,21 @@ class IndividualBuyerBid extends Component {
         <p>
           Payment In: {buyerBid.paymentIn} Status: {buyerBid.status}
         </p>
-        <button onClick={this.OpenModal}>Make Bid</button>
-
-        <Popup open={this.state.showModal}>
+        <Popup
+          modal
+          trigger={<button>Make Bid</button>}
+          closeOnDocumentClick
+          contentStyle={{
+            border: "none",
+            padding: 0,
+            borderColor: "white",
+            borderStyle: "solid",
+          }}
+        >
           <div className="sellerBidComponent">
             <div className="sellerBidComponentHeader">
               <p>Quote Your Offer</p>
-              <span onClick={this.CloseModal}>&times;</span>
+              {/* <span>&times;</span> */}
             </div>
             <div>
               <SellerCreateBid buyerBid={buyerBid} user={this.state.user} />

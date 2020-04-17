@@ -20,16 +20,21 @@ export class BuyerCreateBid extends Component {
         paymentIn: "",
         status: "",
       },
-      // user: 0,
+      user: 0,
     };
   }
 
-  setBidState = (event) => {
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.setState({ user: user.userId });
+  }
+
+  setBidState = (event, user) => {
     let { buyerBid } = this.state;
     this.setState({
       buyerBid: {
         ...buyerBid,
-        userId: this.props.authUser.data.userId,
+        userId: this.state.user,
         [event.target.name]:
           event.target.type === "number" && event.target.value >= 0
             ? parseFloat(event.target.value)
@@ -40,13 +45,14 @@ export class BuyerCreateBid extends Component {
   };
 
   handleSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     console.log(this.state.buyerBid); //to be cleaned
-    this.props.createBid(this.state.buyerBid);
+    const { buyerBid } = this.state;
+    this.props.createBid(buyerBid);
   };
 
   printFinal() {
-    console.log("PrintFinal", this.props.buyerBid);
+    console.log(this.props.buyerBid);
   }
 
   render() {
@@ -112,9 +118,8 @@ export class BuyerCreateBid extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBid, authUser }) => ({
+const mapStateToProps = ({ buyerBid }) => ({
   buyerBid,
-  authUser,
 });
 
 export default connect(mapStateToProps, { createBid })(BuyerCreateBid);
