@@ -6,6 +6,7 @@ namespace RTSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+
     public class SellerBidController : ControllerBase
     {
         private readonly ISellerBidService _service;
@@ -16,6 +17,7 @@ namespace RTSystem.Controllers
         }
 
         [HttpGet("getSellerBids")]
+
         public IActionResult GetAllSellerBids()
         {
             try

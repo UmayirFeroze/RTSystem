@@ -63,7 +63,7 @@ namespace RTSystem.Data
             {
                 throw new Exception("This Business is Already Registered");
             }
-            
+
             var passwordHash = HashPassword(user.Password);
             user.Password = passwordHash;
 
@@ -104,14 +104,14 @@ namespace RTSystem.Data
             }
             if (!string.IsNullOrWhiteSpace(user.CurrentPassword) && !string.IsNullOrWhiteSpace(user.NewPassword))
             {
-                if (!VerifyPassword(userToUpdate.Password, user.CurrentPassword))
-                {
-                    throw new Exception("Current Password is Incorrect");
-                }
-                if (VerifyPassword(userToUpdate.Password, user.CurrentPassword))
-                {
-                    throw new Exception("Your new password cannot be the same as your current password");
-                }
+                // if (!VerifyPassword(userToUpdate.Password, user.CurrentPassword))
+                // {
+                //     throw new Exception("Current Password is Incorrect");
+                // }
+                // if (VerifyPassword(userToUpdate.Password, user.CurrentPassword))
+                // {
+                //     throw new Exception("Your new password cannot be the same as your current password");
+                // }
 
                 var passwordHash = HashPassword(user.NewPassword);
                 userToUpdate.Password = passwordHash;

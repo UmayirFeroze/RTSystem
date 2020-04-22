@@ -57,7 +57,7 @@ namespace RTSystem.Controllers
             }
             catch (Exception authException)
             {
-                return BadRequest(authException.Message);
+                return Unauthorized(authException.Message);
             }
 
         }
@@ -113,14 +113,14 @@ namespace RTSystem.Controllers
         }
 
         [HttpPut("UpdateUser/{userId}")]
-
+        [AllowAnonymous]
         public IActionResult UpdateUser(int userId, [FromForm]UserUpdateModel user)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest();
+                    return BadRequest("");
                 }
 
                 _service.UpdateUser(userId, user);

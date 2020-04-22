@@ -32,7 +32,6 @@ export class BuyerBids extends Component {
   renderAllPostedBuyerBids = (postedBuyerBids) => {
     return (
       <div>
-        {/* If condition comes here to accomodate negotiated seller bids and buyer posted bids */}
         {postedBuyerBids.map((buyerBid) => (
           <IndividualBuyerBid buyerBid={buyerBid} key={buyerBid.buyerBidId} />
         ))}

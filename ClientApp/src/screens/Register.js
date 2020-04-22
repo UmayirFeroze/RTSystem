@@ -171,7 +171,6 @@ export class Register extends Component {
     );
   }
 }
-const mapStateToProps = ({ authUser }) => ({
-  authUser,
-});
+
+const mapStateToProps = ({ authUser }) => ({ authUser });
 export default connect(mapStateToProps, { resgisterUser })(Register);

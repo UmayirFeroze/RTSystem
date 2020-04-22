@@ -21,7 +21,7 @@ export const getAllBids = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch(getAllBidsFailure("Something Went wrong!"));
-      return Promise.reject({});
+      // return Promise.reject({});
     });
 };
 
@@ -63,7 +63,7 @@ export const createBid = (buyerBid) => (dispatch) => {
     .then((result) => {
       const response = result.data;
       dispatch(createBidSuccess(response));
-      // window.location.reload();
+      window.location.reload();
     })
     .catch((error) => {
       dispatch(createBidFailure(error));
@@ -90,7 +90,6 @@ export const getBuyerBidsByUserId = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch(getBuyerBidsByUserIdFailure(error.data));
-      // Promise.reject({});
     });
 };
 
@@ -114,10 +113,29 @@ export const getBuyerBidsNotByUserId = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch(getBuyerBidsNotByUserIdFailure(error.data));
-      // Promise.reject({});
     });
 };
 
 // Buyer Edit Bid
 
 // Buyer Delete Bid
+const DeleteBuyerBidSuccess = (payload) => ({
+  type: bidConstants.BUYER_DELETE_BID_SUCCESS,
+  payload,
+});
+const DeleteBuyerBidFailure = (payload) => ({
+  type: bidConstants.BUYER_DELETE_BID_FAILURE,
+  payload,
+});
+export const DeleteBuyerBid = (buyerBidId) => (dispatch) => {
+  dispatch({ type: bidConstants.BUYER_DELETE_BID_REQUEST });
+  return axios
+    .delete(`api/buyerbid/deletebuyerbid/${buyerBidId}`)
+    .then((res) => {
+      const response = res.data;
+      dispatch(DeleteBuyerBidSuccess(response));
+    })
+    .catch((error) => {
+      dispatch(DeleteBuyerBidFailure(error));
+    });
+};

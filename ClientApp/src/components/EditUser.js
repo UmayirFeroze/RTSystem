@@ -53,7 +53,6 @@ export class EditUser extends Component {
                 name="firstName"
                 placeholder={user.firstName}
                 onChange={this.handleChange}
-                required
               />
 
               <input
@@ -61,7 +60,6 @@ export class EditUser extends Component {
                 name="lastName"
                 placeholder={user.lastName}
                 onChange={this.handleChange}
-                required
               />
 
               <input
@@ -71,7 +69,6 @@ export class EditUser extends Component {
                 maxLength="10"
                 placeholder={user.phone}
                 onChange={this.handleChange}
-                required
               />
 
               <input
@@ -79,7 +76,6 @@ export class EditUser extends Component {
                 name="email"
                 placeholder={user.email}
                 onChange={this.handleChange}
-                required
               />
 
               <button>Update</button>
@@ -92,7 +88,6 @@ export class EditUser extends Component {
                 name="businessName"
                 placeholder={user.businessName}
                 onChange={this.handleChange}
-                required
               />
 
               <input
@@ -109,7 +104,6 @@ export class EditUser extends Component {
                 maxLength="10"
                 placeholder={user.businessPhone}
                 onChange={this.handleChange}
-                required
               />
 
               <input
@@ -117,7 +111,6 @@ export class EditUser extends Component {
                 name="businessAddress"
                 placeholder={user.businessAddress}
                 onChange={this.handleChange}
-                required
               />
 
               <select name="businessType" onChange={this.handleChange} required>

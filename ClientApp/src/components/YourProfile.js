@@ -25,7 +25,7 @@ export class YourProfile extends Component {
 
   render() {
     const { currentUser } = this.state;
-    console.log("Current User: ", currentUser);
+    // console.log("Current User: ", currentUser); //tbc
 
     return (
       <div className="yourProfile">

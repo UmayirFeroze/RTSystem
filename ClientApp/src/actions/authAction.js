@@ -1,6 +1,6 @@
 import axios from "axios";
 import { history } from "../App";
-import { store } from "../index";
+// import { store } from "../index";
 
 // Get user Id of auth user
 export const getUserId = () => {
@@ -39,11 +39,11 @@ export const loginUser = (user) => (dispatch) => {
       } else {
         localStorage.clear();
         localStorage.setItem("user", JSON.stringify(res.data));
-        console.log("User is logged in ");
+        // console.log("User is logged in ");
       }
       console.log(localStorage.getItem("user", JSON.stringify(res.data)));
-      console.log("Response: ", res.data); //tbc
-      console.log("Get State: ", store.getState()); //tbc
+      // console.log("Response: ", res.data); //tbc
+      // console.log("Get State: ", store.getState()); //tbc
       history.push("/home");
       window.location.reload();
     })
@@ -112,12 +112,12 @@ const getUserByIdFailure = (payload) => ({
 export const getAuthUser = () => (dispatch) => {
   dispatch({ type: USER_BY_ID_REQUEST });
   const userId = getUserId();
-  console.log("User Id: ", userId); //tbc
+  // console.log("User Id: ", userId); //tbc
   return axios
     .get(`/api/user/getusers/${userId}`)
     .then((res) => {
       dispatch(getUserByIdSuccess(res.data));
-      console.log("Successfully Got User: ", res.data);
+      // console.log("Successfully Got User: ", res.data);
     })
     .catch((error) => {
       dispatch(getUserByIdFailure(error.data));
@@ -128,6 +128,12 @@ export const getAuthUser = () => (dispatch) => {
 export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+
+const headers = {
+  "Content-Type": "multipart/form-data",
+  type: "formData",
+};
+
 const UpdateUserSuccess = (payload) => ({
   type: UPDATE_USER_SUCCESS,
   payload,
@@ -140,12 +146,16 @@ export const UpdateUser = (user) => (dispatch) => {
   const userId = getUserId();
   dispatch({ type: UPDATE_USER_REQUEST });
   return axios
-    .put(`api/user/updateUser/${userId}`, user)
+    .put(`api/user/updateUser/${userId}`, user, {
+      headers: headers,
+    })
     .then((res) => {
       const response = res.data;
       dispatch(UpdateUserSuccess(response));
+      console.log("Password Updated!");
     })
     .catch((error) => {
       dispatch(UpdateUserFailure(error));
+      console.log("Failed to Update");
     });
 };

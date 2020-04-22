@@ -1,12 +1,16 @@
 import React, { Component } from "react";
+
+import { connect } from "react-redux";
+import { UpdateUser } from "../actions/authAction";
+
 import "../styles/ResetPassword.css";
 
-class ResetPassword extends Component {
+export class ResetPassword extends Component {
   constructor(props) {
     super(props);
 
     this.HandleChange = this.HandleChange.bind(this);
-    // this.ResetPassword = this.ResetPassword.bind(this);
+    this.ResetPassword = this.ResetPassword.bind(this);
 
     this.state = {
       updatedUser: {
@@ -27,30 +31,31 @@ class ResetPassword extends Component {
 
   ResetPassword = (event) => {
     event.preventDefault();
-    const { currentPassword, newPassword, retypePassword } = this.state;
-    if (newPassword !== retypePassword) {
+    const { updatedUser } = this.state;
+    if (updatedUser.newPassword !== updatedUser.retypePassword) {
       this.setState({ error: "Passwords Must Match!" });
-    } else if (newPassword === currentPassword) {
-      this.setState({ error: "New Password must not be the same!" }); // Error at this point
+    } else if (updatedUser.newPassword === updatedUser.currentPassword) {
+      this.setState({ error: "New Password must not be the same!" });
     } else {
-      // Call the api function
+      this.props.UpdateUser(updatedUser);
     }
   };
 
   render() {
-    console.log("Error: ", this.state.error);
+    console.log("Error: ", this.state.updatedUser);
     const errorMessage =
       this.state.error !== null ? <p>{this.state.error}</p> : null;
 
     return (
       <div className="resetPassword">
         <h1>Reset Password</h1>
-        <form onSubmit={this.ResetPassword}>
+        <form onSubmit={this.ResetPassword} encType="multipart/form-data">
           <input
             type="password"
             name="currentPassword"
             placeholder="Current Password"
             onChange={this.HandleChange}
+            required
           />
 
           <input
@@ -58,20 +63,22 @@ class ResetPassword extends Component {
             name="newPassword"
             placeholder="New Password"
             onChange={this.HandleChange}
+            required
           />
 
           <input
             type="password"
-            name="Re-enter New Password"
+            name="retypePassword"
             placeholder="Re-enter New Password"
             onChange={this.HandleChange}
+            required
           />
-          <p>{errorMessage}</p>
+          <div>{errorMessage}</div>
           <button>Reset</button>
         </form>
       </div>
     );
   }
 }
-
-export default ResetPassword;
+const mapStateToProps = ({ users }) => ({ users });
+export default connect(mapStateToProps, { UpdateUser })(ResetPassword);
