@@ -13,7 +13,7 @@ namespace RTSystem.Controllers
 
         public SellerBidController(ISellerBidService service)
         {
-            _service = service;
+            this._service = service;
         }
 
         [HttpGet("getSellerBids")]
@@ -103,9 +103,9 @@ namespace RTSystem.Controllers
                 _service.UpdateSellerBid(sellerBidId, sellerBid);
                 return Ok(sellerBid);
             }
-            catch (Exception Error)
+            catch (Exception updateBidError)
             {
-                return Conflict(Error.Message);
+                return Conflict(updateBidError.Message);
             }
         }
 

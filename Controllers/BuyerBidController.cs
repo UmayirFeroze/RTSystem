@@ -91,7 +91,7 @@ namespace RTSystem.Controllers
         }
 
         [HttpPut("updateBuyerBid/{buyerBidId}")]
-        public IActionResult UpdateBuyerBid(int buyerBidId, BuyerBids buyerBid)
+        public IActionResult UpdateBuyerBid(int buyerBidId, [FromBody]BuyerBids buyerBid)
         {
             try
             {

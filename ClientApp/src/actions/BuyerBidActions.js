@@ -1,6 +1,7 @@
 import axios from "axios";
 import { bidConstants } from "../constants/bidConstants";
 import { getUserId } from "./authAction";
+import { history } from "../App";
 
 // Buyer Get All Bids
 const getAllBidsSuccess = (payload) => ({
@@ -117,6 +118,27 @@ export const getBuyerBidsNotByUserId = () => (dispatch) => {
 };
 
 // Buyer Edit Bid
+const EditBuyerBidSuccess = (payload) => ({
+  type: bidConstants.BUYER_EDIT_BID_SUCCESS,
+  payload,
+});
+const EditBuyerBidFailure = (payload) => ({
+  type: bidConstants.BUYER_EDIT_BID_FAILURE,
+  payload,
+});
+export const EditBuyerBid = (buyerBid) => (dispatch) => {
+  dispatch({ type: bidConstants.BUYER_EDIT_BID_REQUEST });
+  const buyerBidId = buyerBid.buyerBidId;
+  return axios
+    .put(`api/buyerBid/updateBuyerBid/${buyerBidId}`, buyerBid)
+    .then((res) => {
+      const response = res.data;
+      dispatch(EditBuyerBidSuccess(response));
+    })
+    .catch((error) => {
+      dispatch(EditBuyerBidFailure(error));
+    });
+};
 
 // Buyer Delete Bid
 const DeleteBuyerBidSuccess = (payload) => ({
@@ -134,6 +156,7 @@ export const DeleteBuyerBid = (buyerBidId) => (dispatch) => {
     .then((res) => {
       const response = res.data;
       dispatch(DeleteBuyerBidSuccess(response));
+      history.push(`/requests`);
     })
     .catch((error) => {
       dispatch(DeleteBuyerBidFailure(error));

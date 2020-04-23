@@ -18,7 +18,6 @@ namespace RTSystem.Data
         public double Price { get; set; }
         public string PaymentIn { get; set; }
         public string Status { get; set; }
-
         public DateTime? TimeStamp { get; set; }
 
         public virtual Users User { get; set; }
