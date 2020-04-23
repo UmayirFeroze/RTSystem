@@ -131,11 +131,9 @@ const UpdateSellerBidFailure = (payload) => ({
 });
 export const UpdateSellerBid = (sellerBid) => (dispatch) => {
   dispatch({ type: bidConstants.SELLER_UPDATE_BID_REQUEST });
+  const sellerBidId = sellerBid.sellerBidId;
   return axios
-    .put(
-      `api/sellerbid/updatesellerbid/${sellerBid.sellerBidId}`,
-      sellerBid.status
-    )
+    .put(`api/sellerBid/updateSellerBid/${sellerBidId}`, sellerBid)
     .then((res) => {
       const response = res.data;
       dispatch(UpdateSellerBidSuccess(response));
