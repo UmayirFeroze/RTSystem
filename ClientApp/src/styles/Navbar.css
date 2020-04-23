@@ -1,74 +1,62 @@
 .navbar {
-  margin-top: 2px;
-  background-color: #1f1e1e;
-  height: 50px;
   overflow: hidden;
-  /* position: fixed;
-  top: 0;
-  width: 100%; */
+  background-color: #1f1e1e;
+  margin: 2px 0 0 0;
 }
 
 .navbar a {
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: block;
   float: left;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 17px;
-  letter-spacing: 1px;
-  padding: 14px 16px;
+  display: block;
+  color: white;
   text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
-  width: auto;
+  font-size: 17px;
 }
 
 .navbar a:hover {
   background-color: #111;
-}
-
-.search {
-  display: flex;
-  flex-direction: row;
-  float: right;
-  text-align: center;
-  overflow: hidden;
-}
-
-.search input[type="text"],
-select {
-  float: right;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  margin: 1px 0 1px 0;
-  padding: 12px 20px;
-  width: 100%;
-  font-size: 17px;
-}
-
-.search a {
-  border: none;
   color: white;
-  cursor: pointer;
-  display: block;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 17px;
+}
+
+.navbar a.active {
+  background-color: #111;
+  color: white;
+}
+
+.navbar .search-container {
   float: right;
-  letter-spacing: 1px;
-  padding: 14px 16px;
-  text-align: center;
-  text-decoration: none;
-  width: auto;
+}
+
+.navbar input[type="text"] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.navbar .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar .search-container button:hover {
+  background: #ccc;
 }
 
 @media screen and (max-width: 600px) {
-  .search {
+  .navbar .search-container {
     float: none;
   }
-  .topnav a,
-  .topnav input[type="text"],
-  .topnav .search-container button {
+  .navbar a,
+  .navbar input[type="text"],
+  .navbar .search-container button {
     float: none;
     display: block;
     text-align: left;
@@ -76,7 +64,7 @@ select {
     margin: 0;
     padding: 14px;
   }
-  .topnav input[type="text"] {
+  .navbar input[type="text"] {
     border: 1px solid #ccc;
   }
 }

@@ -14,10 +14,14 @@ class NavBar extends Component {
         <NavLink to="/quotations">My Quotations</NavLink>
         <NavLink to="/our-partners">Our Partners</NavLink>
         <NavLink to="/help">User Manual</NavLink>
-        <div className="search">
-          <input type="text" placeholder="Looking for Someone..." />
-          <a href="/search">Search</a>
-          <NavLink to="/">LogOut</NavLink>
+        <div className="search-container">
+          <form className="search-container">
+            <input type="text" placeholder="Looking for Someone..." />
+            <button href="/search">Search</button>
+          </form>
+          <NavLink className="logout" to="/">
+            LogOut
+          </NavLink>
         </div>
       </nav>
     );
