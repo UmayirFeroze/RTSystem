@@ -77,6 +77,7 @@ export class SellerCreateBid extends Component {
   };
 
   renderForm = () => {
+    console.log("State: ", this.props.sellerBids.data);
     return (
       <form className="form" onSubmit={this.CreateSellerBid}>
         <h3>Quote your Price</h3>

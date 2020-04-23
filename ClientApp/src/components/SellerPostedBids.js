@@ -1,0 +1,140 @@
+import React, { Component } from "react";
+import Popup from "reactjs-popup";
+
+import { connect } from "react-redux";
+import { getUserByUserId } from "../actions/userAction";
+import { UpdateSellerBid, DeleteSellerBid } from "../actions/SellerBidActions";
+
+class SellerPostedBids extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.closeViewSeller = this.closeViewSeller.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+
+    this.state = {
+      sellerBid: [],
+      user: [],
+      viewSeller: false,
+      status: "",
+    };
+  }
+  componentDidMount() {
+    this.setState({ sellerBid: this.props.sellerBid });
+    this.props.getUserByUserId(this.props.sellerBid.userId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.users.data !== this.props.users.data) {
+      this.setState({ user: this.props.users.data });
+    }
+  }
+
+  handleChange = (event) => {
+    if (event.target.name === "viewSeller") {
+      this.setState({ viewSeller: true });
+    }
+    if (event.target.name === "accept") {
+      this.setState({ status: "accepted" }, this.updateStatus);
+    }
+    if (event.target.name === "reject") {
+      this.setState({ status: "rejected" }, this.updateStatus);
+    }
+    if (event.target.name === "negotiate") {
+      this.setState({ status: "negotiated" }, this.updateStatus);
+    }
+  };
+
+  updateStatus = () => {
+    console.log("Status: ", this.state.status); //tbc
+    const { sellerBid, status } = this.state;
+
+    let updateBid = { sellerBidId: sellerBid.sellerBidId, status: status };
+
+    this.props.UpdateSellerBid(updateBid);
+    console.log("Update Bid is function"); // tbc
+  };
+
+  closeViewSeller = () => {
+    this.setState({ viewSeller: false });
+  };
+
+  ViewSeller = (user) => {
+    return (
+      <div style={{ color: "black" }}>
+        <div
+          style={{
+            border: "1px black solid",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <p>Quoted By: </p>
+          <button onClick={this.closeViewSeller} style={{ marginLeft: "auto" }}>
+            &times;
+          </button>
+        </div>
+        <div
+          style={{
+            border: "1px red solid",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div style={{ border: "1px blue solid", width: "40%" }}>
+            <h1>Image</h1>
+          </div>
+          <div style={{ border: "1px yellow solid", width: "60%" }}>
+            <h2>{user.businessName}</h2>
+            <h4>{user.businessDescription}</h4>
+            <p>
+              {user.businessType + ": " + user.firstName + " " + user.lastName}
+            </p>
+            <p>{"Contact: " + user.phone + " / " + user.businessPhone}</p>
+            <p>{"Email: " + user.email}</p>
+            <p>{"Address:" + user.businessAddress}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    let { sellerBid, user } = this.state;
+    return (
+      <div className="buyerBid">
+        <p>
+          Quantity: {sellerBid.quantity} Price: {sellerBid.price} Status:{" "}
+          {sellerBid.status}
+        </p>
+
+        <p>Delivery Date: Validity: {sellerBid.validityPeriod}</p>
+        <button name="viewSeller" onClick={this.handleChange}>
+          View Seller
+        </button>
+        <button name="accept" onClick={this.handleChange}>
+          Accept
+        </button>
+        <button name="reject" onClick={this.handleChange}>
+          Reject
+        </button>
+        <button name="negotiate" onClick={this.handleChange}>
+          Negotiate
+        </button>
+
+        <Popup open={this.state.viewSeller} onClose={this.closeViewSeller}>
+          {this.ViewSeller(user)}
+        </Popup>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({ sellerBids, users }) => ({ sellerBids, users });
+export default connect(mapStateToProps, {
+  UpdateSellerBid,
+  DeleteSellerBid,
+  getUserByUserId,
+})(SellerPostedBids);

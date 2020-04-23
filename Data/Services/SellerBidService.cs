@@ -72,10 +72,10 @@ namespace RTSystem.Data
             var sellerBidExist = _RTSystemContext.SellerBids.FirstOrDefault(s => s.SellerBidId == sellerBidId);
             if (sellerBidExist != null)
             {
-                if (sellerBid.Price != 00.00) { sellerBidExist.Price = sellerBid.Price; }
                 if (sellerBid.Quantity != 00.00) { sellerBidExist.Quantity = sellerBid.Quantity; }
-                if (sellerBid.DeliveryDate != null) { sellerBidExist.DeliveryDate = sellerBid.DeliveryDate; }
-                if (sellerBid.ValidityPeriod != null) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
+                if (sellerBid.Price != 00.00) { sellerBidExist.Price = sellerBid.Price; }
+                // if (sellerBid.DeliveryDate != null) { sellerBidExist.DeliveryDate = sellerBid.DeliveryDate; }
+                // if (sellerBid.ValidityPeriod != null) { sellerBidExist.ValidityPeriod = sellerBid.ValidityPeriod; }
                 if (sellerBid.BestPrice != 00.00) { sellerBidExist.BestPrice = sellerBid.BestPrice; }
                 if (sellerBid.Status != null) { sellerBidExist.Status = sellerBid.Status; }
                 _RTSystemContext.SaveChanges();

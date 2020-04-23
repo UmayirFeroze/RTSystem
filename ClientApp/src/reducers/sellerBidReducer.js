@@ -22,7 +22,7 @@ const sellerBidReducer = (state = INITIAL_STATE, action) => {
       };
 
     case bidConstants.SELLER_UPDATE_BID_REQUEST: // Update Seller Bid
-      return { ...state, loading: true, hasError: false };
+      return { ...state, loading: true };
     case bidConstants.SELLER_UPDATE_BID_SUCCESS:
       return { ...state, loading: false, data: action.payload };
     case bidConstants.SELLER_UPDATE_BID_FAILURE:

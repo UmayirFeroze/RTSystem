@@ -21,8 +21,8 @@ namespace RTSystem.Data
         public string Status { get; set; }
         public DateTime? TimeStamp { get; set; }
 
-        public virtual BuyerBids BuyerBid { get; set; }
         public virtual Users User { get; set; }
+        public virtual BuyerBids BuyerBid { get; set; }
         public virtual ICollection<Orders> Orders { get; set; }
     }
 }

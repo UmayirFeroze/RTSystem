@@ -1,93 +1,87 @@
 import React, { Component } from "react";
-import NavBar from "../components/Navbar";
 import Header from "../components/Header";
+import Navbar from "../components/Navbar";
+import BuyerRequestedBid from "../components/BuyerRequestBid";
 
-import { getBuyerBidsByUserId } from "../actions/BuyerBidActions";
 import { connect } from "react-redux";
+import { getBuyerBidsByUserId } from "../actions/BuyerBidActions";
+import { GetAllSellerBids } from "../actions/SellerBidActions";
 
-class MyRequests extends Component {
+export class MyRequests extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      myBids: [],
-      loading: true,
+      buyerBids: [],
+      sellerBids: [],
     };
   }
 
   componentDidMount() {
     this.props.getBuyerBidsByUserId();
+    this.props.GetAllSellerBids();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.buyerBids.data !== this.props.buyerBids.data) {
-      this.setState({ myBids: this.props.buyerBids.data });
+      this.setState({ buyerBids: this.props.buyerBids.data });
+    }
+    if (prevProps.sellerBids.data !== this.props.sellerBids.data) {
+      this.setState({ sellerBids: this.props.sellerBids.data });
     }
   }
-  renderMyBids = (myBids) => {
-    return (
-      <div>
-        {/* If condition comes here to accomodate negotiated seller bids and buyer posted bids */}
-        {myBids.map((buyerBid) => (
-          <div
-            key={buyerBid.buyerBidId}
-            className="buyerBid"
-            style={{ display: "flex", flexDirection: "row" }}
-          >
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <p>Post Date will come here</p>
-              <p>
-                Quality: {buyerBid.quality} Quantity: {buyerBid.quantity}{" "}
-              </p>
-              <p>
-                Price:
-                {buyerBid.price} Payment In: {buyerBid.paymentIn}{" "}
-              </p>
-              <p>Status: {buyerBid.status}</p>
-            </div>
-            <div style={{ float: "right" }}>
-              <button>View Bidders</button>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
+
+  renderBuyerBids = (buyerBids, sellerBids) => {
+    if (Array.isArray(buyerBids)) {
+      return buyerBids.map((buyerBid) => (
+        <BuyerRequestedBid
+          key={buyerBid.buyerBidId}
+          buyerBid={buyerBid}
+          sellerBids={sellerBids}
+        />
+      ));
+    }
   };
 
   render() {
-    let content = this.props.buyerBids.loading ? (
+    const buyerBids = this.props.buyerBids.loading ? (
       <p>Loading...</p>
-    ) : this.state.myBids.length === 0 ? (
-      <p>You haven't posted any Bids Yet</p>
+    ) : this.state.buyerBids.length === 0 ? (
+      <p>You havent Posted Any Bids Yet</p>
+    ) : this.state.sellerBids.length === 0 ? (
+      <p>No ONe has posted any bids yet</p>
     ) : (
-      this.state.myBids.length > 0 && this.renderMyBids(this.state.myBids)
+      this.renderBuyerBids(this.state.buyerBids, this.state.sellerBids)
     );
+
     return (
       <div>
         <Header />
-        <NavBar />
-        <h1 style={{ color: "white" }}>My Bids</h1>
-        <p style={{ color: "white" }}>
-          All bids posted by buyer, and all bids posted by buyer for each seller
-          bid
-        </p>
+        <Navbar />
+        <h1>My Requested Bids</h1>
+        <p>All the bids i posted along with the respective seller Bids</p>
+
         <div
           style={{
-            border: 1,
-            borderColor: "red",
-            borderStyle: "solid",
-            padding: 20,
+            border: "1px solid blue",
+            width: "max",
+            height: "100%",
+            padding: "10px",
           }}
         >
-          {content}
+          {buyerBids}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ buyerBids }) => ({
+const mapStateToProps = ({ buyerBids, sellerBids }) => ({
   buyerBids,
+  sellerBids,
 });
 
-export default connect(mapStateToProps, { getBuyerBidsByUserId })(MyRequests);
+export default connect(mapStateToProps, {
+  getBuyerBidsByUserId,
+  GetAllSellerBids,
+})(MyRequests);
