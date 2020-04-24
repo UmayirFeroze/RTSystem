@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Popup from "reactjs-popup";
 
 import { connect } from "react-redux";
-import { getUserByUserId } from "../actions/userAction";
+// import { getUserByUserId } from "../actions/userAction";
 import { UpdateSellerBid, DeleteSellerBid } from "../actions/SellerBidActions";
 
 class SellerPostedBids extends Component {
@@ -16,14 +16,17 @@ class SellerPostedBids extends Component {
 
     this.state = {
       sellerBid: [],
-      user: [],
+      seller: [],
       viewSeller: false,
       status: "",
     };
   }
   componentDidMount() {
-    this.setState({ sellerBid: this.props.sellerBid });
-    this.props.getUserByUserId(this.props.sellerBid.userId);
+    const { users, sellerBid } = this.props;
+    this.setState({ sellerBid: sellerBid });
+    this.setState({
+      seller: users.find(({ userId }) => userId === sellerBid.userId),
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -102,7 +105,7 @@ class SellerPostedBids extends Component {
   };
 
   render() {
-    let { sellerBid, user } = this.state;
+    let { sellerBid, seller } = this.state;
     return (
       <div className="buyerBid">
         <p>
@@ -125,16 +128,15 @@ class SellerPostedBids extends Component {
         </button>
 
         <Popup open={this.state.viewSeller} onClose={this.closeViewSeller}>
-          {this.ViewSeller(user)}
+          {this.ViewSeller(seller)}
         </Popup>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ sellerBids, users }) => ({ sellerBids, users });
+const mapStateToProps = ({ sellerBids }) => ({ sellerBids });
 export default connect(mapStateToProps, {
   UpdateSellerBid,
   DeleteSellerBid,
-  getUserByUserId,
 })(SellerPostedBids);

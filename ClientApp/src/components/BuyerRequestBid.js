@@ -15,6 +15,8 @@ class BuyerRequestedBid extends Component {
     this.state = {
       buyerBid: [],
       sellerBids: [],
+      users: [],
+
       status: "",
 
       viewSellerBid: false,
@@ -24,7 +26,7 @@ class BuyerRequestedBid extends Component {
   }
 
   componentDidMount() {
-    const { buyerBid, sellerBids } = this.props;
+    const { buyerBid, sellerBids, users } = this.props;
     if (this.state.sellerBids !== sellerBids) {
       this.setState({ buyerBid: buyerBid });
     }
@@ -35,16 +37,19 @@ class BuyerRequestedBid extends Component {
       }
     }
     this.setState({ sellerBids: sellerBids.filter(isValid) });
+    this.setState({ users: users });
   }
 
-  renderSellerBids = (sellerBids) => {
+  renderSellerBids = (sellerBids, users) => {
     // console.log("SellerBids: ", sellerBids); // tbc
 
     if (Array.isArray(sellerBids)) {
+      // Check for length and then display error if array is empty
       return sellerBids.map((sellerBid) => (
         <SellerPostedBids
           key={sellerBid.sellerBidId}
           sellerBid={sellerBid}
+          users={users}
         ></SellerPostedBids>
       ));
     }
@@ -92,6 +97,7 @@ class BuyerRequestedBid extends Component {
     const {
       buyerBid,
       sellerBids,
+      users,
       viewSellerBid,
       viewClose,
       viewDelete,
@@ -119,7 +125,7 @@ class BuyerRequestedBid extends Component {
         </button>
 
         <Popup open={viewSellerBid} onClose={this.closeView}>
-          {() => this.renderSellerBids(sellerBids)}
+          {() => this.renderSellerBids(sellerBids, users)}
         </Popup>
 
         <Popup open={viewClose} onClose={this.closeView}>

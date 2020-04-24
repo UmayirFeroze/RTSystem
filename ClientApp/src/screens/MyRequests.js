@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import BuyerRequestedBid from "../components/BuyerRequestBid";
 
 import { connect } from "react-redux";
+import { getAllUsers } from "../actions/userAction";
 import { getBuyerBidsByUserId } from "../actions/BuyerBidActions";
 import { GetAllSellerBids } from "../actions/SellerBidActions";
 
@@ -14,12 +15,14 @@ export class MyRequests extends Component {
     this.state = {
       buyerBids: [],
       sellerBids: [],
+      users: [],
     };
   }
 
   componentDidMount() {
     this.props.getBuyerBidsByUserId();
     this.props.GetAllSellerBids();
+    this.props.getAllUsers();
   }
 
   componentDidUpdate(prevProps) {
@@ -29,15 +32,19 @@ export class MyRequests extends Component {
     if (prevProps.sellerBids.data !== this.props.sellerBids.data) {
       this.setState({ sellerBids: this.props.sellerBids.data });
     }
+    if (prevProps.users.data !== this.props.users.data) {
+      this.setState({ users: this.props.users.data });
+    }
   }
 
-  renderBuyerBids = (buyerBids, sellerBids) => {
+  renderBuyerBids = (buyerBids, sellerBids, users) => {
     if (Array.isArray(buyerBids)) {
       return buyerBids.map((buyerBid) => (
         <BuyerRequestedBid
           key={buyerBid.buyerBidId}
           buyerBid={buyerBid}
           sellerBids={sellerBids}
+          users={users}
         />
       ));
     }
@@ -50,8 +57,14 @@ export class MyRequests extends Component {
       <p>You havent Posted Any Bids Yet</p>
     ) : this.state.sellerBids.length === 0 ? (
       <p>No ONe has posted any bids yet</p>
+    ) : this.state.users.length === 0 ? (
+      <p>Loading Users...</p>
     ) : (
-      this.renderBuyerBids(this.state.buyerBids, this.state.sellerBids)
+      this.renderBuyerBids(
+        this.state.buyerBids,
+        this.state.sellerBids,
+        this.state.users
+      )
     );
 
     return (
@@ -65,7 +78,6 @@ export class MyRequests extends Component {
           style={{
             border: "1px solid blue",
             width: "max",
-            height: "100%",
             padding: "10px",
           }}
         >
@@ -76,12 +88,14 @@ export class MyRequests extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBids, sellerBids }) => ({
+const mapStateToProps = ({ buyerBids, sellerBids, users }) => ({
   buyerBids,
   sellerBids,
+  users,
 });
 
 export default connect(mapStateToProps, {
   getBuyerBidsByUserId,
   GetAllSellerBids,
+  getAllUsers,
 })(MyRequests);
