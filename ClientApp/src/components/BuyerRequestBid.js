@@ -27,9 +27,9 @@ class BuyerRequestedBid extends Component {
 
   componentDidMount() {
     const { buyerBid, sellerBids, users } = this.props;
-    if (this.state.sellerBids !== sellerBids) {
-      this.setState({ buyerBid: buyerBid });
-    }
+    // if (this.state.sellerBids !== sellerBids) {
+    this.setState({ buyerBid: buyerBid });
+    // }
 
     function isValid(sellerBid) {
       if (sellerBid.buyerBidId === buyerBid.buyerBidId) {
@@ -81,16 +81,18 @@ class BuyerRequestedBid extends Component {
   };
 
   renderCloseBid = () => {
+    // console.log("BuyerBid Status", this.state.buyerBid.status); //tbc
     this.setState({ status: "closed" }, this.closeBid());
   };
 
   closeBid = () => {
     let updateBid = {
       buyerBidId: this.state.buyerBid.buyerBidId,
-      status: "closed",
+      status: "open",
     };
     this.props.EditBuyerBid(updateBid);
-    // window.location.reload();
+    window.location.reload(); // to be refined
+    console.log("Status: ", this.state.buyerBid.status); //tbc
   };
 
   render() {

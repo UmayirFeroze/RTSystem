@@ -51,6 +51,7 @@ export class MyRequests extends Component {
   };
 
   render() {
+    // console.log("Check BuyerBids: ", this.props.buyerBids); //tbc
     const buyerBids = this.props.buyerBids.loading ? (
       <p>Loading...</p>
     ) : this.state.buyerBids.length === 0 ? (

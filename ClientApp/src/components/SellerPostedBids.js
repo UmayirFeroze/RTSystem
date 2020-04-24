@@ -36,17 +36,30 @@ class SellerPostedBids extends Component {
   }
 
   handleChange = (event) => {
+    const { sellerBid } = this.state;
     if (event.target.name === "viewSeller") {
       this.setState({ viewSeller: true });
     }
     if (event.target.name === "accept") {
-      this.setState({ status: "accepted" }, this.updateStatus);
+      this.setState(
+        { status: "accepted", sellerBid: { ...sellerBid, status: "accepted" } },
+        this.updateStatus
+      );
     }
     if (event.target.name === "reject") {
-      this.setState({ status: "rejected" }, this.updateStatus);
+      this.setState(
+        { status: "rejected", sellerBid: { ...sellerBid, status: "rejected" } },
+        this.updateStatus
+      );
     }
     if (event.target.name === "negotiate") {
-      this.setState({ status: "negotiated" }, this.updateStatus);
+      this.setState(
+        {
+          status: "negotiated",
+          sellerBid: { ...sellerBid, status: "negotiated" },
+        },
+        this.updateStatus
+      );
     }
   };
 

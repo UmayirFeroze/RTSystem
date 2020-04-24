@@ -48,7 +48,7 @@ const buyerBidReducer = (state = INITIAL_STATE, action) => {
     case bidConstants.BUYER_EDIT_BID_REQUEST: // Edit Buyer bid
       return { ...state, loading: true };
     case bidConstants.BUYER_EDIT_BID_SUCCESS:
-      return { ...state, laoding: false, data: action.payload };
+      return { ...state, loading: false, data: action.payload };
     case bidConstants.BUYER_EDIT_BID_FAILURE:
       return {
         ...state,
@@ -58,7 +58,7 @@ const buyerBidReducer = (state = INITIAL_STATE, action) => {
       };
 
     case bidConstants.BUYER_BIDS_BY_USER_REQUEST: // Get buyer bids by user Id
-      return { ...state, loading: true, hasError: false };
+      return { ...state, loading: true };
     case bidConstants.BUYER_BIDS_BY_USER_SUCCESS:
       return { ...state, loading: false, data: action.payload };
     case bidConstants.BUYER_BIDS_BY_USER_FAILURE:
