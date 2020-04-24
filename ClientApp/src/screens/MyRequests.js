@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
-import BuyerRequestedBid from "../components/BuyerRequestBid";
+import BuyerRequestedBids from "../components/BuyerRequestBids";
 
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
@@ -37,22 +37,24 @@ export class MyRequests extends Component {
     }
   }
 
-  renderBuyerBids = (buyerBids, sellerBids, users) => {
-    if (Array.isArray(buyerBids)) {
-      return buyerBids.map((buyerBid) => (
-        <BuyerRequestedBid
-          key={buyerBid.buyerBidId}
-          buyerBid={buyerBid}
-          sellerBids={sellerBids}
-          users={users}
-        />
-      ));
-    }
-  };
+  // renderBuyerBids = (buyerBids, sellerBids, users) => {
+  //   if (Array.isArray(buyerBids)) {
+  //     return buyerBids.map((buyerBid) => (
+  //       <BuyerRequestedBid
+  //         key={buyerBid.buyerBidId}
+  //         buyerBidId={buyerBid.buyerBidId}
+  //         buyerBidList={buyerBids}
+  //         sellerBids={sellerBids}
+  //         users={users}
+  //       />
+  //     ));
+  //   }
+  // };
 
   render() {
     // console.log("Check BuyerBids: ", this.props.buyerBids); //tbc
-    const buyerBids = this.props.buyerBids.loading ? (
+    const { sellerBids, buyerBids, users } = this.state;
+    const buyerBidsRendered = this.props.buyerBids.loading ? (
       <p>Loading...</p>
     ) : this.state.buyerBids.length === 0 ? (
       <p>You havent Posted Any Bids Yet</p>
@@ -61,11 +63,16 @@ export class MyRequests extends Component {
     ) : this.state.users.length === 0 ? (
       <p>Loading Users...</p>
     ) : (
-      this.renderBuyerBids(
-        this.state.buyerBids,
-        this.state.sellerBids,
-        this.state.users
-      )
+      // this.renderBuyerBids(
+      //   this.state.buyerBids,
+      //   this.state.sellerBids,
+      //   this.state.users
+      // )
+      <BuyerRequestedBids
+        buyerBidList={buyerBids}
+        sellerBidList={sellerBids}
+        userList={users}
+      />
     );
 
     return (
@@ -82,7 +89,8 @@ export class MyRequests extends Component {
             padding: "10px",
           }}
         >
-          {buyerBids}
+          {buyerBidsRendered}
+          {/* Bring the buyer Bid component over here and pass all the parameters through */}
         </div>
       </div>
     );

@@ -1,24 +1,25 @@
 import React, { Component } from "react";
+
 import Popup from "reactjs-popup";
-import SellerPostedBids from "../components/SellerPostedBids";
+import SellerPostedBids from "./SellerPostedBids";
 
 import { connect } from "react-redux";
 import { DeleteBuyerBid, EditBuyerBid } from "../actions/BuyerBidActions";
 
-class BuyerRequestedBid extends Component {
+class BuyerRequestBidIndividual extends Component {
   constructor(props) {
     super(props);
 
-    this.openView = this.openView.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.closeView = this.closeView.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+    this.closeBid = this.closeBid.bind(this);
 
     this.state = {
       buyerBid: [],
       sellerBids: [],
       users: [],
-
       status: "",
-
       viewSellerBid: false,
       viewDelete: false,
       viewClose: false,
@@ -26,48 +27,42 @@ class BuyerRequestedBid extends Component {
   }
 
   componentDidMount() {
-    const { buyerBid, sellerBids, users } = this.props;
-    // if (this.state.sellerBids !== sellerBids) {
-    this.setState({ buyerBid: buyerBid });
-    // }
-
+    let { buyerBid, sellerBids, users } = this.props;
+    //   function to query seller bids by buyer bid Id
     function isValid(sellerBid) {
       if (sellerBid.buyerBidId === buyerBid.buyerBidId) {
         return true;
       }
+    }
+    if (this.state.buyerBid !== buyerBid) {
+      this.setState({ buyerBid: buyerBid });
     }
     this.setState({ sellerBids: sellerBids.filter(isValid) });
     this.setState({ users: users });
   }
 
   renderSellerBids = (sellerBids, users) => {
-    // console.log("SellerBids: ", sellerBids); // tbc
-
     if (Array.isArray(sellerBids)) {
-      // Check for length and then display error if array is empty
-      return sellerBids.map((sellerBid) => (
-        <SellerPostedBids
-          key={sellerBid.sellerBidId}
-          sellerBid={sellerBid}
-          users={users}
-        ></SellerPostedBids>
-      ));
+      if (sellerBids.length === 0) {
+        return (
+          <div style={{ color: "black" }}>
+            <h2>This Request has No Quotations Yet</h2>
+            <button onClick={this.closeView}>&times;</button>
+          </div>
+        );
+      } else {
+        return sellerBids.map((sellerBid) => (
+          <SellerPostedBids
+            key={sellerBid.sellerBidId}
+            sellerBid={sellerBid}
+            users={users}
+          ></SellerPostedBids>
+        ));
+      }
     }
   };
 
-  openView = (event) => {
-    if (event.target.name === "close") {
-      this.setState({ viewClose: true });
-    }
-    if (event.target.name === "delete") {
-      this.setState({ viewDelete: true });
-    }
-    if (event.target.name === "sellerbids") {
-      this.setState({ viewSellerBid: true });
-    }
-  };
-
-  closeView = (event) => {
+  closeView = () => {
     this.setState({
       viewClose: false,
       viewDelete: false,
@@ -75,24 +70,39 @@ class BuyerRequestedBid extends Component {
     });
   };
 
-  renderDeleteBid = (buyerBidId) => {
-    this.props.DeleteBuyerBid(buyerBidId);
-    window.location.reload();
-  };
-
-  renderCloseBid = () => {
-    // console.log("BuyerBid Status", this.state.buyerBid.status); //tbc
-    this.setState({ status: "closed" }, this.closeBid());
+  handleChange = (event) => {
+    if (event.target.name === "closebid") {
+      this.setState({
+        viewClose: true,
+      });
+    }
+    if (event.target.name === "deletebid") {
+      this.setState({ viewDelete: true });
+    }
+    if (event.target.name === "sellerbids") {
+      this.setState({ viewSellerBid: true });
+    }
   };
 
   closeBid = () => {
-    let updateBid = {
-      buyerBidId: this.state.buyerBid.buyerBidId,
-      status: "open",
-    };
+    const { buyerBid } = this.state;
+    this.setState(
+      { status: "closed", buyerBid: { ...buyerBid, status: "closed" } },
+      this.updateStatus
+    );
+  };
+  updateStatus = () => {
+    const { buyerBid, status } = this.state;
+    let updateBid = { buyerBidId: buyerBid.buyerBidId, status: status };
     this.props.EditBuyerBid(updateBid);
-    window.location.reload(); // to be refined
-    console.log("Status: ", this.state.buyerBid.status); //tbc
+    window.location.reload();
+  };
+
+  handleDelete = () => {
+    const { buyerBid } = this.state;
+    console.log("Deleting Bid: ", buyerBid.buyerBidId);
+    this.props.DeleteBuyerBid(buyerBid.buyerBidId);
+    window.location.reload();
   };
 
   render() {
@@ -100,11 +110,10 @@ class BuyerRequestedBid extends Component {
       buyerBid,
       sellerBids,
       users,
-      viewSellerBid,
       viewClose,
       viewDelete,
+      viewSellerBid,
     } = this.state;
-
     return (
       <div className="buyerBid" style={{ border: "1px solid red" }}>
         <p>
@@ -116,13 +125,13 @@ class BuyerRequestedBid extends Component {
             buyerBid.status}
         </p>
 
-        <button name="sellerbids" onClick={this.openView}>
+        <button name="sellerbids" onClick={this.handleChange}>
           View Quotations
         </button>
-        <button name="close" onClick={this.openView}>
+        <button name="closebid" onClick={this.handleChange}>
           Close Bid
         </button>
-        <button name="delete" onClick={this.openView}>
+        <button name="deletebid" onClick={this.handleChange}>
           Delete Bid
         </button>
 
@@ -135,9 +144,7 @@ class BuyerRequestedBid extends Component {
             <h1 style={{ color: "black" }}>
               Are yoru sure you want to Close this bid?
             </h1>
-            <button onClick={() => this.renderCloseBid(buyerBid.buyerBidId)}>
-              Yes
-            </button>
+            <button onClick={this.closeBid}>Yes</button>
             <button onClick={this.closeView}>No</button>
           </div>
         </Popup>
@@ -145,9 +152,7 @@ class BuyerRequestedBid extends Component {
         <Popup open={viewDelete} onClose={this.closeView}>
           <div>
             <h1 style={{ color: "black" }}>Are you sure you want to Delete?</h1>
-            <button onClick={() => this.renderDeleteBid(buyerBid.buyerBidId)}>
-              Yes
-            </button>
+            <button onClick={this.handleDelete}>Yes</button>
             <button onClick={this.closeView}>No</button>
           </div>
         </Popup>
@@ -158,5 +163,5 @@ class BuyerRequestedBid extends Component {
 
 const mapStateToProps = ({ buyerBids }) => ({ buyerBids });
 export default connect(mapStateToProps, { DeleteBuyerBid, EditBuyerBid })(
-  BuyerRequestedBid
+  BuyerRequestBidIndividual
 );

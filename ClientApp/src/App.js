@@ -21,7 +21,8 @@ import ResetPassword from "./components/ResetPassword";
 import EditUser from "./components/EditUser";
 import SellerPostedBids from "./components/SellerPostedBids";
 import SellerQuotedBids from "./components/SellerQuotedBids";
-import BuyerRequestedBid from "./components/BuyerRequestBid";
+import BuyerRequestedBids from "./components/BuyerRequestBids";
+import BuyerRequestBidIndividual from "./components/BuyerRequestBidIndividual";
 export const history = createBrowserHistory();
 
 const App = () => (
@@ -94,20 +95,26 @@ const App = () => (
       />
       <Route
         exact
-        path="/editUser"
+        path="/postedBid"
         render={(props) => <SellerPostedBids {...props} />}
       />
 
       <Route
         exact
-        path="/deleteuser"
+        path="/quotedBids"
         render={(props) => <SellerQuotedBids {...props} />}
       />
 
       <Route
         exact
-        path="/deleteuser"
-        render={(props) => <BuyerRequestedBid {...props} />}
+        path="/requestBids"
+        render={(props) => <BuyerRequestedBids {...props} />}
+      />
+
+      <Route
+        exact
+        path="/requestbid"
+        render={(props) => <BuyerRequestBidIndividual {...props} />}
       />
     </Switch>
   </BrowserRouter>
