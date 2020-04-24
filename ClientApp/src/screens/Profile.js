@@ -82,11 +82,9 @@ export class Profile extends Component {
               src={require("../Images/avatar-profile.png")}
               alt="UserAvatar"
             />
-            <div>
-              <h1>{currentUser.businessName}</h1>
-              <h1>{currentUser.businessDescription}</h1>
-            </div>
           </div>
+          <h1>{currentUser.businessName}</h1>
+          <h1>{currentUser.businessDescription}</h1>
           <h3>Phone: </h3>
           <p>{currentUser.businessPhone}</p>
           <h3>Email: </h3>
