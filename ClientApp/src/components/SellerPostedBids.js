@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Popup from "reactjs-popup";
 
 import { connect } from "react-redux";
-// import { getUserByUserId } from "../actions/userAction";
 import { UpdateSellerBid, DeleteSellerBid } from "../actions/SellerBidActions";
 
 class SellerPostedBids extends Component {
@@ -10,7 +9,6 @@ class SellerPostedBids extends Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
-
     this.closeViewSeller = this.closeViewSeller.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
 
@@ -64,13 +62,9 @@ class SellerPostedBids extends Component {
   };
 
   updateStatus = () => {
-    console.log("Status: ", this.state.status); //tbc
     const { sellerBid, status } = this.state;
-
     let updateBid = { sellerBidId: sellerBid.sellerBidId, status: status };
-
     this.props.UpdateSellerBid(updateBid);
-    console.log("Update Bid is function"); // tbc
   };
 
   closeViewSeller = () => {
