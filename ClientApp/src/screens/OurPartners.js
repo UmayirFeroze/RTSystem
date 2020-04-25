@@ -1,107 +1,99 @@
 import React, { Component } from "react";
+import Header from "../components/Header";
 import NavBar from "../components/Navbar";
+import User from "../components/User";
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
+// import { GetAllSellerBids } from "../actions/SellerBidActions"; //tbc
+import { getAllBids } from "../actions/BuyerBidActions";
 import "../styles/OurPartners.css";
-import Header from "../components/Header";
 
 export class OurPartners extends Component {
   constructor(props) {
     super(props);
 
+    this.handleClick = this.handleClick.bind(this);
+
     this.state = {
       users: [],
-      isLoading: true,
+      dealers: [],
+      exporters: [],
+      manufacturers: [],
+      buyerBids: [],
+      status: "all",
     };
   }
 
   componentDidMount() {
     this.props.getAllUsers();
-    console.log("All USers:", this.props.users);
+    this.props.getAllBids();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.users.data !== this.props.users.data) {
       this.setState({ users: this.props.users.data });
     }
+    if (prevProps.buyerBids.data !== this.props.buyerBids.data) {
+      this.setState({ buyerBids: this.props.buyerBids.data });
+    }
   }
 
-  renderUser = (users) => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          paddingRight: 20,
-          paddingLeft: 20,
-          color: "white",
-        }}
-      >
-        <div className="sideNavBar">
-          <span>All Partners</span>
-          <span>Dealers</span>
-          <span>Exporters</span>
-          <span>Rubber Product Manufacturers</span>
-        </div>
-        <div
-          style={{
-            // marginRight: 150,
-            // paddingLeft: 150,
+  handleClick = (event) => {
+    const { users } = this.state;
+    //  function to query data
+    function isValid(user) {
+      if (user.businessType === event.target.value) {
+        return true;
+      }
+    }
 
-            height: "100%",
-            width: "100%",
-            border: 1,
-            borderStyle: "solid",
-            borderColor: "pink",
-          }}
-        >
-          {users.map((user) => (
-            <div
-              key={user.userId}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                border: 1,
+    if (event.target.name === "allUsers") {
+      this.setState({ status: "all" });
+    }
+    if (event.target.name === "dealers") {
+      this.setState({ status: "dealers", dealers: users.filter(isValid) });
+    }
+    if (event.target.name === "exporters") {
+      this.setState({ status: "exporters", exporters: users.filter(isValid) });
+    }
+    if (event.target.name === "manufacturers") {
+      this.setState({
+        status: "manufacturers",
+        manufacturers: users.filter(isValid),
+      });
+    }
+  };
 
-                borderStyle: "solid",
-                borderColor: "white",
-                marginBottom: 10,
-              }}
-            >
-              <div style={{ width: "25%" }}>
-                <h2 style={{ margin: 3 }}>{user.businessName}</h2>
-                <h4 style={{ marginTop: 10 }}>{user.businessDescription}</h4>
-              </div>
-              <div style={{ padding: 10 }}>
-                <p>Business Type: {user.businessType}</p>
-                <p>Owner: {user.firstName + " " + user.lastName}</p>
-                <p>
-                  Phone: {user.phone} / {user.businessPhone}
-                </p>
-                <p>Email: {user.email}</p>
-                <p>Address: {user.businessAddress}</p>
-              </div>
-              <div>
-                <a
-                  href="/profile"
-                  style={{ color: "white", textAlign: "center" }}
-                >
-                  Would you like to get to know more about {user.businessName} ?
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+  renderUser = (users, buyerBids) => {
+    return users.map((user) => (
+      <User key={user.userId} user={user} buyerBids={buyerBids} />
+    ));
   };
 
   render() {
-    let content = this.props.users.isLoading ? (
-      <p>Loading...</p>
-    ) : (
-      this.state.users.length && this.renderUser(this.state.users)
-    );
+    const {
+      users,
+      dealers,
+      exporters,
+      manufacturers,
+      status,
+      buyerBids,
+    } = this.state;
+    let content =
+      this.props.users.loading || this.props.buyerBids.loading ? (
+        <p>Loading...</p>
+      ) : buyerBids.length === 0 ? (
+        <p>No buyerBids Yet</p>
+      ) : status === "all" ? (
+        this.renderUser(users, buyerBids)
+      ) : status === "dealers" ? (
+        this.renderUser(dealers, buyerBids)
+      ) : status === "exporters" ? (
+        this.renderUser(exporters, buyerBids)
+      ) : (
+        this.renderUser(manufacturers, buyerBids)
+      );
+
     return (
       <div>
         <Header />
@@ -109,6 +101,28 @@ export class OurPartners extends Component {
         <div>
           <h1>Our Partners</h1>
           <h2>All users details will come here</h2>
+          <div>
+            <button name="allUsers" value="allUsers" onClick={this.handleClick}>
+              All Partners
+            </button>
+            <button name="dealers" value="Dealer" onClick={this.handleClick}>
+              Dealers
+            </button>
+            <button
+              name="exporters"
+              value="Exporter"
+              onClick={this.handleClick}
+            >
+              Exporters
+            </button>
+            <button
+              name="manufacturers"
+              value="Rubber Product Manufacturer"
+              onClick={this.handleClick}
+            >
+              Rubber Product Manufacturers
+            </button>
+          </div>
           <div>{content}</div>
         </div>
       </div>
@@ -116,8 +130,7 @@ export class OurPartners extends Component {
   }
 }
 
-const mapStateToProps = ({ users }) => ({
-  users,
-});
-
-export default connect(mapStateToProps, { getAllUsers })(OurPartners);
+const mapStateToProps = ({ users, buyerBids }) => ({ users, buyerBids });
+export default connect(mapStateToProps, { getAllUsers, getAllBids })(
+  OurPartners
+);

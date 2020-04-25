@@ -23,6 +23,7 @@ import SellerPostedBids from "./components/SellerPostedBids";
 import SellerQuotedBids from "./components/SellerQuotedBids";
 import BuyerRequestedBids from "./components/BuyerRequestBids";
 import BuyerRequestBidIndividual from "./components/BuyerRequestBidIndividual";
+import User from "./components/User";
 export const history = createBrowserHistory();
 
 const App = () => (
@@ -116,6 +117,8 @@ const App = () => (
         path="/requestbid"
         render={(props) => <BuyerRequestBidIndividual {...props} />}
       />
+
+      <Route exact path="/user" render={(props) => <User {...props} />} />
     </Switch>
   </BrowserRouter>
 );

@@ -9,17 +9,19 @@ class IndividualBuyerBid extends Component {
   constructor(props) {
     super(props);
 
+    this.openMakeBid = this.openMakeBid.bind(this);
+    this.closeMakeBid = this.closeMakeBid.bind(this);
+
     this.state = {
       buyerBid: [],
       user: [],
       sellerBid: [],
-      showModal: false,
+      makeBid: false,
     };
   }
 
   componentDidMount() {
-    const buyerBidTaken = this.props.buyerBid;
-    this.setState({ buyerBid: buyerBidTaken });
+    this.setState({ buyerBid: this.props.buyerBid });
 
     const user = this.props.getAuthUser();
     this.setState({ user: user });
@@ -31,10 +33,18 @@ class IndividualBuyerBid extends Component {
     }
   }
 
+  openMakeBid = () => {
+    this.setState({ makeBid: true });
+  };
+  closeMakeBid = () => {
+    this.setState({ makeBid: false });
+  };
+
   render() {
     const { buyerBid } = this.state;
+    console.log("State Check: ", this.state);
     return (
-      <div key={buyerBid.buyerBidId} className="buyerBid">
+      <div className="buyerBid">
         <p>
           Quality: {buyerBid.quality} Quantity: {buyerBid.quantity} Price:{" "}
           {buyerBid.price}
@@ -42,21 +52,13 @@ class IndividualBuyerBid extends Component {
         <p>
           Payment In: {buyerBid.paymentIn} Status: {buyerBid.status}
         </p>
-        <Popup
-          modal
-          trigger={<button>Make Bid</button>}
-          closeOnDocumentClick
-          contentStyle={{
-            border: "none",
-            padding: 0,
-            borderColor: "white",
-            borderStyle: "solid",
-          }}
-        >
+        <button onClick={this.openMakeBid}>Make Bid</button>
+
+        <Popup open={this.state.makeBid} onClose={this.closeMakeBid}>
           <div className="sellerBidComponent">
             <div className="sellerBidComponentHeader">
               <p>Quote Your Offer</p>
-              {/* <span>&times;</span> */}
+              <button onClick={this.closeMakeBid}>&times;</button>
             </div>
             <div>
               <SellerCreateBid buyerBid={buyerBid} user={this.state.user} />
@@ -68,8 +70,5 @@ class IndividualBuyerBid extends Component {
   }
 }
 
-const mapStateToProps = ({ authUser }) => ({
-  authUser,
-});
-
+const mapStateToProps = ({ authUser }) => ({ authUser });
 export default connect(mapStateToProps, { getAuthUser })(IndividualBuyerBid);
