@@ -56,14 +56,8 @@ export const loginUser = (user) => (dispatch) => {
 export const LOGOUT_USER = "LOGOUT_USER";
 export const logoutUser = () => (dispatch) => {
   dispatch({ type: LOGOUT_USER });
-  if (localStorage.getItem("user") !== null) {
-    localStorage.removeItem("user");
-    console.log("Logged Out User!"); // tbc
-  } else {
-    localStorage.clear();
-    console.log("Clear All Login Sessions"); // tbc
-  }
-  return {};
+  localStorage.clear();
+  console.log("Clear All Login Sessions"); // tbc
 };
 
 //Regsiter User
