@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import IndividualBuyerBid from "./IndividualBuyerBid";
-import "../styles/IndividualUserCard.css";
 
 class User extends Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class User extends Component {
     this.state = {
       user: [],
       buyerBids: [],
-
       viewUser: false,
     };
   }
@@ -66,8 +64,7 @@ class User extends Component {
           <p>{user.firstName + " " + user.lastName}</p>
           <p>{"Contact: " + user.phone}</p>
         </div>
-        <div style={{ border: "1px solid blue", width: "50%" }}>
-          {/* include overflow */}
+        <div>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <h4>Recent Requests</h4>
             <button onClick={this.closeViewUser}>&times;</button>
@@ -89,26 +86,18 @@ class User extends Component {
     const { user, buyerBids, viewUser } = this.state;
     console.log("View", viewUser);
     return (
-      <div className="userSingleCard">
-        <div className="userDetails">
-          <p>
-            <b>{user.businessName}</b>
-          </p>
-          <p>
-            <b>Type:</b>
-            {user.businessType}
-          </p>
-          <p>
-            <b>Contact:</b> {user.phone + " / " + user.businessPhone}{" "}
-            <b>Address:</b> {user.businessAddress}
-          </p>
+      <div className="buyerBid">
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <p>{"Business: " + user.businessName}</p>
+          <p>{"Business Type: " + user.businessType}</p>
+          <p>{"Contact: " + user.phone + " / " + user.businessPhone}</p>
+          <p>{"Address: " + user.businessAddress}</p>
         </div>
-        <div>
-          <button onClick={this.openViewUser}>View User</button>
-          <Popup open={this.state.viewUser} onClose={this.closeViewUser}>
-            {this.renderUserProfile(user, buyerBids)}
-          </Popup>
-        </div>
+        <button onClick={this.openViewUser}>View User</button>
+
+        <Popup open={this.state.viewUser} onClose={this.closeViewUser}>
+          {this.renderUserProfile(user, buyerBids)}
+        </Popup>
       </div>
     );
   }

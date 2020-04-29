@@ -3,7 +3,6 @@ import Popup from "reactjs-popup";
 
 import { connect } from "react-redux";
 import { DeleteSellerBid } from "../actions/SellerBidActions";
-import DetailedQuotationPopup from "./DetailedQuotationPopup";
 
 export class SellerQuotedBids extends Component {
   constructor(props) {
@@ -45,6 +44,72 @@ export class SellerQuotedBids extends Component {
     this.setState({ viewMore: false });
   };
 
+  renderViewMore = (sellerBid, buyerBid, buyer) => {
+    console.log("Buyer Bid: ", buyerBid);
+    return (
+      <div style={{ border: "1px red solid", color: "black" }}>
+        <div
+          style={{
+            border: "1px blue solid",
+            color: "black",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <p>{buyer.businessName + " Status: " + sellerBid.status}</p>
+          <div
+            style={{
+              border: "1px blue",
+              borderRadius: "50%",
+              height: "25px",
+              width: "25px",
+              backgroundColor: "yellow",
+            }}
+          ></div>
+          <button onClick={this.closeView}>&times;</button>
+        </div>
+        <div
+          style={{
+            border: "1px blue solid",
+            color: "black",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div>
+            <h2>{buyer.businessName}</h2>
+            <h4>
+              {buyer.firstName +
+                " " +
+                buyer.lastName +
+                " | " +
+                buyer.phone +
+                " / " +
+                buyer.businessPhone +
+                " | " +
+                buyer.email}
+            </h4>
+            <p>Posted On: {buyerBid.timeStamp}</p>
+            <h5>Request Details: </h5>
+            <p>Quality: {buyerBid.quality}</p>
+            <p>Quantity: {buyerBid.quantity}</p>
+            {buyerBid.price ? <p>Price: {buyerBid.price}</p> : null}
+            <p>Payment In: {buyerBid.paymentIn}</p>
+          </div>
+          <div className="vertical"></div>
+          <div>
+            <h4>Your Quotation: </h4>
+            <p>Quantity: {sellerBid.quantity}</p>
+            <p>Price: {sellerBid.price}</p>
+            <p>Delivery Date: {sellerBid.deliveryDate}</p>
+            <p>Validity Period: {sellerBid.validityPeriod}</p>
+            <p>Status: {sellerBid.status}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   openDelete = () => {
     this.setState({ deleteModal: true });
   };
@@ -61,99 +126,29 @@ export class SellerQuotedBids extends Component {
   render() {
     const { mySellerBid, buyerBid, buyer, viewMore, deleteModal } = this.state;
     return (
-      <div className="singleQuotation">
-        <div className="quotationDetail">
-          <div>
-            <p>
-              <b>Status</b>
-            </p>
-            <p> {mySellerBid.status}</p>
-          </div>
-          <div>
-            <p>
-              <b>{buyer.businessName}</b>
-            </p>
-          </div>
+      <div style={{ border: "1px red solid" }}>
+        <p>{buyer.businessName}</p>
+        <p>{"Quality: " + buyerBid.quality}</p>
+        <p>{"Quantity: " + mySellerBid.quantity}</p>
+        <p>{"Price: " + mySellerBid.price}</p>
+        <p>{"Validity: " + mySellerBid.validityPeriod}</p>
+        <p>{"Status: " + mySellerBid.status}</p>
+        <button onClick={this.viewMore}>View More</button>
+        <button onClick={this.openDelete}>Delete Bid</button>
 
-          <div>
-            <p>
-              <b>Posted On:</b>
-            </p>
-            <p> {mySellerBid.timeStamp}</p>
-          </div>
-
-          <div>
-            <p>
-              <b>Quality:</b>
-            </p>
-
-            <p>{buyerBid.quality}</p>
-          </div>
-          <div>
-            <p>
-              <b>Quantity: </b>
-            </p>
-            <p>{mySellerBid.quantity}</p>
-          </div>
-          <div>
-            <p>
-              <b>Price: </b>
-            </p>
-            <p> {mySellerBid.price}</p>
-          </div>
-          <div>
-            <p>
-              <b>Expires on: </b>
-            </p>
-            <p>{mySellerBid.validityPeriod}</p>
-          </div>
-        </div>
-        <div className="quotationButtons">
-          <button name="viewMore" onClick={this.viewMore}>
-            View More
-          </button>
-          <button name="deleteBid" onClick={this.openDelete}>
-            Delete Bid
-          </button>
-        </div>
-
-        <Popup
-          open={viewMore}
-          onClose={this.closeView}
-          contentStyle={{ border: "none", backgroundColor: "inherit" }}
-        >
-          <div className="viewPopup">
-            <div className="viewPopupheader">
-              <i>Status</i>
-              <p>Posted On: {mySellerBid.timeStamp}</p>
-              <button onClick={this.closeView}>&times;</button>
-            </div>
-            <DetailedQuotationPopup
-              sellerBid={mySellerBid}
-              buyerBid={buyerBid}
-              buyer={buyer}
-            />
-          </div>
+        <Popup open={viewMore} onClose={this.closeView}>
+          {this.renderViewMore(mySellerBid, buyerBid, buyer)}
         </Popup>
 
-        <Popup
-          open={deleteModal}
-          onClose={this.closeDelete}
-          contentStyle={{ border: "none", backgroundColor: "inherit" }}
-        >
-          <div className="confirmPopup">
+        <Popup open={deleteModal} onClose={this.closeDelete}>
+          <div style={{ color: "black", textAlign: "center" }}>
             <h2>Are You Sure You Want to Delete?</h2>
-            <div className="buttons">
-              <button
-                name="yes"
-                onClick={() => this.deleteSellerBid(mySellerBid.sellerBidId)}
-              >
-                Yes
-              </button>
-              <button name="no" onClick={this.closeDelete}>
-                No
-              </button>
-            </div>
+            <button
+              onClick={() => this.deleteSellerBid(mySellerBid.sellerBidId)}
+            >
+              Yes
+            </button>
+            <button onClick={this.closeDelete}>No</button>
           </div>
         </Popup>
       </div>

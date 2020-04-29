@@ -10,29 +10,28 @@ body {
 }
 
 .profile {
-  /* border: 0.5px; */
-  border: none;
-  /* border-color: white; */
-  /* border-style: solid; */
+  border: 1px;
+  border-color: white;
+  border-style: solid;
   background-color: #1f1e1e;
   width: 20%;
 }
 
 .bids {
-  margin: 0 5px 0 5px;
+  border: 1px;
+  border-style: solid;
+  border-color: white;
   padding: 10px 20px 20px 20px;
   overflow-x: hidden;
   overflow-x: auto;
   width: 60%;
-  background-color: #1f1e1e;
 }
 
 .createBids {
   width: 20%;
   padding: 50px 20px 20px 20px;
   background-color: #1f1e1e;
-  /* border: 0.5px; */
-  border: none;
-  /* border-style: solid; */
-  /* border-color: white; */
+  border: 1px;
+  border-style: solid;
+  border-color: white;
 }

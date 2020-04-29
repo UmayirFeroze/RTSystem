@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 
+import "../styles/SellerCreateBid.css";
+
 import { connect } from "react-redux";
 import { CreateSellerBid } from "../actions/SellerBidActions";
-import "../styles/SellerCreateBid.css";
 
 export class SellerCreateBid extends Component {
   constructor(props) {
@@ -22,14 +23,13 @@ export class SellerCreateBid extends Component {
         status: "",
       },
       buyerBid: [],
-      buyer: [],
-      seller: [],
+      user: [],
       today: "",
     };
   }
   componentDidMount() {
-    const { buyerBid, buyer, seller } = this.props;
-    this.setState({ buyerBid: buyerBid, buyer: buyer, seller: seller });
+    const { user, buyerBid } = this.props;
+    this.setState({ buyerBid: buyerBid, user: user });
   }
 
   componentDidUpdate(prevProps) {
@@ -59,7 +59,7 @@ export class SellerCreateBid extends Component {
     this.setState({
       sellerBid: {
         ...sellerBid,
-        userId: this.state.seller.userId,
+        userId: this.state.user.userId,
         buyerBidId: this.state.buyerBid.buyerBidId,
         [event.target.name]:
           event.target.type === "number" && event.target.value >= 0
@@ -113,15 +113,14 @@ export class SellerCreateBid extends Component {
   };
 
   render() {
-    const { buyerBid, buyer } = this.props;
+    const { user, buyerBid } = this.props;
     console.log("BuyerBid Details: ", this.state.buyerBid);
 
     return (
       <div className="quotation">
-        <h1>{buyer.businessName}</h1>
+        <h1>{user.businessName}</h1>
         <p>
-          {buyer.firstName + " " + buyer.lastName} | {buyer.phone} |{" "}
-          {buyer.email}
+          {user.firstName + " " + user.lastName} | {user.phone} | {user.email}
         </p>
         <div className="Details">
           {this.renderBidDetails(buyerBid)}

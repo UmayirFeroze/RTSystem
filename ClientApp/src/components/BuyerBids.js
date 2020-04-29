@@ -1,59 +1,66 @@
 import React, { Component } from "react";
-import IndividualBuyerBid from "./IndividualBuyerBid";
+import { connect } from "react-redux";
+import { getBuyerBidsNotByUserId } from "../actions/BuyerBidActions";
+import "../reducers/buyerBidReducer";
 
-// import "./../styles/BuyerBids.css";
+import "./../styles/BuyerBids.css";
+import IndividualBuyerBid from "./IndividualBuyerBid";
 
 export class BuyerBids extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      buyerBids: [],
-      users: [],
+      postedBuyerBids: [],
+      loading: true,
+      failed: false,
+      error: "",
+      user: [],
     };
   }
 
   componentDidMount() {
-    console.log("Props Buyerbids: ", this.props.buyerBidsList); // tbc
-    console.log("Props Users: ", this.props.usersList); // tbc
-    this.setState({
-      buyerBids: this.props.buyerBidsList.filter(
-        (buyerBid) => buyerBid.status !== "closed"
-      ),
-      users: this.props.usersList,
-    });
+    this.props.getBuyerBidsNotByUserId();
   }
 
-  renderAllPostedBuyerBids = (buyerBids, users) => {
-    if (Array.isArray(buyerBids) && Array.isArray(users)) {
-      return buyerBids.map((buyerBid) => (
-        <IndividualBuyerBid
-          key={buyerBid.buyerBidId}
-          buyerBid={buyerBid}
-          buyer={users.find(({ userId }) => userId === buyerBid.userId)}
-        />
-      ));
+  componentDidUpdate(prevProps) {
+    if (prevProps.buyerBids.data !== this.props.buyerBids.data) {
+      this.setState({ postedBuyerBids: this.props.buyerBids.data });
     }
+  }
+
+  renderAllPostedBuyerBids = (postedBuyerBids) => {
+    return (
+      <div>
+        {postedBuyerBids.map((buyerBid) => (
+          <IndividualBuyerBid buyerBid={buyerBid} key={buyerBid.buyerBidId} />
+        ))}
+      </div>
+    );
   };
 
   render() {
-    const { buyerBids, users } = this.state;
-    let content =
-      buyerBids.length === 0 || users.length === 0 ? (
-        <p>No one has posted any buyer bids yet</p>
-      ) : (
-        this.renderAllPostedBuyerBids(buyerBids, users)
-      );
-
-    console.log("State:", this.state.buyerBids);
+    let content = this.props.buyerBids.loading ? (
+      <p>Loading...</p>
+    ) : this.state.failed ? (
+      <p>{this.state.error}</p>
+    ) : (
+      this.state.postedBuyerBids.length > 0 &&
+      this.renderAllPostedBuyerBids(this.state.postedBuyerBids)
+    );
     return (
       <div>
         <h2>Dashboard</h2>
         <p>These organizations want to trade with you</p>
-        <div>{content}</div>
+        {content}
       </div>
     );
   }
 }
 
-export default BuyerBids;
+const mapStateToProps = ({ buyerBids, users }) => ({
+  buyerBids,
+  users,
+});
+
+export default connect(mapStateToProps, { getBuyerBidsNotByUserId })(BuyerBids);

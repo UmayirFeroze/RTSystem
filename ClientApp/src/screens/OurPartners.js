@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import ReactSearchBox from "react-search-box";
 import Header from "../components/Header";
 import NavBar from "../components/Navbar";
 import User from "../components/User";
-
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
+// import { GetAllSellerBids } from "../actions/SellerBidActions"; //tbc
 import { getAllBids } from "../actions/BuyerBidActions";
 import "../styles/OurPartners.css";
 
@@ -94,7 +93,6 @@ export class OurPartners extends Component {
       ) : (
         this.renderUser(manufacturers, buyerBids)
       );
-    console.log("Test: ", this.state.users); // To be cleaned
 
     return (
       <div>
@@ -103,44 +101,29 @@ export class OurPartners extends Component {
         <div>
           <h1>Our Partners</h1>
           <h2>All users details will come here</h2>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div className="sidenav">
-              <button
-                name="allUsers"
-                value="allUsers"
-                onClick={this.handleClick}
-              >
-                All Partners
-              </button>
-              <button name="dealers" value="Dealer" onClick={this.handleClick}>
-                Dealers
-              </button>
-              <button
-                name="exporters"
-                value="Exporter"
-                onClick={this.handleClick}
-              >
-                Exporters
-              </button>
-              <button
-                name="manufacturers"
-                value="Rubber Product Manufacturer"
-                onClick={this.handleClick}
-              >
-                Rubber Product Manufacturers
-              </button>
-            </div>
-            <div className="results">
-              {/*Delete seach component on completion*/}
-              <ReactSearchBox
-                placeholder="Placeholder"
-                value="Doe"
-                data={users}
-                callback={(record) => console.log(record)}
-              />
-              <div style={{ marginTop: 20 }}>{content}</div>
-            </div>
+          <div>
+            <button name="allUsers" value="allUsers" onClick={this.handleClick}>
+              All Partners
+            </button>
+            <button name="dealers" value="Dealer" onClick={this.handleClick}>
+              Dealers
+            </button>
+            <button
+              name="exporters"
+              value="Exporter"
+              onClick={this.handleClick}
+            >
+              Exporters
+            </button>
+            <button
+              name="manufacturers"
+              value="Rubber Product Manufacturer"
+              onClick={this.handleClick}
+            >
+              Rubber Product Manufacturers
+            </button>
           </div>
+          <div>{content}</div>
         </div>
       </div>
     );

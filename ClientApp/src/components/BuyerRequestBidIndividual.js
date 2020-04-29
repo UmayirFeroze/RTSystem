@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+
 import Popup from "reactjs-popup";
 import SellerPostedBids from "./SellerPostedBids";
 
 import { connect } from "react-redux";
 import { DeleteBuyerBid, EditBuyerBid } from "../actions/BuyerBidActions";
-import "../styles/IndividualBuyerRequestedBids.css";
 
 class BuyerRequestBidIndividual extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class BuyerRequestBidIndividual extends Component {
     this.closeBid = this.closeBid.bind(this);
 
     this.state = {
-      buyerBid: {},
+      buyerBid: [],
       sellerBids: [],
       users: [],
       status: "",
@@ -93,12 +93,9 @@ class BuyerRequestBidIndividual extends Component {
   };
   updateStatus = () => {
     const { buyerBid, status } = this.state;
-
     let updateBid = { buyerBidId: buyerBid.buyerBidId, status: status };
     this.props.EditBuyerBid(updateBid);
-
-    console.log("BuyerBids Status: ", this.state.buyerBid.status);
-    // window.location.reload();
+    window.location.reload();
   };
 
   handleDelete = () => {
@@ -117,83 +114,46 @@ class BuyerRequestBidIndividual extends Component {
       viewDelete,
       viewSellerBid,
     } = this.state;
-
     return (
-      <div className="buyerRequestBid">
-        <div className="bidDetails">
-          <div>
-            <p>
-              <b>Status: </b> {buyerBid.status}
-            </p>
-          </div>
-          <div>
-            <p>
-              <b>Posted on: {buyerBid.timeStamp}</b>
-            </p>
-          </div>
-          <div>
-            <p>
-              <b>Quality: </b>
-              {buyerBid.quality}
-            </p>
-            <p>
-              <b>Quantity: </b>
-              {buyerBid.quantity}
-            </p>
-          </div>
-        </div>
-        <div className="bidOperations">
-          <button name="sellerbids" onClick={this.handleChange}>
-            View Quotations
-          </button>
-          <button name="closebid" onClick={this.handleChange}>
-            Close Bid
-          </button>
-          <button name="deletebid" onClick={this.handleChange}>
-            Delete Bid
-          </button>
-        </div>
+      <div className="buyerBid" style={{ border: "1px solid red" }}>
+        <p>
+          {" ID:" +
+            buyerBid.buyerBidId +
+            " Quantity:" +
+            buyerBid.quality +
+            " Status:" +
+            buyerBid.status}
+        </p>
+
+        <button name="sellerbids" onClick={this.handleChange}>
+          View Quotations
+        </button>
+        <button name="closebid" onClick={this.handleChange}>
+          Close Bid
+        </button>
+        <button name="deletebid" onClick={this.handleChange}>
+          Delete Bid
+        </button>
 
         <Popup open={viewSellerBid} onClose={this.closeView}>
           {() => this.renderSellerBids(sellerBids, users)}
         </Popup>
 
-        <Popup
-          open={viewClose}
-          onClose={this.closeView}
-          contentStyle={{ border: "none", backgroundColor: "#1f1e1e" }}
-        >
-          <div className="confirmPopup">
-            <h1>Are your sure you want to Close this bid?</h1>
-            <div className="buttons">
-              <button onClick={this.closeBid} name="yes">
-                Yes
-              </button>
-              <button onClick={this.closeView} name="no">
-                No
-              </button>
-            </div>
+        <Popup open={viewClose} onClose={this.closeView}>
+          <div>
+            <h1 style={{ color: "black" }}>
+              Are yoru sure you want to Close this bid?
+            </h1>
+            <button onClick={this.closeBid}>Yes</button>
+            <button onClick={this.closeView}>No</button>
           </div>
         </Popup>
 
-        <Popup
-          open={viewDelete}
-          onClose={this.closeView}
-          contentStyle={{
-            border: "none",
-            backgroundColor: "#1f1e1e",
-          }}
-        >
-          <div className="confirmPopup">
-            <h1>Are you sure you want to Delete?</h1>
-            <div className="buttons">
-              <button onClick={this.handleDelete} name="yes">
-                Yes
-              </button>
-              <button onClick={this.closeView} name="no">
-                No
-              </button>
-            </div>
+        <Popup open={viewDelete} onClose={this.closeView}>
+          <div>
+            <h1 style={{ color: "black" }}>Are you sure you want to Delete?</h1>
+            <button onClick={this.handleDelete}>Yes</button>
+            <button onClick={this.closeView}>No</button>
           </div>
         </Popup>
       </div>
