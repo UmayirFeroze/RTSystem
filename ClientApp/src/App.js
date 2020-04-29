@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 
 import { Route, BrowserRouter, Switch } from "react-router-dom";
+
 import { createBrowserHistory } from "history";
 
 // Screen Imports
@@ -21,7 +22,6 @@ import ResetPassword from "./components/ResetPassword";
 import EditUser from "./components/EditUser";
 import SellerPostedBids from "./components/SellerPostedBids";
 import SellerQuotedBids from "./components/SellerQuotedBids";
-import BuyerRequestedBids from "./components/BuyerRequestBids";
 import BuyerRequestBidIndividual from "./components/BuyerRequestBidIndividual";
 import User from "./components/User";
 export const history = createBrowserHistory();
@@ -104,12 +104,6 @@ const App = () => (
         exact
         path="/quotedBids"
         render={(props) => <SellerQuotedBids {...props} />}
-      />
-
-      <Route
-        exact
-        path="/requestBids"
-        render={(props) => <BuyerRequestedBids {...props} />}
       />
 
       <Route

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
-
-import { getAuthUser } from "../actions/authAction";
 import SellerCreateBid from "./SellerCreateBid";
+
 import { connect } from "react-redux";
+import { getAuthUser } from "../actions/authAction";
+import "../styles/IndividualBuyerBids.css";
 
 class IndividualBuyerBid extends Component {
   constructor(props) {
@@ -14,22 +15,23 @@ class IndividualBuyerBid extends Component {
 
     this.state = {
       buyerBid: [],
-      user: [],
+      buyer: [],
+
+      seller: [],
       sellerBid: [],
       makeBid: false,
     };
   }
 
   componentDidMount() {
-    this.setState({ buyerBid: this.props.buyerBid });
-
-    const user = this.props.getAuthUser();
-    this.setState({ user: user });
+    console.log("Buyer:", this.props.buyer); // to be cleaned
+    this.setState({ buyerBid: this.props.buyerBid, buyer: this.props.buyer });
+    this.props.getAuthUser();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.authUser.data !== this.props.authUser.data) {
-      this.setState({ user: this.props.authUser.data });
+      this.setState({ seller: this.props.authUser.data });
     }
   }
 
@@ -41,18 +43,23 @@ class IndividualBuyerBid extends Component {
   };
 
   render() {
-    const { buyerBid } = this.state;
-    console.log("State Check: ", this.state);
+    // console.log("State Check: ", this.state); // to be cleaned
+    const { buyerBid, buyer, seller } = this.state;
     return (
       <div className="buyerBid">
-        <p>
-          Quality: {buyerBid.quality} Quantity: {buyerBid.quantity} Price:{" "}
-          {buyerBid.price}
-        </p>
-        <p>
-          Payment In: {buyerBid.paymentIn} Status: {buyerBid.status}
-        </p>
-        <button onClick={this.openMakeBid}>Make Bid</button>
+        <div className="bidDetails">
+          <h3>{buyer.businessName}</h3> {/*to be handled*/}
+          <p>
+            <b>Quality:</b> {buyerBid.quality} <b>Quantity:</b>{" "}
+            {buyerBid.quantity} <b>Price:</b> {buyerBid.price}{" "}
+          </p>
+          <p>
+            <b>Payment In:</b> {buyerBid.paymentIn}
+          </p>
+        </div>
+        <div>
+          <button onClick={this.openMakeBid}>Make Bid</button>
+        </div>
 
         <Popup open={this.state.makeBid} onClose={this.closeMakeBid}>
           <div className="sellerBidComponent">
@@ -61,7 +68,11 @@ class IndividualBuyerBid extends Component {
               <button onClick={this.closeMakeBid}>&times;</button>
             </div>
             <div>
-              <SellerCreateBid buyerBid={buyerBid} user={this.state.user} />
+              <SellerCreateBid
+                buyerBid={buyerBid}
+                buyer={buyer}
+                seller={seller}
+              />
             </div>
           </div>
         </Popup>

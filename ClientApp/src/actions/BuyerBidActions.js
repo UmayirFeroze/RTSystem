@@ -21,8 +21,7 @@ export const getAllBids = () => (dispatch) => {
       dispatch(getAllBidsSuccess(response));
     })
     .catch((error) => {
-      dispatch(getAllBidsFailure("Something Went wrong!"));
-      // return Promise.reject({});
+      dispatch(getAllBidsFailure(error));
     });
 };
 

@@ -21,6 +21,7 @@
 
 .navbar a.active {
   background-color: #111;
+  font-weight: bold;
   color: white;
 }
 
