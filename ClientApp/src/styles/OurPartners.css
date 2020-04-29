@@ -1,33 +1,59 @@
 body {
   height: 100%;
-}
-.sideNavBar {
-  background-color: black;
-  border: 1px;
-  border-color: white;
-  border-style: solid;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  width: 30%;
-  margin: 0 10px 0 0;
-}
-
-.sideNavBar span {
-  background-color: grey;
   width: 100%;
-  /* margin: auto; */
-  vertical-align: middle;
-  height: 100%;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: large;
-  padding: 10px 0 10px 0;
-  background-color: #1f1e1e;
-  /* display: inline-block; */
-  text-align: center;
 }
 
-.sideNavBar span:hover {
+.sidenav {
+  height: 100%;
+  width: 290px;
+  position: fixed;
+  z-index: 1;
+  top: 1;
+  left: 0;
   background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav button {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  margin: 5px 0 5px 0;
+
+  background-color: inherit;
+  border: none;
+  text-align: left;
+  width: 100%;
+}
+
+.sidenav button:hover {
+  color: #f1f1f1;
+  border: none;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.results {
+  margin-left: 295px; /* Same as the width of the sidenav */
+  padding: 10px 30px 10px 10px;
+  background-color: #1f1e1e;
+  width: 83%;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 1;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
 }

@@ -29,7 +29,7 @@ export class BuyerCreateBid extends Component {
     this.setState({ user: user.userId });
   }
 
-  setBidState = (event, user) => {
+  setBidState = (event) => {
     let { buyerBid } = this.state;
     this.setState({
       buyerBid: {
@@ -45,21 +45,16 @@ export class BuyerCreateBid extends Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
     console.log(this.state.buyerBid); //to be cleaned
-    const { buyerBid } = this.state;
-    this.props.createBid(buyerBid);
+    event.preventDefault();
+    this.props.createBid(this.state.buyerBid);
   };
-
-  printFinal() {
-    console.log(this.props.buyerBid);
-  }
 
   render() {
     return (
       <div className="createBid">
         <h2>Create Bid Component</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form id="createBidForm" onSubmit={this.handleSubmit}>
           <select
             name="quality"
             onChange={this.setBidState}
@@ -118,8 +113,8 @@ export class BuyerCreateBid extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBid }) => ({
-  buyerBid,
+const mapStateToProps = ({ buyerBids }) => ({
+  buyerBids,
 });
 
 export default connect(mapStateToProps, { createBid })(BuyerCreateBid);
