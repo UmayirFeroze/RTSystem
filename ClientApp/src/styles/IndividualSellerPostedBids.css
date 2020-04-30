@@ -1,0 +1,96 @@
+.singleSellerBid {
+  border: none white solid;
+  /* border: 1px solid green; */
+  border-radius: 10px;
+  height: 100px;
+  color: white;
+  background-color: #292929;
+  margin: 5px 0 5px 0;
+  /* padding: 10px 0 10px 30px; */
+  width: auto;
+  display: flex;
+}
+
+.singleSellerBid .status {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: auto 5px auto 10px;
+}
+
+.singleSellerBid .details {
+  /* border: 1px solid blue; */
+  margin: 0 0 0 5px;
+  padding: 5px 0 10px 10px;
+  width: 40%;
+}
+
+.singleSellerBid .buttons {
+  width: 60%;
+  text-align: center;
+}
+
+.singleSellerBid .buttons button[name="viewSeller"] {
+  background-color: inherit; /* to be inheritted*/
+  color: white;
+  padding: 10px 16px;
+  margin: 25px 3px 10px auto;
+  border: 1px solid #1682db;
+  border-radius: 4px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+.singleSellerBid .buttons button[name="viewSeller"]:hover {
+  border: 2px solid #1682db;
+  font-weight: bold;
+}
+
+.singleSellerBid .buttons button[name="accept"] {
+  background-color: inherit; /* to be inheritted*/
+  color: white;
+  padding: 10px 16px;
+  margin: 25px 3px 10px auto;
+  border: 1px solid green;
+  border-radius: 4px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+.singleSellerBid .buttons button[name="accept"]:hover {
+  border: 2px solid green;
+  font-weight: bold;
+}
+
+.singleSellerBid .buttons button[name="reject"] {
+  background-color: inherit; /* to be inheritted*/
+  color: white;
+  padding: 10px 16px;
+  margin: 25px 3px 10px auto;
+  border: 1px solid red;
+  border-radius: 4px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+.singleSellerBid .buttons button[name="reject"]:hover {
+  border: 2px solid red;
+  font-weight: bold;
+}
+
+.singleSellerBid .buttons button[name="negotiate"] {
+  background-color: inherit; /* to be inheritted*/
+  color: white;
+  padding: 10px 16px;
+  margin: 25px 3px 10px auto;
+  border: 1px solid yellow;
+  border-radius: 4px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+.singleSellerBid .buttons button[name="negotiate"]:hover {
+  border: 2px solid yellow;
+  font-weight: bold;
+}

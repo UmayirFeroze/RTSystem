@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import SellerPostedBids from "./SellerPostedBids";
 
-import { connect } from "react-redux";
-import { DeleteBuyerBid, EditBuyerBid } from "../actions/BuyerBidActions";
 import "../styles/IndividualBuyerRequestedBids.css";
 
 class BuyerRequestBidIndividual extends Component {
@@ -12,8 +10,8 @@ class BuyerRequestBidIndividual extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.closeView = this.closeView.bind(this);
-    this.updateStatus = this.updateStatus.bind(this);
     this.closeBid = this.closeBid.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 
     this.state = {
       buyerBid: {},
@@ -41,8 +39,8 @@ class BuyerRequestBidIndividual extends Component {
     this.setState({ users: users });
   }
 
-  renderSellerBids = (sellerBids, users) => {
-    if (Array.isArray(sellerBids)) {
+  renderSellerBids = (sellerBids, users, buyerBid) => {
+    if (Array.isArray(sellerBids) && Array.isArray(users)) {
       if (sellerBids.length === 0) {
         return (
           <div style={{ color: "black" }}>
@@ -51,13 +49,43 @@ class BuyerRequestBidIndividual extends Component {
           </div>
         );
       } else {
-        return sellerBids.map((sellerBid) => (
-          <SellerPostedBids
-            key={sellerBid.sellerBidId}
-            sellerBid={sellerBid}
-            users={users}
-          ></SellerPostedBids>
-        ));
+        return (
+          <div className="sellerBidsPopup">
+            <div className="header">
+              <h2>All Quotations for You Request</h2>
+              <button>&times;</button>
+            </div>
+            <div className="container">
+              <div className="buyerBidContainer">
+                <h2>Your Request</h2>
+                <p>
+                  <b>Quality:</b> {buyerBid.quality}
+                </p>
+                <p>
+                  <b>Quantity:</b> {buyerBid.quantity}
+                </p>
+                {buyerBid.price ? (
+                  <p>
+                    <b>Price:</b> {buyerBid.price}
+                  </p>
+                ) : null}
+                <p>
+                  <b>Payment:</b> {buyerBid.paymentIn}
+                </p>
+              </div>
+              <div className="vertical"></div>
+              <div className="sellerBidContainer">
+                {sellerBids.map((sellerBid) => (
+                  <SellerPostedBids
+                    key={sellerBid.sellerBidId}
+                    sellerBid={sellerBid}
+                    users={users}
+                  ></SellerPostedBids>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
       }
     }
   };
@@ -74,10 +102,11 @@ class BuyerRequestBidIndividual extends Component {
     if (event.target.name === "closebid") {
       this.setState({
         viewClose: true,
+        status: "closed",
       });
     }
     if (event.target.name === "deletebid") {
-      this.setState({ viewDelete: true });
+      this.setState({ viewDelete: true, status: "delete" });
     }
     if (event.target.name === "sellerbids") {
       this.setState({ viewSellerBid: true });
@@ -85,27 +114,15 @@ class BuyerRequestBidIndividual extends Component {
   };
 
   closeBid = () => {
-    const { buyerBid } = this.state;
-    this.setState(
-      { status: "closed", buyerBid: { ...buyerBid, status: "closed" } },
-      this.updateStatus
-    );
-  };
-  updateStatus = () => {
     const { buyerBid, status } = this.state;
-
     let updateBid = { buyerBidId: buyerBid.buyerBidId, status: status };
-    this.props.EditBuyerBid(updateBid);
-
-    console.log("BuyerBids Status: ", this.state.buyerBid.status);
-    // window.location.reload();
+    this.props.parentCallback(updateBid);
   };
 
   handleDelete = () => {
-    const { buyerBid } = this.state;
-    console.log("Deleting Bid: ", buyerBid.buyerBidId);
-    this.props.DeleteBuyerBid(buyerBid.buyerBidId);
-    window.location.reload();
+    const { buyerBid, status } = this.state;
+    let deleteObject = { buyerBidId: buyerBid.buyerBidId, status: status };
+    this.props.parentCallback(deleteObject);
   };
 
   render() {
@@ -154,8 +171,18 @@ class BuyerRequestBidIndividual extends Component {
           </button>
         </div>
 
-        <Popup open={viewSellerBid} onClose={this.closeView}>
-          {() => this.renderSellerBids(sellerBids, users)}
+        <Popup
+          open={viewSellerBid}
+          onClose={this.closeView}
+          contentStyle={{
+            border: "none",
+            backgroundColor: "inherit",
+            width: "1100px",
+            height: "800px",
+            position: "center",
+          }}
+        >
+          {() => this.renderSellerBids(sellerBids, users, buyerBid)}
         </Popup>
 
         <Popup
@@ -201,7 +228,4 @@ class BuyerRequestBidIndividual extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBids }) => ({ buyerBids });
-export default connect(mapStateToProps, { DeleteBuyerBid, EditBuyerBid })(
-  BuyerRequestBidIndividual
-);
+export default BuyerRequestBidIndividual;

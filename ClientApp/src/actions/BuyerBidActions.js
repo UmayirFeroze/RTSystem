@@ -1,7 +1,6 @@
 import axios from "axios";
 import { bidConstants } from "../constants/bidConstants";
 import { getUserId } from "./authAction";
-import { history } from "../App";
 
 // Buyer Get All Bids
 const getAllBidsSuccess = (payload) => ({
@@ -155,7 +154,7 @@ export const DeleteBuyerBid = (buyerBidId) => (dispatch) => {
     .then((res) => {
       const response = res.data;
       dispatch(DeleteBuyerBidSuccess(response));
-      history.push(`/requests`);
+      // history.push(`/requests`);
     })
     .catch((error) => {
       dispatch(DeleteBuyerBidFailure(error));

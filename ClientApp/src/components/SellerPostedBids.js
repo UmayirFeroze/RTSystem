@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 
 import { connect } from "react-redux";
 import { UpdateSellerBid, DeleteSellerBid } from "../actions/SellerBidActions";
+import "../styles/IndividualSellerPostedBids.css";
 
 class SellerPostedBids extends Component {
   constructor(props) {
@@ -90,7 +91,6 @@ class SellerPostedBids extends Component {
           style={{
             border: "1px red solid",
             display: "flex",
-            flexDirection: "row",
           }}
         >
           <div style={{ border: "1px blue solid", width: "40%" }}>
@@ -114,25 +114,34 @@ class SellerPostedBids extends Component {
   render() {
     let { sellerBid, seller } = this.state;
     return (
-      <div className="buyerBid">
-        <p>
-          Quantity: {sellerBid.quantity} Price: {sellerBid.price} Status:{" "}
-          {sellerBid.status}
-        </p>
-
-        <p>Delivery Date: Validity: {sellerBid.validityPeriod}</p>
-        <button name="viewSeller" onClick={this.handleChange}>
-          View Seller
-        </button>
-        <button name="accept" onClick={this.handleChange}>
-          Accept
-        </button>
-        <button name="reject" onClick={this.handleChange}>
-          Reject
-        </button>
-        <button name="negotiate" onClick={this.handleChange}>
-          Negotiate
-        </button>
+      <div className="singleSellerBid">
+        <div className="status" style={{ backgroundColor: "green" }}></div>
+        <div className="details">
+          <p style={{ marginTop: 2 }}>
+            <b>Quantity:</b> {sellerBid.quantity} <b>Price:</b>{" "}
+            {sellerBid.price}
+          </p>
+          <p>
+            <b>Delivery Date:</b> {sellerBid.deliveryDate}
+          </p>
+          <p>
+            <b>Validity:</b> {sellerBid.validityPeriod}
+          </p>
+        </div>
+        <div className="buttons">
+          <button name="viewSeller" onClick={this.handleChange}>
+            View Seller
+          </button>
+          <button name="accept" onClick={this.handleChange}>
+            Accept
+          </button>
+          <button name="reject" onClick={this.handleChange}>
+            Reject
+          </button>
+          <button name="negotiate" onClick={this.handleChange}>
+            Negotiate
+          </button>
+        </div>
 
         <Popup open={this.state.viewSeller} onClose={this.closeViewSeller}>
           {this.ViewSeller(seller)}

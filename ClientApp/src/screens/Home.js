@@ -36,7 +36,9 @@ export class Home extends Component {
   }
 
   renderBuyerBidsComponent = (buyerBids, users) => {
-    return <BuyerBids buyerBidsList={buyerBids} usersList={users} />;
+    if (Array.isArray(buyerBids) && Array.isArray(users)) {
+      return <BuyerBids buyerBidsList={buyerBids} usersList={users} />;
+    }
   };
 
   render() {

@@ -39,10 +39,10 @@ export class BuyerBids extends Component {
   render() {
     const { buyerBids, users } = this.state;
     let content =
-      buyerBids.length === 0 || users.length === 0 ? (
-        <p>No one has posted any buyer bids yet</p>
-      ) : (
+      buyerBids.length && users.length ? (
         this.renderAllPostedBuyerBids(buyerBids, users)
+      ) : (
+        <p>No one has posted any buyer bids yet</p>
       );
 
     console.log("State:", this.state.buyerBids);
@@ -50,7 +50,7 @@ export class BuyerBids extends Component {
       <div>
         <h2>Dashboard</h2>
         <p>These organizations want to trade with you</p>
-        <div>{content}</div>
+        {content}
       </div>
     );
   }
