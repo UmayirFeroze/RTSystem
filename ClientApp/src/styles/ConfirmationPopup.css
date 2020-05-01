@@ -1,0 +1,47 @@
+.confirmPopup {
+  background-color: #101010;
+  height: 200px;
+  padding: 50px 0 0 0;
+  color: white;
+  text-align: center;
+}
+
+.confirmPopup .buttons {
+  margin: 0 auto 0 auto;
+}
+
+.confirmPopup .buttons button[name="yes"] {
+  background-color: inherit; /* to be inheritted*/
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 5px 10px 5px;
+  border: 1px solid red;
+  border-radius: 4px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.confirmPopup .buttons button[name="yes"]:hover {
+  border: 2px solid red;
+  color: red;
+}
+
+.confirmPopup .buttons button[name="no"] {
+  background-color: inherit; /* to be inheritted*/
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 5px 10px 5px;
+  border: 1px solid #1682db;
+  border-radius: 4px;
+  width: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.confirmPopup .buttons button[name="no"]:hover {
+  border: 2px solid #1682db;
+  background-color: #1682db;
+}

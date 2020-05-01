@@ -60,7 +60,8 @@ class ViewSellerPopup extends Component {
               {seller.businessAddress}
             </p>
           </div>
-          <button>View Profile</button>
+          <button>View Profile</button>{" "}
+          {/* Redirect to Seller profile on Click*/}
         </div>
       </div>
     );

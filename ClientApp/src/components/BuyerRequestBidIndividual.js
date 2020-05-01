@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import ViewQuotations from "./ViewQuotations";
+import ConfirmationPopup from "./ConfirmationPopup";
 import "../styles/IndividualBuyerRequestedBids.css";
 
 class BuyerRequestBidIndividual extends Component {
@@ -20,6 +21,7 @@ class BuyerRequestBidIndividual extends Component {
       viewSellerBid: false,
       viewDelete: false,
       viewClose: false,
+      value: "",
     };
   }
 
@@ -50,10 +52,15 @@ class BuyerRequestBidIndividual extends Component {
       this.setState({
         viewClose: true,
         status: "closed",
+        value: event.target.value,
       });
     }
     if (event.target.name === "deletebid") {
-      this.setState({ viewDelete: true, status: "delete" });
+      this.setState({
+        viewDelete: true,
+        status: "delete",
+        value: event.target.value,
+      });
     }
     if (event.target.name === "sellerbids") {
       this.setState({ viewSellerBid: true });
@@ -109,10 +116,10 @@ class BuyerRequestBidIndividual extends Component {
           <button name="sellerbids" onClick={this.handleChange}>
             View Quotations
           </button>
-          <button name="closebid" onClick={this.handleChange}>
+          <button name="closebid" value="close" onClick={this.handleChange}>
             Close Bid
           </button>
-          <button name="deletebid" onClick={this.handleChange}>
+          <button name="deletebid" value="delete" onClick={this.handleChange}>
             Delete Bid
           </button>
         </div>
@@ -141,17 +148,11 @@ class BuyerRequestBidIndividual extends Component {
           onClose={this.closeView}
           contentStyle={{ border: "none", backgroundColor: "#1f1e1e" }}
         >
-          <div className="confirmPopup">
-            <h1>Are your sure you want to Close this bid?</h1>
-            <div className="buttons">
-              <button onClick={this.closeBid} name="yes">
-                Yes
-              </button>
-              <button onClick={this.closeView} name="no">
-                No
-              </button>
-            </div>
-          </div>
+          <ConfirmationPopup
+            status={this.state.value}
+            yesFunction={this.closeBid}
+            noFunction={this.closeView}
+          />
         </Popup>
 
         <Popup
@@ -162,17 +163,11 @@ class BuyerRequestBidIndividual extends Component {
             backgroundColor: "#1f1e1e",
           }}
         >
-          <div className="confirmPopup">
-            <h1>Are you sure you want to Delete?</h1>
-            <div className="buttons">
-              <button onClick={this.handleDelete} name="yes">
-                Yes
-              </button>
-              <button onClick={this.closeView} name="no">
-                No
-              </button>
-            </div>
-          </div>
+          <ConfirmationPopup
+            status={this.state.value}
+            yesFunction={this.handleDelete}
+            noFunction={this.closeView}
+          />
         </Popup>
       </div>
     );
