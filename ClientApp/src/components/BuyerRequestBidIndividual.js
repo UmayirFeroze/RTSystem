@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
-import SellerPostedBids from "./SellerPostedBids";
-
+import ViewQuotations from "./ViewQuotations";
 import "../styles/IndividualBuyerRequestedBids.css";
 
 class BuyerRequestBidIndividual extends Component {
@@ -26,69 +25,17 @@ class BuyerRequestBidIndividual extends Component {
 
   componentDidMount() {
     let { buyerBid, sellerBids, users } = this.props;
-    //   function to query seller bids by buyer bid Id
-    function isValid(sellerBid) {
-      if (sellerBid.buyerBidId === buyerBid.buyerBidId) {
-        return true;
-      }
-    }
+
     if (this.state.buyerBid !== buyerBid) {
       this.setState({ buyerBid: buyerBid });
     }
-    this.setState({ sellerBids: sellerBids.filter(isValid) });
+    this.setState({
+      sellerBids: sellerBids.filter(
+        (sellerBid) => sellerBid.buyerBidId === buyerBid.buyerBidId
+      ),
+    });
     this.setState({ users: users });
   }
-
-  renderSellerBids = (sellerBids, users, buyerBid) => {
-    if (Array.isArray(sellerBids) && Array.isArray(users)) {
-      if (sellerBids.length === 0) {
-        return (
-          <div style={{ color: "black" }}>
-            <h2>This Request has No Quotations Yet</h2>
-            <button onClick={this.closeView}>&times;</button>
-          </div>
-        );
-      } else {
-        return (
-          <div className="sellerBidsPopup">
-            <div className="header">
-              <h2>All Quotations for You Request</h2>
-              <button>&times;</button>
-            </div>
-            <div className="container">
-              <div className="buyerBidContainer">
-                <h2>Your Request</h2>
-                <p>
-                  <b>Quality:</b> {buyerBid.quality}
-                </p>
-                <p>
-                  <b>Quantity:</b> {buyerBid.quantity}
-                </p>
-                {buyerBid.price ? (
-                  <p>
-                    <b>Price:</b> {buyerBid.price}
-                  </p>
-                ) : null}
-                <p>
-                  <b>Payment:</b> {buyerBid.paymentIn}
-                </p>
-              </div>
-              <div className="vertical"></div>
-              <div className="sellerBidContainer">
-                {sellerBids.map((sellerBid) => (
-                  <SellerPostedBids
-                    key={sellerBid.sellerBidId}
-                    sellerBid={sellerBid}
-                    users={users}
-                  ></SellerPostedBids>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-      }
-    }
-  };
 
   closeView = () => {
     this.setState({
@@ -129,7 +76,6 @@ class BuyerRequestBidIndividual extends Component {
     const {
       buyerBid,
       sellerBids,
-      users,
       viewClose,
       viewDelete,
       viewSellerBid,
@@ -177,12 +123,17 @@ class BuyerRequestBidIndividual extends Component {
           contentStyle={{
             border: "none",
             backgroundColor: "inherit",
-            width: "1100px",
-            height: "800px",
+            width: "auto",
+            height: "auto",
             position: "center",
           }}
         >
-          {() => this.renderSellerBids(sellerBids, users, buyerBid)}
+          <ViewQuotations
+            closePopup={this.closeView}
+            buyerBid={buyerBid}
+            sellerBids={sellerBids}
+            users={this.props.users}
+          />
         </Popup>
 
         <Popup

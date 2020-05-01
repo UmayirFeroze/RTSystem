@@ -1,0 +1,40 @@
+.viewQuotations {
+  background-color: #181818;
+  color: white;
+  width: 1200px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.viewQuotations .header {
+  background-color: black;
+  display: flex;
+  font-weight: bold;
+}
+.viewQuotations .header button {
+  float: right;
+  margin: 0 0 0 auto;
+  background-color: inherit;
+  border: none;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  width: auto;
+}
+
+.viewQuotations .container {
+  width: auto;
+  display: flex;
+}
+.viewQuotations .container .buyerBidContainer {
+  width: 20%;
+  padding: 20px 10px 0 10px;
+  margin: 0 -20px 0 0;
+}
+
+.viewQuotations .container .sellerBidContainer {
+  width: 80%;
+  padding: 10px 10px 10px 10px;
+  /* overflow: hidden;
+  overflow-y: scroll; */
+}

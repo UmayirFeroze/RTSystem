@@ -107,7 +107,6 @@ export class MyRequests extends Component {
       const backupUpdate = buyerBids;
       const backupUpdateOpen = openedBuyerBids;
 
-      // In all Bids
       backupUpdate.forEach((buyerBid) => {
         if (buyerBid.buyerBidId === childData.buyerBidId) {
           buyerBid.status = childData.status;
