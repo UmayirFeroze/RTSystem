@@ -5,7 +5,6 @@ import BuyerRequestBidIndividual from "../components/BuyerRequestBidIndividual";
 
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
-import { GetAllSellerBids } from "../actions/SellerBidActions";
 import {
   getBuyerBidsByUserId,
   DeleteBuyerBid,
@@ -32,7 +31,6 @@ export class MyRequests extends Component {
 
   componentDidMount() {
     this.props.getBuyerBidsByUserId();
-    this.props.GetAllSellerBids();
     this.props.getAllUsers();
   }
 
@@ -52,9 +50,7 @@ export class MyRequests extends Component {
         });
       }
     }
-    if (prevProps.sellerBids.data !== this.props.sellerBids.data) {
-      this.setState({ sellerBids: this.props.sellerBids.data });
-    }
+
     if (prevProps.users.data !== this.props.users.data) {
       this.setState({ users: this.props.users.data });
     }
@@ -124,23 +120,18 @@ export class MyRequests extends Component {
 
       this.props.EditBuyerBid(childData);
       if (this.props.buyerBids.hasError) {
-        this.setState({ buyerBids: backupUpdate });
+        this.setState({ sellerBids: backupUpdate });
       }
     }
   };
 
-  renderBuyerBids = (buyerBids, sellerBids, users) => {
-    if (
-      Array.isArray(buyerBids) &&
-      Array.isArray(sellerBids) &&
-      Array.isArray(users)
-    ) {
+  renderBuyerBids = (buyerBids, users) => {
+    if (Array.isArray(buyerBids) && Array.isArray(users)) {
       return buyerBids.map((buyerBid) => (
         <BuyerRequestBidIndividual
           key={buyerBid.buyerBidId}
           parentCallback={this.callbackFunction}
           buyerBid={buyerBid}
-          sellerBids={sellerBids}
           users={users}
         />
       ));
@@ -152,36 +143,25 @@ export class MyRequests extends Component {
       buyerBids,
       openedBuyerBids,
       closedBuyerBids,
-      sellerBids,
       users,
       status,
     } = this.state;
 
     const propsLoadingCheck =
-      this.props.buyerBids.loading ||
-      this.props.sellerBids.loading ||
-      this.props.users.loading
-        ? true
-        : false;
+      this.props.buyerBids.loading || this.props.users.loading ? true : false;
 
     const propsLengthCheck =
-      this.props.buyerBids.length ||
-      this.props.sellerBids.length ||
-      this.props.users.length
-        ? true
-        : false;
+      this.props.buyerBids.length || this.props.users.length ? true : false;
 
     const stateLengthCheck =
       Array.isArray(buyerBids) &&
       Array.isArray(openedBuyerBids) &&
       Array.isArray(closedBuyerBids) &&
-      Array.isArray(users) &&
-      Array.isArray(sellerBids)
+      Array.isArray(users)
         ? buyerBids.length &&
           openedBuyerBids.length &&
           closedBuyerBids.length &&
-          users.length &&
-          sellerBids.length
+          users.length
           ? true
           : false
         : false;
@@ -191,11 +171,11 @@ export class MyRequests extends Component {
     ) : propsLengthCheck && stateLengthCheck ? (
       <p>You havent Posted Any Bids Yet</p>
     ) : status === "allBids" ? (
-      this.renderBuyerBids(buyerBids, sellerBids, users)
+      this.renderBuyerBids(buyerBids, users)
     ) : status === "openedBids" ? (
-      this.renderBuyerBids(openedBuyerBids, sellerBids, users)
+      this.renderBuyerBids(openedBuyerBids, users)
     ) : (
-      this.renderBuyerBids(closedBuyerBids, sellerBids, users)
+      this.renderBuyerBids(closedBuyerBids, users)
     );
 
     return (
@@ -230,7 +210,6 @@ const mapStateToProps = ({ buyerBids, sellerBids, users }) => ({
 
 export default connect(mapStateToProps, {
   getBuyerBidsByUserId,
-  GetAllSellerBids,
   getAllUsers,
   EditBuyerBid,
   DeleteBuyerBid,

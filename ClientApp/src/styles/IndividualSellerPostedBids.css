@@ -1,26 +1,24 @@
 .singleSellerBid {
   border: none white solid;
-  /* border: 1px solid green; */
   border-radius: 10px;
   height: 100px;
   color: white;
   background-color: #292929;
   margin: 5px 0 5px 0;
-  /* padding: 10px 0 10px 30px; */
   width: auto;
   display: flex;
 }
 
 .singleSellerBid .status {
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
+  height: auto;
+  width: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
   display: inline-block;
-  margin: auto 5px auto 10px;
 }
 
 .singleSellerBid .details {
-  /* border: 1px solid blue; */
   margin: 0 0 0 5px;
   padding: 5px 0 10px 10px;
   width: 40%;
@@ -32,7 +30,7 @@
 }
 
 .singleSellerBid .buttons button[name="viewSeller"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   color: white;
   padding: 10px 16px;
   margin: 25px 3px 10px auto;
@@ -48,7 +46,7 @@
 }
 
 .singleSellerBid .buttons button[name="accept"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   color: white;
   padding: 10px 16px;
   margin: 25px 3px 10px auto;
@@ -64,7 +62,7 @@
 }
 
 .singleSellerBid .buttons button[name="reject"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   color: white;
   padding: 10px 16px;
   margin: 25px 3px 10px auto;
@@ -80,7 +78,7 @@
 }
 
 .singleSellerBid .buttons button[name="negotiate"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   color: white;
   padding: 10px 16px;
   margin: 25px 3px 10px auto;

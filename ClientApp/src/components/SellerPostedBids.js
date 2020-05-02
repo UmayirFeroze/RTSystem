@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import ViewSellerPopup from "./ViewSellerPopup";
-
-import { connect } from "react-redux";
-import { UpdateSellerBid, DeleteSellerBid } from "../actions/SellerBidActions";
 import "../styles/IndividualSellerPostedBids.css";
 
 class SellerPostedBids extends Component {
@@ -21,8 +18,9 @@ class SellerPostedBids extends Component {
     };
   }
   componentDidMount() {
-    const { sellerBid } = this.props;
-    this.setState({ sellerBid: sellerBid });
+    if (this.state.seller !== this.props.sellerBid) {
+      this.setState({ sellerBid: this.props.sellerBid });
+    }
   }
 
   handleChange = (event) => {
@@ -32,13 +30,19 @@ class SellerPostedBids extends Component {
     }
     if (event.target.name === "accept") {
       this.setState(
-        { status: "accepted", sellerBid: { ...sellerBid, status: "accepted" } },
+        {
+          status: "accepted",
+          sellerBid: { ...sellerBid, status: event.target.value },
+        },
         this.updateStatus
       );
     }
     if (event.target.name === "reject") {
       this.setState(
-        { status: "rejected", sellerBid: { ...sellerBid, status: "rejected" } },
+        {
+          status: "rejected",
+          sellerBid: { ...sellerBid, status: event.target.value },
+        },
         this.updateStatus
       );
     }
@@ -46,7 +50,7 @@ class SellerPostedBids extends Component {
       this.setState(
         {
           status: "negotiated",
-          sellerBid: { ...sellerBid, status: "negotiated" },
+          sellerBid: { ...sellerBid, status: event.target.value },
         },
         this.updateStatus
       );
@@ -56,7 +60,7 @@ class SellerPostedBids extends Component {
   updateStatus = () => {
     const { sellerBid, status } = this.state;
     let updateBid = { sellerBidId: sellerBid.sellerBidId, status: status };
-    this.props.UpdateSellerBid(updateBid);
+    this.props.updateSellerBid(updateBid);
   };
 
   closeViewSeller = () => {
@@ -65,10 +69,19 @@ class SellerPostedBids extends Component {
 
   render() {
     let { sellerBid } = this.state;
-
+    console.log("SellerBidCheck: ", sellerBid); // to be cleaned
     return (
       <div className="singleSellerBid">
-        <div className="status" style={{ backgroundColor: "green" }}></div>
+        {sellerBid.status === "accepted" ? (
+          <div className="status" style={{ backgroundColor: "green" }}></div>
+        ) : sellerBid.status === "rejected" ? (
+          <div className="status" style={{ backgroundColor: "red" }}></div>
+        ) : sellerBid.status === "negotiated" ? (
+          <div className="status" style={{ backgroundColor: "yellow" }}></div>
+        ) : (
+          <div className="status" style={{ backgroundColor: "white" }}></div>
+        )}
+
         <div className="details">
           <p style={{ marginTop: 2 }}>
             <b>Quantity:</b> {sellerBid.quantity} <b>Price:</b>{" "}
@@ -85,13 +98,17 @@ class SellerPostedBids extends Component {
           <button name="viewSeller" onClick={this.handleChange}>
             View Seller
           </button>
-          <button name="accept" onClick={this.handleChange}>
+          <button name="accept" value="accepted" onClick={this.handleChange}>
             Accept
           </button>
-          <button name="reject" onClick={this.handleChange}>
+          <button name="reject" value="rejected" onClick={this.handleChange}>
             Reject
           </button>
-          <button name="negotiate" onClick={this.handleChange}>
+          <button
+            name="negotiate"
+            value="negotiated"
+            onClick={this.handleChange}
+          >
             Negotiate
           </button>
         </div>
@@ -113,8 +130,4 @@ class SellerPostedBids extends Component {
   }
 }
 
-const mapStateToProps = ({ sellerBids }) => ({ sellerBids });
-export default connect(mapStateToProps, {
-  UpdateSellerBid,
-  DeleteSellerBid,
-})(SellerPostedBids);
+export default SellerPostedBids;

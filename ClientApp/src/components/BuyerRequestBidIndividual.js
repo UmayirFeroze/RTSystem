@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
-import ViewQuotations from "./ViewQuotations";
 import ConfirmationPopup from "./ConfirmationPopup";
+import SellerPostedBids from "./SellerPostedBids";
+
+import { connect } from "react-redux";
+import { GetAllSellerBids, UpdateSellerBid } from "../actions/SellerBidActions";
 import "../styles/IndividualBuyerRequestedBids.css";
+import "../styles/ViewQuotations.css";
 
 class BuyerRequestBidIndividual extends Component {
   constructor(props) {
@@ -18,7 +22,7 @@ class BuyerRequestBidIndividual extends Component {
       sellerBids: [],
       users: [],
       status: "",
-      viewSellerBid: false,
+      viewQuotations: false,
       viewDelete: false,
       viewClose: false,
       value: "",
@@ -26,24 +30,39 @@ class BuyerRequestBidIndividual extends Component {
   }
 
   componentDidMount() {
-    let { buyerBid, sellerBids, users } = this.props;
+    let { buyerBid, users } = this.props;
 
     if (this.state.buyerBid !== buyerBid) {
       this.setState({ buyerBid: buyerBid });
     }
-    this.setState({
-      sellerBids: sellerBids.filter(
-        (sellerBid) => sellerBid.buyerBidId === buyerBid.buyerBidId
-      ),
-    });
+
     this.setState({ users: users });
+
+    this.props.GetAllSellerBids();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.state.buyerBid !== this.props.buyerBid) {
+      this.setState({ buyerBid: this.props.buyerBid, viewQuotations: true });
+    }
+
+    if (
+      prevProps.sellerBids.data !== this.props.sellerBids.data &&
+      Array.isArray(this.props.sellerBids.data)
+    ) {
+      this.setState({
+        sellerBids: this.props.sellerBids.data.filter(
+          (sellerBid) => sellerBid.buyerBidId === this.props.buyerBid.buyerBidId
+        ),
+      });
+    }
   }
 
   closeView = () => {
     this.setState({
       viewClose: false,
       viewDelete: false,
-      viewSellerBid: false,
+      viewQuotations: false,
     });
   };
 
@@ -63,7 +82,7 @@ class BuyerRequestBidIndividual extends Component {
       });
     }
     if (event.target.name === "sellerbids") {
-      this.setState({ viewSellerBid: true });
+      this.setState({ viewQuotations: true });
     }
   };
 
@@ -79,23 +98,88 @@ class BuyerRequestBidIndividual extends Component {
     this.props.parentCallback(deleteObject);
   };
 
+  handleSellerBidUpdate = (childData) => {
+    const backupUpdate = this.state.sellerBids;
+    backupUpdate.forEach((sellerBid) => {
+      if (sellerBid.buyerBidId === sellerBid.sellerBidId) {
+        sellerBid.status = sellerBid.status;
+      }
+    });
+    this.props.UpdateSellerBid(childData);
+    if (this.props.sellerBids.hasError) {
+      this.setState({ sellerBids: backupUpdate });
+    }
+  };
+
+  renderViewQuotations = (buyerBid, sellerBids) => {
+    if (Array.isArray(sellerBids) && buyerBid !== null) {
+      return (
+        <div className="viewQuotations">
+          <div className="header">
+            <h2>All Quotations for Your Request</h2>
+            <button onClick={this.closeView}>&times;</button>
+          </div>
+
+          <div className="container">
+            <div className="buyerBidContainer">
+              <h2>Your Request</h2>
+              <p>
+                <b>Quality:</b> {buyerBid.quality}
+              </p>
+              <p>
+                <b>Quantity:</b> {buyerBid.quantity}
+              </p>
+              {buyerBid.price ? (
+                <p>
+                  <b>Price:</b> {buyerBid.price}
+                </p>
+              ) : null}
+              <p>
+                <b>Payment:</b> {buyerBid.paymentIn}
+              </p>
+            </div>
+
+            <div className="vertical"></div>
+
+            <div className="sellerBidContainer">
+              {!sellerBids.length ? (
+                <h2 style={{ textAlign: "center", marginTop: "auto" }}>
+                  This bid does not have any quotations yet
+                </h2>
+              ) : (
+                sellerBids.map((sellerBid) => (
+                  <SellerPostedBids
+                    key={sellerBid.sellerBidId}
+                    sellerBid={sellerBid}
+                    users={this.props.users}
+                    updateSellerBid={this.handleSellerBidUpdate}
+                  ></SellerPostedBids>
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+  };
+
   render() {
     const {
       buyerBid,
       sellerBids,
       viewClose,
       viewDelete,
-      viewSellerBid,
+      viewQuotations,
     } = this.state;
 
     return (
       <div className="buyerRequestBid">
+        {buyerBid.status === "open" ? (
+          <div className="status" style={{ backgroundColor: "green" }}></div>
+        ) : (
+          <div className="status" style={{ backgroundColor: "grey" }}></div>
+        )}
         <div className="bidDetails">
-          <div>
-            <p>
-              <b>Status: </b> {buyerBid.status}
-            </p>
-          </div>
           <div>
             <p>
               <b>Posted on: {buyerBid.timeStamp}</b>
@@ -125,7 +209,7 @@ class BuyerRequestBidIndividual extends Component {
         </div>
 
         <Popup
-          open={viewSellerBid}
+          open={viewQuotations}
           onClose={this.closeView}
           contentStyle={{
             border: "none",
@@ -135,12 +219,7 @@ class BuyerRequestBidIndividual extends Component {
             position: "center",
           }}
         >
-          <ViewQuotations
-            closePopup={this.closeView}
-            buyerBid={buyerBid}
-            sellerBids={sellerBids}
-            users={this.props.users}
-          />
+          {() => this.renderViewQuotations(buyerBid, sellerBids)}
         </Popup>
 
         <Popup
@@ -174,4 +253,8 @@ class BuyerRequestBidIndividual extends Component {
   }
 }
 
-export default BuyerRequestBidIndividual;
+const mapStateToProps = ({ sellerBids }) => ({ sellerBids });
+export default connect(mapStateToProps, {
+  GetAllSellerBids,
+  UpdateSellerBid,
+})(BuyerRequestBidIndividual);

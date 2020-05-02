@@ -24,6 +24,7 @@ import SellerPostedBids from "./components/SellerPostedBids";
 import SellerQuotedBids from "./components/SellerQuotedBids";
 import BuyerRequestBidIndividual from "./components/BuyerRequestBidIndividual";
 import User from "./components/User";
+
 export const history = createBrowserHistory();
 
 const App = () => (

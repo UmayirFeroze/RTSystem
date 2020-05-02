@@ -45,7 +45,7 @@ body {
 
 .results {
   margin-left: 295px; /* Same as the width of the sidenav */
-  padding: 10px 30px 10px 10px;
+  padding: 10px 30px 10px 50px;
   background-color: #181818;
   width: 83%;
   height: 100%;
@@ -53,46 +53,55 @@ body {
   z-index: 1;
   top: 1;
   left: 0;
-  /* background-color: #111; */
   overflow-x: hidden;
   padding-top: 20px;
 }
 
 .buyerRequestBid {
   border: none white solid;
-
   border-radius: 10px;
   height: 100px;
   color: white;
   background-color: #292929;
   margin: 5px 0 5px 0;
-  padding: 10px 0 10px 30px;
-  width: 95%;
-  /* margin: 0 0 0 20px; */
+  padding: 10px 0 10px auto;
+  width: auto;
+  min-width: 90%;
+  max-width: 100%;
   display: inline-flex;
+}
+.buyerRequestBid .status {
+  height: auto;
+  width: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: inline-block;
+  margin: 0 0 0 0;
 }
 
 .buyerRequestBid .bidDetails {
-  /* border: 1px solid blue; */
   display: flex;
-  width: 60%;
+  width: auto;
+  min-width: 40%;
+  max-width: 60%;
+  margin: auto auto auto 0;
 }
 
 .buyerRequestBid .bidDetails div {
-  margin: 0 10px 0 10px;
+  margin: auto 10px auto 20px;
+  width: auto;
 }
 
 .buyerRequestBid .bidOperations {
-  /* border: 1px solid green; */
-  width: 40%;
+  width: auto;
   text-align: center;
-  margin: 10px 0 0 0;
+  height: auto;
 }
 
 .buyerRequestBid .bidOperations button[name="sellerbids"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   padding: 14px 20px;
-  margin: 10px 5px 10px 5px;
+  margin: 20px 10px auto auto;
   border: 2px solid green;
   border-radius: 4px;
   width: auto;
@@ -106,10 +115,10 @@ body {
 }
 
 .buyerRequestBid .bidOperations button[name="closebid"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   color: white;
   padding: 14px 20px;
-  margin: 10px 5px 10px 5px;
+  margin: 20px 10px auto auto;
   border: 2px solid #1682db;
   border-radius: 4px;
   width: auto;
@@ -122,10 +131,10 @@ body {
 }
 
 .buyerRequestBid .bidOperations button[name="deletebid"] {
-  background-color: inherit; /* to be inheritted*/
+  background-color: inherit;
   color: white;
   padding: 14px 20px;
-  margin: 10px 5px 10px 5px;
+  margin: 20px 10px auto auto;
   border: 2px solid red;
   border-radius: 4px;
   width: auto;
@@ -138,13 +147,11 @@ body {
 }
 
 .viewPopup {
-  /* border: 1px solid red; */
   background-color: #181818;
   color: white;
 }
 
 .viewPopup .viewPopupheader {
-  /* border: 1px solid blue; */
   background-color: black;
   display: flex;
   font-weight: bold;
@@ -167,7 +174,6 @@ body {
 }
 
 .viewPopup .viewBody .viewBuyerBid {
-  /* border: 1px solid green; */
   width: 50%;
   color: "black";
   display: "flex";
@@ -176,7 +182,6 @@ body {
 }
 
 .viewPopup .viewBody .viewSellerBid {
-  /* border: 1px solid green; */
   width: 50%;
   padding: 60px 10px 0 10px;
   font-size: 17px;

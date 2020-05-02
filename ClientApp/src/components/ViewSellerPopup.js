@@ -32,7 +32,7 @@ class ViewSellerPopup extends Component {
         <div className="sellerContainer">
           <div className="image">
             {seller.businessImage ? (
-              <img src={seller.businessImage} />
+              <img src={seller.businessImage} alt="userProfilePic" />
             ) : (
               <img
                 src={require("../Images/avatar-profile.png")}
