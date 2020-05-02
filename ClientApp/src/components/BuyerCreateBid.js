@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createBid } from "../actions/BuyerBidActions";
-
 import "./../styles/CreateBid.css";
 
 export class BuyerCreateBid extends Component {
@@ -53,8 +52,8 @@ export class BuyerCreateBid extends Component {
   render() {
     return (
       <div className="createBid">
-        <h2>Create Bid Component</h2>
         <form id="createBidForm" onSubmit={this.handleSubmit}>
+          <h2>Make A Request</h2>
           <select
             name="quality"
             onChange={this.setBidState}
@@ -105,7 +104,6 @@ export class BuyerCreateBid extends Component {
             <option value="3 Weeks">3 Weeks</option>
             <option value="4 Weeks">4 Weeks</option>
           </select>
-
           <button>Create Bid</button>
         </form>
       </div>
@@ -113,8 +111,5 @@ export class BuyerCreateBid extends Component {
   }
 }
 
-const mapStateToProps = ({ buyerBids }) => ({
-  buyerBids,
-});
-
+const mapStateToProps = ({ buyerBids }) => ({ buyerBids });
 export default connect(mapStateToProps, { createBid })(BuyerCreateBid);
