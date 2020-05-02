@@ -1,29 +1,26 @@
 .sellerBidComponent {
   background-color: #181818;
+  color: white;
+  overflow: hidden;
+  padding: 0 0 40px 0;
+}
+
+.sellerBidComponent .sellerBidComponentHeader {
+  background-color: black;
+  display: flex;
+  font-weight: bold;
+}
+
+.sellerBidComponent .sellerBidComponentHeader button {
+  float: right;
+  margin: 0 0 0 auto;
+  background-color: inherit;
+  border: none;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
   width: auto;
 }
-
-.sellerBidComponentHeader {
-  background-color: #0f0f0f;
-  /* background-color: #0e0e0e; */
-  height: 50px;
-  padding: auto;
-}
-
-.sellerBidComponentHeader p {
-  float: left;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0 0 20px;
-}
-
-/* .sellerBidComponentHeader span {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  margin: 5px 10px 0 0;
-} */
 
 .quotation {
   padding: 0 0 0 20px;

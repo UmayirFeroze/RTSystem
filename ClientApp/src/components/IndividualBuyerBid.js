@@ -61,19 +61,18 @@ class IndividualBuyerBid extends Component {
           <button onClick={this.openMakeBid}>Make Bid</button>
         </div>
 
-        <Popup open={this.state.makeBid} onClose={this.closeMakeBid}>
+        <Popup
+          open={this.state.makeBid}
+          onClose={this.closeMakeBid}
+          contentStyle={{ border: "none", backgroundColor: "inherit" }}
+        >
           <div className="sellerBidComponent">
-            <div className="sellerBidComponentHeader">
-              <p>Quote Your Offer</p>
-              <button onClick={this.closeMakeBid}>&times;</button>
-            </div>
-            <div>
-              <SellerCreateBid
-                buyerBid={buyerBid}
-                buyer={buyer}
-                seller={seller}
-              />
-            </div>
+            <SellerCreateBid
+              buyerBid={buyerBid}
+              buyer={buyer}
+              seller={seller}
+              closeMakeBid={this.closeMakeBid}
+            />
           </div>
         </Popup>
       </div>

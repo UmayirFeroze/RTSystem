@@ -87,6 +87,7 @@ export class SellerCreateBid extends Component {
           name="quantity"
           placeholder="Quantity"
           onChange={this.SetBidState}
+          required
         />
         <input
           type="number"
@@ -94,39 +95,54 @@ export class SellerCreateBid extends Component {
           name="price"
           placeholder="Price in LKR"
           onChange={this.SetBidState}
+          required
         />
         <input
           type="date"
           name="validityPeriod"
           placeholder="Validity Period"
           onChange={this.SetBidState}
+          required
         />
         <input
           type="date"
           name="deliveryDate"
           placeholder="Delivery Date"
           onChange={this.SetBidState}
+          required
         />
         <button>Submit</button>
       </form>
     );
   };
 
+  closePopup = () => {
+    this.props.closeMakeBid();
+  };
   render() {
     const { buyerBid, buyer } = this.props;
     console.log("BuyerBid Details: ", this.state.buyerBid);
 
     return (
-      <div className="quotation">
-        <h1>{buyer.businessName}</h1>
-        <p>
-          {buyer.firstName + " " + buyer.lastName} | {buyer.phone} |{" "}
-          {buyer.email}
-        </p>
-        <div className="Details">
-          {this.renderBidDetails(buyerBid)}
-          <div className="vertical"> </div>
-          {this.renderForm()}
+      <div className="sellerBidComponent">
+        <div className="sellerBidComponentHeader">
+          <h2>Quote Your Offer</h2>
+          <button onClick={this.closePopup}>&times;</button>
+        </div>
+
+        <div className="quotation">
+          <h1>{buyer.businessName}</h1>
+
+          <p>
+            {buyer.firstName + " " + buyer.lastName} | {buyer.phone} |{" "}
+            {buyer.email}
+          </p>
+
+          <div className="Details">
+            {this.renderBidDetails(buyerBid)}
+            <div className="vertical"> </div>
+            {this.renderForm()}
+          </div>
         </div>
       </div>
     );
