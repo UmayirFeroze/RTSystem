@@ -119,6 +119,7 @@ export class SellerCreateBid extends Component {
   closePopup = () => {
     this.props.closeMakeBid();
   };
+
   render() {
     const { buyerBid, buyer } = this.props;
     console.log("BuyerBid Details: ", this.state.buyerBid);

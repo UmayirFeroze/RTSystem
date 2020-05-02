@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "../styles/YourProfile.css";
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
+import "../styles/YourProfile.css";
 
 export class YourProfile extends Component {
   constructor(props) {
@@ -25,8 +25,6 @@ export class YourProfile extends Component {
 
   render() {
     const { currentUser } = this.state;
-    // console.log("Current User: ", currentUser); //tbc
-
     return (
       <div className="yourProfile">
         {currentUser.userImage === null ? (
