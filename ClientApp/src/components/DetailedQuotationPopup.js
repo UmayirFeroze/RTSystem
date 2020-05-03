@@ -30,7 +30,7 @@ class DetailedQuotationPopup extends Component {
               " | " +
               buyer.email}
           </h4>
-          <p>Posted On: {buyerBid.timeStamp}</p>
+          <p>Posted On: {new Date(buyerBid.timeStamp).toLocaleDateString()}</p>
           <h3>Request Details: </h3>
 
           <p>
@@ -61,10 +61,12 @@ class DetailedQuotationPopup extends Component {
             <b>Price:</b> {sellerBid.price}
           </p>
           <p>
-            <b>Delivery Date:</b> {sellerBid.deliveryDate}
+            <b>Delivery Date:</b>{" "}
+            {new Date(sellerBid.deliveryDate).toLocaleDateString()}
           </p>
           <p>
-            <b>Validity Period:</b> {sellerBid.validityPeriod}
+            <b>Validity Period:</b>{" "}
+            {new Date(sellerBid.validityPeriod).toLocaleDateString()}
           </p>
           <p>
             <b>Status:</b> {sellerBid.status}

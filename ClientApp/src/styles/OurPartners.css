@@ -3,9 +3,22 @@ body {
   width: 100%;
 }
 
-.sidenav {
+.ourPartners {
+  height: inherit;
+  width: inherit;
+  overflow: auto;
+  overflow: scroll; /* to  be cleaned*/
+}
+
+.ourPartners .container {
+  display: flex;
+  position: fixed;
+}
+
+.ourPartners .container .sidenav {
   height: 100%;
-  width: 290px;
+  /* width: 290px; */
+  width: 20%;
   position: fixed;
   z-index: 1;
   top: 1;
@@ -43,13 +56,14 @@ body {
   }
 }
 
-.results {
-  margin-left: 295px; /* Same as the width of the sidenav */
+.ourPartners .container .results {
+  /* margin-left: 295px; Same as the width of the sidenav */
+  margin-left: 20.5%;
   padding: 10px 30px 10px 10px;
   background-color: #1f1e1e;
-  width: 83%;
+  max-width: 79.5%;
   height: 100%;
-  position: fixed;
+  position: relative;
   z-index: 1;
   top: 1;
   left: 0;

@@ -79,7 +79,7 @@ export class SellerQuotedBids extends Component {
             <p>
               <b>Posted On:</b>
             </p>
-            <p> {mySellerBid.timeStamp}</p>
+            <p> {new Date(mySellerBid.timeStamp).toLocaleDateString()}</p>
           </div>
 
           <div>
@@ -105,7 +105,7 @@ export class SellerQuotedBids extends Component {
             <p>
               <b>Expires on: </b>
             </p>
-            <p>{mySellerBid.validityPeriod}</p>
+            <p>{new Date(mySellerBid.validityPeriod).toLocaleDateString()}</p>
           </div>
         </div>
         <div className="quotationButtons">
@@ -125,7 +125,10 @@ export class SellerQuotedBids extends Component {
           <div className="viewPopup">
             <div className="viewPopupheader">
               <i>Status</i>
-              <p>Posted On: {mySellerBid.timeStamp}</p>
+              <p>
+                Posted On:{" "}
+                {new Date(mySellerBid.timeStamp).toLocaleDateString()}
+              </p>
               <button onClick={this.closeView}>&times;</button>
             </div>
             <DetailedQuotationPopup

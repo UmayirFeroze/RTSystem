@@ -181,9 +181,8 @@ class BuyerRequestBidIndividual extends Component {
         )}
         <div className="bidDetails">
           <div>
-            <p>
-              <b>Posted on: {buyerBid.timeStamp}</b>
-            </p>
+            <p style={{ fontSize: 11 }}>Posted On:</p>
+            <p>{new Date(buyerBid.timeStamp).toLocaleDateString()}</p>
           </div>
           <div>
             <p>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import ReactSearchBox from "react-search-box";
+// import ReactSearchBox from "react-search-box";
+import Search from "react-search";
 import Header from "../components/Header";
 import NavBar from "../components/Navbar";
 import User from "../components/User";
@@ -22,6 +23,7 @@ export class OurPartners extends Component {
       manufacturers: [],
       buyerBids: [],
       status: "all",
+      search: "",
     };
   }
 
@@ -80,6 +82,7 @@ export class OurPartners extends Component {
       status,
       buyerBids,
     } = this.state;
+
     let content =
       this.props.users.loading || this.props.buyerBids.loading ? (
         <p>Loading...</p>
@@ -94,16 +97,17 @@ export class OurPartners extends Component {
       ) : (
         this.renderUser(manufacturers, buyerBids)
       );
-    console.log("Test: ", this.state.users); // To be cleaned
+
+    let search = this.state.users;
 
     return (
-      <div>
+      <div className="ourPartners">
         <Header />
         <NavBar />
         <div>
           <h1>Our Partners</h1>
           <h2>All users details will come here</h2>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+          <div className="container">
             <div className="sidenav">
               <button
                 name="allUsers"
@@ -130,14 +134,18 @@ export class OurPartners extends Component {
                 Rubber Product Manufacturers
               </button>
             </div>
+
             <div className="results">
-              {/*Delete seach component on completion*/}
-              <ReactSearchBox
-                placeholder="Placeholder"
-                value="Doe"
-                data={users}
-                callback={(record) => console.log(record)}
-              />
+              <div>
+                {/* Search User Component */}
+                <input
+                  type="text"
+                  id="myInput"
+                  // onkeyup={this.handleSearch.bind(this)}
+                  placeholder="Search for names.."
+                  title="Type in a name"
+                />
+              </div>
               <div style={{ marginTop: 20 }}>{content}</div>
             </div>
           </div>

@@ -69,7 +69,7 @@ class SellerPostedBids extends Component {
 
   render() {
     let { sellerBid } = this.state;
-    console.log("SellerBidCheck: ", sellerBid); // to be cleaned
+
     return (
       <div className="singleSellerBid">
         {sellerBid.status === "accepted" ? (
@@ -88,10 +88,12 @@ class SellerPostedBids extends Component {
             {sellerBid.price}
           </p>
           <p>
-            <b>Delivery Date:</b> {sellerBid.deliveryDate}
+            <b>Delivery Date:</b>{" "}
+            {new Date(sellerBid.deliveryDate).toLocaleDateString()}
           </p>
           <p>
-            <b>Validity:</b> {sellerBid.validityPeriod}
+            <b>Validity:</b>{" "}
+            {new Date(sellerBid.validityPeriod).toLocaleDateString()}
           </p>
         </div>
         <div className="buttons">

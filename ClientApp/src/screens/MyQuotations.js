@@ -119,6 +119,7 @@ export class MyQuotations extends Component {
       buyerBids,
       status,
     } = this.state;
+
     let content =
       this.props.sellerBids.loading ||
       this.props.users.loading ||

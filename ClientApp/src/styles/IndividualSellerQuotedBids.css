@@ -1,12 +1,9 @@
 .singleQuotation {
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
   height: 100px;
   width: auto;
-
   display: flex;
-
   border-radius: 10px;
-
   color: white;
   background-color: #292929;
   margin: 5px 0 5px 0;
@@ -28,7 +25,7 @@
 }
 
 .singleQuotation .quotationButtons {
-  /* border: 1px solid yellow; */
+  border: 1px solid yellow;
   padding: 10px 0 0 0;
   width: auto;
 }
@@ -37,7 +34,7 @@
   border: 2px solid green;
   background-color: inherit; /* to be inheritted*/
   padding: 14px 20px;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 5px 10px auto;
 
   border-radius: 4px;
   width: auto;
@@ -54,7 +51,7 @@
   border: 1px solid red;
   background-color: inherit; /* to be inheritted*/
   padding: 14px 20px;
-  margin: 10px 30px 10px 5px;
+  margin: 10px auto 10px 5px;
   border: 2px solid red;
   border-radius: 4px;
   width: auto;

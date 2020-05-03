@@ -195,7 +195,20 @@ export class MyRequests extends Component {
               Closed Bids
             </button>
           </div>
-          <div className="results">{buyerBidsRendered}</div>
+
+          <div className="results" style={{ overflow: "auto" }}>
+            <div
+              className="bids"
+              style={{
+                overflow: "auto",
+                overflow: "hidden",
+                height: "auto",
+                width: "auto",
+              }}
+            >
+              {buyerBidsRendered}
+            </div>
+          </div>
         </div>
       </div>
     );

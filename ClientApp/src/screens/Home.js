@@ -50,6 +50,7 @@ export class Home extends Component {
       ) : (
         this.renderBuyerBidsComponent(this.state.buyerBids, this.state.users)
       );
+
     return (
       <div>
         <Header />
