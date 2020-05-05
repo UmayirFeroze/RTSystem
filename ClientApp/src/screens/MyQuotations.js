@@ -8,6 +8,7 @@ import { GetSellerBidsByUserId } from "../actions/SellerBidActions";
 import { getAllUsers } from "../actions/userAction";
 import { getAllBids } from "../actions/BuyerBidActions";
 import "../styles/IndividualSellerQuotedBids.css";
+import "../styles/ThemePage.css";
 export class MyQuotations extends Component {
   constructor(props) {
     super(props);
@@ -144,13 +145,12 @@ export class MyQuotations extends Component {
       );
 
     return (
-      <div>
+      <div className="themePage">
         <Header />
         <Navbar />
         <h1>My Quotations</h1>
-        <p>All the seller bids posted by the auth user will appear here</p>
-        <div>
-          <div className="sidenav">
+        <div className="container">
+          <div className="sideNav">
             <button name="allSellerBids" onClick={this.handleClick}>
               All Bids
             </button>
@@ -170,7 +170,7 @@ export class MyQuotations extends Component {
               Expired Bids
             </button>
           </div>
-          <div className="results">{content}</div>
+          <div className="data">{content}</div>
         </div>
       </div>
     );

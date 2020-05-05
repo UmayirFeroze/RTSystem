@@ -8,7 +8,8 @@ import User from "../components/User";
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
 import { getAllBids } from "../actions/BuyerBidActions";
-import "../styles/OurPartners.css";
+// import "../styles/OurPartners.css";
+import "../styles/ThemePage.css";
 
 export class OurPartners extends Component {
   constructor(props) {
@@ -101,54 +102,33 @@ export class OurPartners extends Component {
     let search = this.state.users;
 
     return (
-      <div className="ourPartners">
-        <Header />
-        <NavBar />
-        <div>
-          <h1>Our Partners</h1>
-          <h2>All users details will come here</h2>
-          <div className="container">
-            <div className="sidenav">
-              <button
-                name="allUsers"
-                value="allUsers"
-                onClick={this.handleClick}
-              >
-                All Partners
-              </button>
-              <button name="dealers" value="Dealer" onClick={this.handleClick}>
-                Dealers
-              </button>
-              <button
-                name="exporters"
-                value="Exporter"
-                onClick={this.handleClick}
-              >
-                Exporters
-              </button>
-              <button
-                name="manufacturers"
-                value="Rubber Product Manufacturer"
-                onClick={this.handleClick}
-              >
-                Rubber Product Manufacturers
-              </button>
-            </div>
-
-            <div className="results">
-              <div>
-                {/* Search User Component */}
-                <input
-                  type="text"
-                  id="myInput"
-                  // onkeyup={this.handleSearch.bind(this)}
-                  placeholder="Search for names.."
-                  title="Type in a name"
-                />
-              </div>
-              <div style={{ marginTop: 20 }}>{content}</div>
-            </div>
+      <div className="themePage">
+        <Header /> <NavBar />
+        <h1>Our Partners</h1>
+        <div className="container">
+          <div className="sideNav">
+            <button name="allUsers" value="allUsers" onClick={this.handleClick}>
+              All Partners
+            </button>
+            <button name="dealers" value="Dealer" onClick={this.handleClick}>
+              Dealers
+            </button>
+            <button
+              name="exporters"
+              value="Exporter"
+              onClick={this.handleClick}
+            >
+              Exporters
+            </button>
+            <button
+              name="manufacturers"
+              value="Rubber Product Manufacturer"
+              onClick={this.handleClick}
+            >
+              Rubber Product Manufacturers
+            </button>
           </div>
+          <div className="data">{content}</div>
         </div>
       </div>
     );

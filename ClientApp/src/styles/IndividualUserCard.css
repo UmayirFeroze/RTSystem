@@ -9,26 +9,36 @@
   padding: 0px 0 10px 10px;
 
   display: flex;
-  flex-direction: row;
-  width: "100%";
+
+  width: auto;
 }
 
 .userSingleCard .userDetails {
   width: 80%;
-  /* border: 1px solid red; */
+
+  margin: auto 0 auto 0;
 }
 
-.userSingleCard button {
-  background-color: #1682db;
-  /* background-color: #1b03a3; */
-  padding: 10px;
-  margin: 30px 0 0 0;
-  border: none;
-  border-radius: 4px;
-  width: 100%;
+.userSingleCard .buttonOperation {
+  padding: auto;
+  float: right;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.userSingleCard button[name="viewUser"] {
+  background-color: inherit;
+  border: 2px solid #1682db;
+  border-radius: 4px;
+  margin: 40px 0 auto 0;
+  padding: 10px;
+  width: auto;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 17px;
-  font-weight: bold;
   color: white;
+}
+
+.userSingleCard button[name="viewUser"]:hover {
+  border: 3px solid #1682db;
+  font-weight: bold;
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { history } from "../App";
 import "../styles/ViewSellerPopup.css";
 
 class ViewSellerPopup extends Component {
@@ -18,6 +19,11 @@ class ViewSellerPopup extends Component {
     this.props.closePopup();
   };
 
+  handleViewProfile = (userId) => {
+    history.push("/our-partners/" + userId);
+    window.location.reload();
+  };
+
   render() {
     const { seller } = this.props;
     return (
@@ -30,7 +36,7 @@ class ViewSellerPopup extends Component {
         </div>
 
         <div className="sellerContainer">
-          <div className="image">
+          <div className="image" style={{ border: "none" }}>
             {seller.businessImage ? (
               <img src={seller.businessImage} alt="userProfilePic" />
             ) : (
@@ -60,8 +66,9 @@ class ViewSellerPopup extends Component {
               {seller.businessAddress}
             </p>
           </div>
-          <button>View Profile</button>{" "}
-          {/* Redirect to Seller profile on Click*/}
+          <button onClick={() => this.handleViewProfile(seller.userId)}>
+            View Profile
+          </button>
         </div>
       </div>
     );

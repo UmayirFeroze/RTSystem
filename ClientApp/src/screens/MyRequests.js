@@ -12,6 +12,8 @@ import {
 } from "../actions/BuyerBidActions";
 import "../styles/IndividualBuyerRequestedBids.css";
 
+import "../styles/ThemePage.css";
+
 export class MyRequests extends Component {
   constructor(props) {
     super(props);
@@ -179,12 +181,12 @@ export class MyRequests extends Component {
     );
 
     return (
-      <div>
+      <div className="themePage">
         <Header />
         <Navbar />
         <h1>My Requested Bids</h1>
-        <div>
-          <div className="sidenav">
+        <div className="container">
+          <div className="sideNav">
             <button name="allBids" value="allBids" onClick={this.handleClick}>
               All My Bids
             </button>
@@ -196,19 +198,7 @@ export class MyRequests extends Component {
             </button>
           </div>
 
-          <div className="results" style={{ overflow: "auto" }}>
-            <div
-              className="bids"
-              style={{
-                overflow: "auto",
-                overflow: "hidden",
-                height: "auto",
-                width: "auto",
-              }}
-            >
-              {buyerBidsRendered}
-            </div>
-          </div>
+          <div className="data">{buyerBidsRendered}</div>
         </div>
       </div>
     );

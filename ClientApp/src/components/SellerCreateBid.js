@@ -128,7 +128,9 @@ export class SellerCreateBid extends Component {
       <div className="sellerBidComponent">
         <div className="sellerBidComponentHeader">
           <h2>Quote Your Offer</h2>
-          <button onClick={this.closePopup}>&times;</button>
+          <button name="closeCreateSellerBid" onClick={this.closePopup}>
+            &times;
+          </button>
         </div>
 
         <div className="quotation">

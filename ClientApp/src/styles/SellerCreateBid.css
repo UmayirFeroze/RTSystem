@@ -11,15 +11,23 @@
   font-weight: bold;
 }
 
-.sellerBidComponent .sellerBidComponentHeader button {
+.sellerBidComponent
+  .sellerBidComponentHeader
+  button[name="closeCreateSellerBid"] {
   float: right;
-  margin: 0 0 0 auto;
+  margin: 0 10px 0 auto;
   background-color: inherit;
   border: none;
   color: white;
   font-size: 25px;
   font-weight: bold;
   width: auto;
+}
+
+.sellerBidComponent
+  .sellerBidComponentHeader
+  button[name="closeCreateSellerBid"]:hover {
+  font-size: 28px;
 }
 
 .quotation {

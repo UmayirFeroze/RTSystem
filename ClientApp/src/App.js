@@ -24,6 +24,7 @@ import SellerPostedBids from "./components/SellerPostedBids";
 import SellerQuotedBids from "./components/SellerQuotedBids";
 import BuyerRequestBidIndividual from "./components/BuyerRequestBidIndividual";
 import User from "./components/User";
+import ViewUserProfile from "./screens/ViewUserProfile";
 
 export const history = createBrowserHistory();
 
@@ -70,6 +71,12 @@ const App = () => (
         exact
         path="/our-partners"
         render={(props) => <OurPartners {...props} />}
+      />
+
+      <Route
+        exact
+        path="/our-partners/:id"
+        render={(props) => <ViewUserProfile {...props} />}
       />
 
       {/* Navigation Components */}

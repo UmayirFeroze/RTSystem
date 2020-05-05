@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import IndividualBuyerBid from "./IndividualBuyerBid";
 
-// import "./../styles/BuyerBids.css";
-
 export class BuyerBids extends Component {
   constructor(props) {
     super(props);
@@ -14,8 +12,8 @@ export class BuyerBids extends Component {
   }
 
   componentDidMount() {
-    console.log("Props Buyerbids: ", this.props.buyerBidsList); // tbc
-    console.log("Props Users: ", this.props.usersList); // tbc
+    // console.log("Props Buyerbids: ", this.props.buyerBidsList); // tbc
+    // console.log("Props Users: ", this.props.usersList); // tbc
     this.setState({
       buyerBids: this.props.buyerBidsList.filter(
         (buyerBid) => buyerBid.status !== "closed"
@@ -45,7 +43,8 @@ export class BuyerBids extends Component {
         <p>No one has posted any buyer bids yet</p>
       );
 
-    console.log("State:", this.state.buyerBids);
+    // console.log("State:", this.state.buyerBids); // to be cleaned
+
     return (
       <div>
         <h2>Dashboard</h2>

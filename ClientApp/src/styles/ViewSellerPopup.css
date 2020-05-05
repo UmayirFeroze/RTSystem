@@ -10,7 +10,15 @@
   background-color: black;
   display: flex;
   font-weight: bold;
-  /* color: white; */
+  color: white;
+}
+
+.viewSellerPopup .header button {
+  background-color: inherit;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
 }
 
 .viewSellerPopup .sellerContainer {

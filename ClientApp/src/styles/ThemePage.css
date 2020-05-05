@@ -1,0 +1,63 @@
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.themePage {
+  width: 100%;
+  height: 100%;
+}
+
+.themePage .container {
+  width: auto;
+  display: flex;
+}
+
+.themePage .container .sideNav {
+  width: 20%;
+  background-color: #181818;
+  overflow-x: hidden;
+  margin: 0 3px 0 0;
+  padding-top: 20px;
+}
+
+.themePage .container .sideNav button {
+  margin: 5px 0 5px 0;
+  padding: 6px 8px 6px 16px;
+  display: block;
+  border: none;
+  background-color: inherit;
+  text-decoration: none;
+  font-size: 25px;
+  text-align: left;
+  color: #818181;
+  width: 100%;
+}
+
+.themePage .container .sideNav button:hover {
+  color: #f1f1f1;
+  border: none;
+}
+
+.themePage .container .sideNav button:active {
+  color: #f1f1f1;
+  border: none;
+}
+
+@media screen and (max-height: 450px) {
+  .themePage .container .sideNav {
+    padding-top: 15px;
+  }
+  .themePage .container .sideNav button {
+    font-size: 18px;
+  }
+}
+
+.themePage .container .data {
+  width: 80%;
+  margin: 0 0 0 3px;
+  padding: 10px 20px 20px 20px;
+  overflow-x: hidden;
+  overflow-x: auto;
+  background-color: #181818;
+}
