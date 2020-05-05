@@ -71,15 +71,17 @@ class SellerPostedBids extends Component {
     let { sellerBid } = this.state;
 
     return (
-      <div className="singleSellerBid">
+      <div className="sellerQuotation">
         {sellerBid.status === "accepted" ? (
           <div className="status" style={{ backgroundColor: "green" }}></div>
         ) : sellerBid.status === "rejected" ? (
           <div className="status" style={{ backgroundColor: "red" }}></div>
         ) : sellerBid.status === "negotiated" ? (
           <div className="status" style={{ backgroundColor: "yellow" }}></div>
-        ) : (
+        ) : sellerBid.status === "pending" ? (
           <div className="status" style={{ backgroundColor: "white" }}></div>
+        ) : (
+          <div className="status" style={{ backgroundColor: "grey" }}></div>
         )}
 
         <div className="details">
