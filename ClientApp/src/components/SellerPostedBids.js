@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
 import ViewSellerPopup from "./ViewSellerPopup";
-import "../styles/IndividualSellerPostedBids.css";
+import "../styles/IndividualSellerBid.css";
 
 class SellerPostedBids extends Component {
   constructor(props) {

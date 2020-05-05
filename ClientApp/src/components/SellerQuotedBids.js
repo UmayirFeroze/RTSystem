@@ -4,6 +4,7 @@ import Popup from "reactjs-popup";
 import { connect } from "react-redux";
 import { DeleteSellerBid } from "../actions/SellerBidActions";
 import DetailedQuotationPopup from "./DetailedQuotationPopup";
+import "../styles/IndividualSellerBid.css";
 
 export class SellerQuotedBids extends Component {
   constructor(props) {
@@ -61,18 +62,23 @@ export class SellerQuotedBids extends Component {
   render() {
     const { mySellerBid, buyerBid, buyer, viewMore, deleteModal } = this.state;
     return (
-      <div className="singleQuotation">
+      <div className="myQuotation">
+        {mySellerBid.status === "accepted" ? (
+          <div className="status" style={{ backgroundColor: "green" }}></div>
+        ) : mySellerBid.status === "rejected" ? (
+          <div className="status" style={{ backgroundColor: "red" }}></div>
+        ) : mySellerBid.status === "pending" ? (
+          <div className="status" style={{ backgroundColor: "white" }}></div>
+        ) : (
+          <div className="status" style={{ backgroundColor: "yellow" }}></div>
+        )}
+
         <div className="quotationDetail">
           <div>
             <p>
-              <b>Status</b>
+              <b>Quoted To:</b>
             </p>
-            <p> {mySellerBid.status}</p>
-          </div>
-          <div>
-            <p>
-              <b>{buyer.businessName}</b>
-            </p>
+            <p>{buyer.businessName}</p>
           </div>
 
           <div>
@@ -108,7 +114,7 @@ export class SellerQuotedBids extends Component {
             <p>{new Date(mySellerBid.validityPeriod).toLocaleDateString()}</p>
           </div>
         </div>
-        <div className="quotationButtons">
+        <div className="buttonOperations">
           <button name="viewMore" onClick={this.viewMore}>
             View More
           </button>

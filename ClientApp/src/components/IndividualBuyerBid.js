@@ -4,7 +4,7 @@ import SellerCreateBid from "./SellerCreateBid";
 
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
-import "../styles/IndividualBuyerBids.css";
+import "../styles/IndividualBuyerBid.css";
 
 class IndividualBuyerBid extends Component {
   constructor(props) {
@@ -43,12 +43,11 @@ class IndividualBuyerBid extends Component {
   };
 
   render() {
-    // console.log("State Check: ", this.state); // to be cleaned
     const { buyerBid, buyer, seller } = this.state;
     return (
-      <div className="buyerBid">
+      <div className="homeBuyerBid">
         <div className="bidDetails">
-          <h3>{buyer.businessName}</h3> {/*to be handled*/}
+          <h3>{buyer.businessName}</h3>
           <p>
             <b>Quality:</b> {buyerBid.quality} <b>Quantity:</b>{" "}
             {buyerBid.quantity} <b>Price:</b> {buyerBid.price}{" "}
@@ -60,7 +59,6 @@ class IndividualBuyerBid extends Component {
         <div>
           <button onClick={this.openMakeBid}>Make Bid</button>
         </div>
-
         <Popup
           open={this.state.makeBid}
           onClose={this.closeMakeBid}

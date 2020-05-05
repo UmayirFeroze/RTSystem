@@ -5,7 +5,8 @@ import SellerPostedBids from "./SellerPostedBids";
 
 import { connect } from "react-redux";
 import { GetAllSellerBids, UpdateSellerBid } from "../actions/SellerBidActions";
-import "../styles/IndividualBuyerRequestedBids.css";
+// import "../styles/IndividualBuyerRequestedBids.css";
+import "../styles/IndividualBuyerBid.css";
 import "../styles/ViewQuotations.css";
 
 class BuyerRequestBidIndividual extends Component {
@@ -173,7 +174,7 @@ class BuyerRequestBidIndividual extends Component {
     } = this.state;
 
     return (
-      <div className="buyerRequestBid">
+      <div className="myRequestBuyerBid">
         {buyerBid.status === "open" ? (
           <div className="status" style={{ backgroundColor: "green" }}></div>
         ) : (
