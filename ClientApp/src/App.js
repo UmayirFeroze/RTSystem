@@ -32,7 +32,7 @@ const App = () => (
   <BrowserRouter>
     <Switch>
       {/* Navigation Screens */}
-      <Route exact path="/login" component={Landing} />
+      <Route exact path="/" component={Landing} />
 
       <Route exact path="/home" render={(props) => <Home {...props} />} />
 
