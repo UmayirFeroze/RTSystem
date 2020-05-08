@@ -65,6 +65,7 @@ class BuyerRequestBidIndividual extends Component {
       viewDelete: false,
       viewQuotations: false,
     });
+    window.location.reload();
   };
 
   handleChange = (event) => {
