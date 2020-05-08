@@ -118,9 +118,11 @@ export class SellerQuotedBids extends Component {
           <button name="viewMore" onClick={this.viewMore}>
             View More
           </button>
-          <button name="deleteBid" onClick={this.openDelete}>
-            Delete Bid
-          </button>
+          {mySellerBid.status !== "accepted" ? (
+            <button name="deleteBid" onClick={this.openDelete}>
+              Delete Bid
+            </button>
+          ) : null}
         </div>
 
         <Popup
@@ -130,8 +132,28 @@ export class SellerQuotedBids extends Component {
         >
           <div className="viewPopup">
             <div className="viewPopupheader">
-              <i>Status</i>
-              <p>
+              {mySellerBid.status === "accepted" ? (
+                <div
+                  className="status"
+                  style={{ backgroundColor: "green" }}
+                ></div>
+              ) : mySellerBid.status === "rejected" ? (
+                <div
+                  className="status"
+                  style={{ backgroundColor: "red" }}
+                ></div>
+              ) : mySellerBid.status === "pending" ? (
+                <div
+                  className="status"
+                  style={{ backgroundColor: "white" }}
+                ></div>
+              ) : (
+                <div
+                  className="status"
+                  style={{ backgroundColor: "yellow" }}
+                ></div>
+              )}
+              <p style={{ marginLeft: 15 }}>
                 Posted On:{" "}
                 {new Date(mySellerBid.timeStamp).toLocaleDateString()}
               </p>

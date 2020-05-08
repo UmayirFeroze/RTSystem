@@ -1,17 +1,44 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { UpdateSellerBid } from "../actions/SellerBidActions";
 
 class DetailedQuotationPopup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { sellerBid: [], buyerBid: [], buyer: [] };
+    this.negotiateBid = this.negotiateBid.bind(this);
+
+    this.state = {
+      sellerBid: [],
+      buyerBid: [],
+      buyer: [],
+      updateBid: {
+        sellerBidId: 0,
+        bestPrice: "",
+      },
+    };
   }
 
   componentDidMount() {
     const { sellerBid, buyerBid, buyer } = this.props;
     this.setState({ sellerBid: sellerBid, buyerBid: buyerBid, buyer: buyer });
   }
-  componentDidUpdate() {}
+
+  handleChange = (event) => {
+    const { updateBid } = this.state;
+    this.setState({
+      updateBid: {
+        ...updateBid,
+        sellerBidId: this.state.sellerBid.sellerBidId,
+        bestPrice: event.target.value,
+      },
+    });
+  };
+
+  negotiateBid = (event) => {
+    event.preventDefault();
+    this.props.UpdateSellerBid(this.state.updateBid);
+  };
 
   render() {
     const { buyerBid, sellerBid, buyer } = this.props;
@@ -45,11 +72,21 @@ class DetailedQuotationPopup extends Component {
             </p>
           ) : null}
           <p>
-            {" "}
             <b>Payment In:</b> {buyerBid.paymentIn}
           </p>
         </div>
-        <div className="vertical"></div>
+
+        {sellerBid.status === "accepted" ? (
+          <div className="vertical" style={{ borderColor: "green" }}></div>
+        ) : sellerBid.status === "rejected" ? (
+          <div className="vertical" style={{ borderColor: "red" }}></div>
+        ) : sellerBid.status === "pending" ? (
+          <div className="vertical" style={{ borderColor: "white" }}></div>
+        ) : sellerBid.status === "negotiated" ? (
+          <div className="vertical" style={{ borderColor: "yellow" }}></div>
+        ) : (
+          <div className="vertical" style={{ borderColor: "grey" }}></div>
+        )}
 
         <div className="viewSellerBid">
           <h3>Your Quotation: </h3>
@@ -68,13 +105,39 @@ class DetailedQuotationPopup extends Component {
             <b>Validity Period:</b>{" "}
             {new Date(sellerBid.validityPeriod).toLocaleDateString()}
           </p>
-          <p>
-            <b>Status:</b> {sellerBid.status}
-          </p>
+          {sellerBid.status === "negotiated" ? (
+            sellerBid.bestPrice === null ? (
+              <form onSubmit={this.negotiateBid}>
+                <div>
+                  <h5>What is You Best Price? </h5>
+                  <input
+                    type="number"
+                    step="any"
+                    name="BestPrice"
+                    placeholder="Best Price in LKR"
+                    onChange={this.handleChange}
+                    required
+                  />
+                  <button>Negotiate</button>
+                </div>
+              </form>
+            ) : (
+              <div>
+                <p>
+                  <b>Best Price: </b>
+                  {sellerBid.bestPrice}
+                </p>
+              </div>
+            )
+          ) : null}
         </div>
       </div>
     );
   }
 }
 
-export default DetailedQuotationPopup;
+const mapStateToProps = ({ sellerBids }) => ({ sellerBids });
+export default connect(mapStateToProps, { UpdateSellerBid })(
+  DetailedQuotationPopup
+);
+// export default DetailedQuotationPopup;
