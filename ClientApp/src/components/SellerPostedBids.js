@@ -21,6 +21,7 @@ class SellerPostedBids extends Component {
     if (this.state.seller !== this.props.sellerBid) {
       this.setState({ sellerBid: this.props.sellerBid });
     }
+    console.log("Check Bid: ", this.props.sellerBid);
   }
 
   handleChange = (event) => {
@@ -32,7 +33,11 @@ class SellerPostedBids extends Component {
       this.setState(
         {
           status: "accepted",
-          sellerBid: { ...sellerBid, status: event.target.value },
+          sellerBid: {
+            ...sellerBid,
+            status: event.target.value,
+            bestPrice: this.state.sellerBid.bestPrice,
+          },
         },
         this.updateStatus
       );
@@ -41,7 +46,11 @@ class SellerPostedBids extends Component {
       this.setState(
         {
           status: "rejected",
-          sellerBid: { ...sellerBid, status: event.target.value },
+          sellerBid: {
+            ...sellerBid,
+            status: event.target.value,
+            bestPrice: this.state.sellerBid.bestPrice,
+          },
         },
         this.updateStatus
       );
@@ -50,7 +59,11 @@ class SellerPostedBids extends Component {
       this.setState(
         {
           status: "negotiated",
-          sellerBid: { ...sellerBid, status: event.target.value },
+          sellerBid: {
+            ...sellerBid,
+            status: event.target.value,
+            bestPrice: this.state.sellerBid.bestPrice,
+          },
         },
         this.updateStatus
       );
@@ -59,7 +72,11 @@ class SellerPostedBids extends Component {
 
   updateStatus = () => {
     const { sellerBid, status } = this.state;
-    let updateBid = { sellerBidId: sellerBid.sellerBidId, status: status };
+    let updateBid = {
+      sellerBidId: sellerBid.sellerBidId,
+      status: status,
+      bestPrice: sellerBid.bestPrice,
+    };
     this.props.updateSellerBid(updateBid);
   };
 
@@ -85,19 +102,29 @@ class SellerPostedBids extends Component {
         )}
 
         <div className="details">
-          <p style={{ marginTop: 2 }}>
-            <b>Quantity:</b> {sellerBid.quantity} <b>Price:</b>{" "}
-            {sellerBid.price}
-          </p>
-          <p>
-            <b>Delivery Date:</b>{" "}
-            {new Date(sellerBid.deliveryDate).toLocaleDateString()}
-          </p>
-          <p>
-            <b>Validity:</b>{" "}
-            {new Date(sellerBid.validityPeriod).toLocaleDateString()}
-          </p>
+          <div>
+            <p style={{ marginTop: 2 }}>
+              <b>Quantity:</b> {sellerBid.quantity} <b>Price:</b>{" "}
+              {sellerBid.price}
+            </p>
+            <p>
+              <b>Delivery Date:</b>{" "}
+              {new Date(sellerBid.deliveryDate).toLocaleDateString()}
+            </p>
+            <p>
+              <b>Validity:</b>{" "}
+              {new Date(sellerBid.validityPeriod).toLocaleDateString()}
+            </p>
+          </div>
+          {sellerBid.bestPrice ? (
+            <div className="bestPrice">
+              <p>
+                <b>Best Price:</b> {sellerBid.bestPrice}
+              </p>
+            </div>
+          ) : null}
         </div>
+
         <div className="buttons">
           <button name="viewSeller" onClick={this.handleChange}>
             View Seller
@@ -108,13 +135,24 @@ class SellerPostedBids extends Component {
           <button name="reject" value="rejected" onClick={this.handleChange}>
             Reject
           </button>
-          <button
-            name="negotiate"
-            value="negotiated"
-            onClick={this.handleChange}
-          >
-            Negotiate
-          </button>
+          {sellerBid.status === "negotiated" ? (
+            <button
+              name="negotiate"
+              value="negotiated"
+              onClick={this.handleChange}
+              disabled
+            >
+              Negotiate
+            </button>
+          ) : (
+            <button
+              name="negotiate"
+              value="negotiated"
+              onClick={this.handleChange}
+            >
+              Negotiate
+            </button>
+          )}
         </div>
 
         <Popup

@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { GetSellerBidsByUserId } from "../actions/SellerBidActions";
 import { getAllUsers } from "../actions/userAction";
 import { getAllBids } from "../actions/BuyerBidActions";
-// import "../styles/IndividualSellerQuotedBids.css";
 import "../styles/ThemePage.css";
 export class MyQuotations extends Component {
   constructor(props) {

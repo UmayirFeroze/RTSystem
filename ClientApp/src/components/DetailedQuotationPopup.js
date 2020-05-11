@@ -35,9 +35,9 @@ class DetailedQuotationPopup extends Component {
     });
   };
 
-  negotiateBid = (event) => {
-    event.preventDefault();
+  negotiateBid = () => {
     this.props.UpdateSellerBid(this.state.updateBid);
+    window.location.reload();
   };
 
   render() {
@@ -105,8 +105,8 @@ class DetailedQuotationPopup extends Component {
             <b>Validity Period:</b>{" "}
             {new Date(sellerBid.validityPeriod).toLocaleDateString()}
           </p>
-          {sellerBid.status === "negotiated" ? (
-            sellerBid.bestPrice === null ? (
+          {sellerBid.bestPrice === null ? (
+            sellerBid.status === "negotiated" ? (
               <form onSubmit={this.negotiateBid}>
                 <div>
                   <h5>What is You Best Price? </h5>
@@ -121,15 +121,15 @@ class DetailedQuotationPopup extends Component {
                   <button>Negotiate</button>
                 </div>
               </form>
-            ) : (
-              <div>
-                <p>
-                  <b>Best Price: </b>
-                  {sellerBid.bestPrice}
-                </p>
-              </div>
-            )
-          ) : null}
+            ) : null
+          ) : (
+            <div>
+              <p>
+                <b>Best Price: </b>
+                {sellerBid.bestPrice}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -140,4 +140,3 @@ const mapStateToProps = ({ sellerBids }) => ({ sellerBids });
 export default connect(mapStateToProps, { UpdateSellerBid })(
   DetailedQuotationPopup
 );
-// export default DetailedQuotationPopup;

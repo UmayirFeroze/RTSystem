@@ -101,12 +101,23 @@ export class SellerQuotedBids extends Component {
             </p>
             <p>{mySellerBid.quantity}</p>
           </div>
-          <div>
-            <p>
-              <b>Price: </b>
-            </p>
-            <p> {mySellerBid.price}</p>
-          </div>
+
+          {mySellerBid.bestPrice ? (
+            <div>
+              <p>
+                <b>Best Price: </b>
+              </p>
+              <p> {mySellerBid.bestPrice}</p>{" "}
+            </div>
+          ) : (
+            <div>
+              <p>
+                <b>Price: </b>
+              </p>
+              <p> {mySellerBid.price}</p>{" "}
+            </div>
+          )}
+
           <div>
             <p>
               <b>Expires on: </b>
@@ -118,11 +129,17 @@ export class SellerQuotedBids extends Component {
           <button name="viewMore" onClick={this.viewMore}>
             View More
           </button>
-          {mySellerBid.status !== "accepted" ? (
-            <button name="deleteBid" onClick={this.openDelete}>
-              Delete Bid
-            </button>
-          ) : null}
+
+          <button
+            name="deleteBid"
+            onClick={this.openDelete}
+            disabled={
+              mySellerBid.status === "accepted" ||
+              mySellerBid.status === "invalid"
+            }
+          >
+            Delete Bid
+          </button>
         </div>
 
         <Popup
@@ -132,27 +149,6 @@ export class SellerQuotedBids extends Component {
         >
           <div className="viewPopup">
             <div className="viewPopupheader">
-              {mySellerBid.status === "accepted" ? (
-                <div
-                  className="status"
-                  style={{ backgroundColor: "green" }}
-                ></div>
-              ) : mySellerBid.status === "rejected" ? (
-                <div
-                  className="status"
-                  style={{ backgroundColor: "red" }}
-                ></div>
-              ) : mySellerBid.status === "pending" ? (
-                <div
-                  className="status"
-                  style={{ backgroundColor: "white" }}
-                ></div>
-              ) : (
-                <div
-                  className="status"
-                  style={{ backgroundColor: "yellow" }}
-                ></div>
-              )}
               <p style={{ marginLeft: 15 }}>
                 Posted On:{" "}
                 {new Date(mySellerBid.timeStamp).toLocaleDateString()}

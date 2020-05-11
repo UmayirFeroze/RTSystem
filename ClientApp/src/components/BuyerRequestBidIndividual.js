@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Popup from "reactjs-popup";
+
 import ConfirmationPopup from "./ConfirmationPopup";
 import SellerPostedBids from "./SellerPostedBids";
 
 import { connect } from "react-redux";
 import { GetAllSellerBids, UpdateSellerBid } from "../actions/SellerBidActions";
-// import "../styles/IndividualBuyerRequestedBids.css";
+import "react-notifications/lib/notifications.css";
 import "../styles/IndividualBuyerBid.css";
 import "../styles/ViewQuotations.css";
 
@@ -27,6 +28,7 @@ class BuyerRequestBidIndividual extends Component {
       viewDelete: false,
       viewClose: false,
       value: "",
+      deletable: false,
     };
   }
 
@@ -105,6 +107,7 @@ class BuyerRequestBidIndividual extends Component {
     backupUpdate.forEach((sellerBid) => {
       if (sellerBid.buyerBidId === childData.sellerBidId) {
         sellerBid.status = childData.status;
+        sellerBid.bestPrice = childData.bestPrice;
       }
     });
     this.props.UpdateSellerBid(childData);
@@ -165,6 +168,21 @@ class BuyerRequestBidIndividual extends Component {
     }
   };
 
+  checkDeletePosibility = () => {
+    const { sellerBids, buyerBid } = this.state;
+    var check = true;
+    sellerBids.forEach((sellerBid) => {
+      if (
+        (sellerBid.buyerBidId === buyerBid.buyerBidId &&
+          sellerBid.status === "accepted") ||
+        sellerBid.status === "negotiated"
+      ) {
+        check = false;
+      }
+    });
+    return check;
+  };
+
   render() {
     const {
       buyerBid,
@@ -204,7 +222,13 @@ class BuyerRequestBidIndividual extends Component {
           <button name="closebid" value="close" onClick={this.handleChange}>
             Close Bid
           </button>
-          <button name="deletebid" value="delete" onClick={this.handleChange}>
+
+          <button
+            name="deletebid"
+            value="delete"
+            onClick={this.handleChange}
+            disabled={!this.checkDeletePosibility()}
+          >
             Delete Bid
           </button>
         </div>

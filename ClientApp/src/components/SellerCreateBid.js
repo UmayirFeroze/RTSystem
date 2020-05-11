@@ -76,6 +76,16 @@ export class SellerCreateBid extends Component {
     window.location.reload();
   };
 
+  handleDates = (e) => ({
+    _onFocus: function (e) {
+      e.currentTarget.type = "date";
+    },
+    _onBlur: function (e) {
+      e.currentTarget.type = "text";
+      e.currentTarget.placeholder = "Enter a Date";
+    },
+  });
+
   renderForm = () => {
     console.log("State: ", this.props.sellerBids.data);
     return (
@@ -100,14 +110,15 @@ export class SellerCreateBid extends Component {
         <input
           type="date"
           name="validityPeriod"
-          placeholder="Validity Period"
+          placeholder
           onChange={this.SetBidState}
           required
         />
+
         <input
           type="date"
           name="deliveryDate"
-          placeholder="Delivery Date"
+          placeholderText="Delivery Date"
           onChange={this.SetBidState}
           required
         />
