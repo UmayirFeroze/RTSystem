@@ -41,8 +41,8 @@ class User extends Component {
   };
 
   render() {
-    const { user, viewUser } = this.state;
-    console.log("View", viewUser);
+    const { user } = this.state;
+
     return (
       <div className="userSingleCard">
         <div className="userDetails">

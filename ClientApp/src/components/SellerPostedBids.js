@@ -104,22 +104,26 @@ class SellerPostedBids extends Component {
         <div className="details">
           <div>
             <p style={{ marginTop: 2 }}>
-              <b>Quantity:</b> {sellerBid.quantity} <b>Price:</b>{" "}
-              {sellerBid.price}
+              Quantity:<b>{sellerBid.quantity} t</b> Price: Rs{" "}
+              <b>{sellerBid.price}</b>
             </p>
             <p>
-              <b>Delivery Date:</b>{" "}
-              {new Date(sellerBid.deliveryDate).toLocaleDateString()}
+              Delivery Date:{" "}
+              <b style={{ fontSize: 13 }}>
+                {new Date(sellerBid.deliveryDate).toLocaleDateString()}
+              </b>
             </p>
             <p>
-              <b>Validity:</b>{" "}
-              {new Date(sellerBid.validityPeriod).toLocaleDateString()}
+              Validity:{" "}
+              <b style={{ fontSize: 13 }}>
+                {new Date(sellerBid.validityPeriod).toLocaleDateString()}
+              </b>
             </p>
           </div>
           {sellerBid.bestPrice ? (
             <div className="bestPrice">
               <p>
-                <b>Best Price:</b> {sellerBid.bestPrice}
+                Best Price: Rs <b>{sellerBid.bestPrice}</b>
               </p>
             </div>
           ) : null}
@@ -129,30 +133,34 @@ class SellerPostedBids extends Component {
           <button name="viewSeller" onClick={this.handleChange}>
             View Seller
           </button>
-          <button name="accept" value="accepted" onClick={this.handleChange}>
+          <button
+            name="accept"
+            value="accepted"
+            onClick={this.handleChange}
+            disabled={sellerBid.status === "invalid"}
+          >
             Accept
           </button>
-          <button name="reject" value="rejected" onClick={this.handleChange}>
+          <button
+            name="reject"
+            value="rejected"
+            onClick={this.handleChange}
+            disabled={sellerBid.status === "invalid"}
+          >
             Reject
           </button>
-          {sellerBid.status === "negotiated" ? (
-            <button
-              name="negotiate"
-              value="negotiated"
-              onClick={this.handleChange}
-              disabled
-            >
-              Negotiate
-            </button>
-          ) : (
-            <button
-              name="negotiate"
-              value="negotiated"
-              onClick={this.handleChange}
-            >
-              Negotiate
-            </button>
-          )}
+
+          <button
+            name="negotiate"
+            value="negotiated"
+            onClick={this.handleChange}
+            disabled={
+              sellerBid.status === "invalid" ||
+              sellerBid.status === "negotiated"
+            }
+          >
+            Negotiate
+          </button>
         </div>
 
         <Popup

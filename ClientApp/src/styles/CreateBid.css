@@ -9,6 +9,24 @@
   color: white;
 }
 
+.createBid select {
+  border-radius: 4px;
+  width: 100%;
+  font-size: 17px;
+  height: 45px;
+}
+
+.createBid select option {
+  border: 1px solid red;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 10px 0 10px 0;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 17px;
+}
+
 .createBid input[type="text"],
 select {
   border-radius: 4px;

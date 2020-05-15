@@ -59,11 +59,14 @@
   min-width: 40%;
   max-width: 60%;
   margin: auto auto auto 0;
+
+  height: 100%;
 }
 
 .myRequestBuyerBid .bidDetails div {
   margin: auto 10px auto 20px;
   width: auto;
+  height: 100%;
 }
 
 .myRequestBuyerBid .bidOperations {

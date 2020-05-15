@@ -25,6 +25,9 @@ class IndividualBuyerBid extends Component {
 
   componentDidMount() {
     console.log("Buyer:", this.props.buyer); // to be cleaned
+    if (this.props.buyer === null || this.props.buyer === undefined) {
+      window.location.reload();
+    }
     this.setState({ buyerBid: this.props.buyerBid, buyer: this.props.buyer });
     this.props.getAuthUser();
   }
@@ -44,35 +47,42 @@ class IndividualBuyerBid extends Component {
 
   render() {
     const { buyerBid, buyer, seller } = this.state;
+
     return (
-      <div className="homeBuyerBid">
-        <div className="bidDetails">
-          <h3>{buyer.businessName}</h3>
-          <p>
-            <b>Quality:</b> {buyerBid.quality} <b>Quantity:</b>{" "}
-            {buyerBid.quantity} <b>Price:</b> {buyerBid.price}{" "}
-          </p>
-          <p>
-            <b>Payment In:</b> {buyerBid.paymentIn}
-          </p>
-        </div>
-        <div>
-          <button onClick={this.openMakeBid}>Make Bid</button>
-        </div>
-        <Popup
-          open={this.state.makeBid}
-          onClose={this.closeMakeBid}
-          contentStyle={{ border: "none", backgroundColor: "inherit" }}
-        >
-          <div className="sellerBidComponent">
-            <SellerCreateBid
-              buyerBid={buyerBid}
-              buyer={buyer}
-              seller={seller}
-              closeMakeBid={this.closeMakeBid}
-            />
+      <div>
+        {buyer !== null || buyer !== undefined ? (
+          <div className="homeBuyerBid">
+            <div className="bidDetails">
+              <h3>{buyer.businessName}</h3>
+              <p>
+                <b>Quality:</b> {buyerBid.quality} <b>Quantity:</b>{" "}
+                {buyerBid.quantity} <b>Price:</b> {buyerBid.price}{" "}
+              </p>
+              <p>
+                <b>Payment In:</b> {buyerBid.paymentIn}
+              </p>
+            </div>
+            <div>
+              <button onClick={this.openMakeBid}>Quote Offer</button>
+            </div>
+            <Popup
+              open={this.state.makeBid}
+              onClose={this.closeMakeBid}
+              contentStyle={{ border: "none", backgroundColor: "inherit" }}
+            >
+              <div className="sellerBidComponent">
+                <SellerCreateBid
+                  buyerBid={buyerBid}
+                  buyer={buyer}
+                  seller={seller}
+                  closeMakeBid={this.closeMakeBid}
+                />
+              </div>
+            </Popup>
           </div>
-        </Popup>
+        ) : (
+          window.location.reload()
+        )}
       </div>
     );
   }

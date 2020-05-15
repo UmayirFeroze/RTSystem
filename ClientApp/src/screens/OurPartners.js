@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import ReactSearchBox from "react-search-box";
-import Search from "react-search";
 import Header from "../components/Header";
 import NavBar from "../components/Navbar";
 import User from "../components/User";
@@ -8,7 +6,7 @@ import User from "../components/User";
 import { connect } from "react-redux";
 import { getAllUsers } from "../actions/userAction";
 import { getAllBids } from "../actions/BuyerBidActions";
-// import "../styles/OurPartners.css";
+
 import "../styles/ThemePage.css";
 
 export class OurPartners extends Component {
@@ -24,7 +22,9 @@ export class OurPartners extends Component {
       manufacturers: [],
       buyerBids: [],
       status: "all",
-      search: "",
+      searchState: false,
+      searchCriteria: "",
+      searchResults: [],
     };
   }
 
@@ -42,28 +42,58 @@ export class OurPartners extends Component {
     }
   }
 
+  handleChange = (event) => {
+    console.log("handle Change:", event.target.value);
+    if (event.target.value) {
+      const value = event.target.value.toLowerCase();
+      this.setState({
+        searchCriteria: event.target.value,
+        searchState: true,
+        searchResults: this.state.users.filter(
+          (user) =>
+            user.firstName.toLowerCase() === value ||
+            user.lastName.toLowerCase() === value ||
+            user.email.toLowerCase() === value ||
+            user.phone === value ||
+            user.businessName.toLowerCase() === value ||
+            user.businessPhone === value ||
+            user.businessAddress.toLowerCase() === value ||
+            user.businessType.toLowerCase() === value
+        ),
+      });
+    } else {
+      this.setState({ searchCriteria: "", searchState: false });
+    }
+  };
+
   handleClick = (event) => {
     const { users } = this.state;
-    //  function to query data
-    function isValid(user) {
-      if (user.businessType === event.target.value) {
-        return true;
-      }
-    }
 
     if (event.target.name === "allUsers") {
       this.setState({ status: "all" });
     }
     if (event.target.name === "dealers") {
-      this.setState({ status: "dealers", dealers: users.filter(isValid) });
+      this.setState({
+        status: "dealers",
+        dealers: users.filter(
+          (user) => user.businessType === event.target.value
+        ),
+      });
     }
     if (event.target.name === "exporters") {
-      this.setState({ status: "exporters", exporters: users.filter(isValid) });
+      this.setState({
+        status: "exporters",
+        exporters: users.filter(
+          (user) => user.businessType === event.target.value
+        ),
+      });
     }
     if (event.target.name === "manufacturers") {
       this.setState({
         status: "manufacturers",
-        manufacturers: users.filter(isValid),
+        manufacturers: users.filter(
+          (user) => user.businessType === event.target.value
+        ),
       });
     }
   };
@@ -82,13 +112,21 @@ export class OurPartners extends Component {
       manufacturers,
       status,
       buyerBids,
+      searchState,
+      searchResults,
     } = this.state;
+
+    console.log("State: ", this.state.searchCriteria);
+    console.log("Search State:", searchState);
+    console.log("Search Results:", searchResults);
 
     let content =
       this.props.users.loading || this.props.buyerBids.loading ? (
         <p>Loading...</p>
       ) : buyerBids.length === 0 ? (
         <p>No buyerBids Yet</p>
+      ) : searchState ? (
+        this.renderUser(searchResults, buyerBids)
       ) : status === "all" ? (
         this.renderUser(users, buyerBids)
       ) : status === "dealers" ? (
@@ -98,8 +136,6 @@ export class OurPartners extends Component {
       ) : (
         this.renderUser(manufacturers, buyerBids)
       );
-
-    let search = this.state.users;
 
     return (
       <div className="themePage">
@@ -128,7 +164,11 @@ export class OurPartners extends Component {
               Rubber Product Manufacturers
             </button>
           </div>
-          <div className="data">{content}</div>
+
+          <div className="data">
+            <input type="text" name="searchBox" onChange={this.handleChange} />
+            {content}
+          </div>
         </div>
       </div>
     );

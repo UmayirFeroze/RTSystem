@@ -188,13 +188,13 @@ export class MyRequests extends Component {
         <div className="container">
           <div className="sideNav">
             <button name="allBids" value="allBids" onClick={this.handleClick}>
-              All My Bids
+              All Requests
             </button>
             <button name="openedBids" value="open" onClick={this.handleClick}>
-              Opened Bids
+              Opened Requests
             </button>
             <button name="closedBids" value="closed" onClick={this.handleClick}>
-              Closed Bids
+              Closed Requests
             </button>
           </div>
 

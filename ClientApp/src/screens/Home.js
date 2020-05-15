@@ -46,7 +46,10 @@ export class Home extends Component {
       this.props.buyerBids.loading || this.props.users.loading ? (
         <p>Loading...</p>
       ) : this.state.buyerBids.length === 0 || this.state.users.length === 0 ? (
-        <p>No one has posted any bids yet...</p>
+        <div>
+          <h2>Dashboard</h2>
+          <p>No one has posted any bids yet...</p>
+        </div>
       ) : (
         this.renderBuyerBidsComponent(this.state.buyerBids, this.state.users)
       );

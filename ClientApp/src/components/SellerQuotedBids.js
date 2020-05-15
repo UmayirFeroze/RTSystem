@@ -69,8 +69,10 @@ export class SellerQuotedBids extends Component {
           <div className="status" style={{ backgroundColor: "red" }}></div>
         ) : mySellerBid.status === "pending" ? (
           <div className="status" style={{ backgroundColor: "white" }}></div>
-        ) : (
+        ) : mySellerBid.status === "negotiated" ? (
           <div className="status" style={{ backgroundColor: "yellow" }}></div>
+        ) : (
+          <div className="status" style={{ backgroundColor: "grey" }}></div>
         )}
 
         <div className="quotationDetail">
@@ -97,7 +99,7 @@ export class SellerQuotedBids extends Component {
           </div>
           <div>
             <p>
-              <b>Quantity: </b>
+              <b>Quantity: (t)</b>
             </p>
             <p>{mySellerBid.quantity}</p>
           </div>
@@ -105,14 +107,14 @@ export class SellerQuotedBids extends Component {
           {mySellerBid.bestPrice ? (
             <div>
               <p>
-                <b>Best Price: </b>
+                <b>Best Price: (Rs)</b>
               </p>
               <p> {mySellerBid.bestPrice}</p>{" "}
             </div>
           ) : (
             <div>
               <p>
-                <b>Price: </b>
+                <b>Price: (Rs)</b>
               </p>
               <p> {mySellerBid.price}</p>{" "}
             </div>
@@ -133,10 +135,7 @@ export class SellerQuotedBids extends Component {
           <button
             name="deleteBid"
             onClick={this.openDelete}
-            disabled={
-              mySellerBid.status === "accepted" ||
-              mySellerBid.status === "invalid"
-            }
+            disabled={mySellerBid.status === "accepted"}
           >
             Delete Bid
           </button>

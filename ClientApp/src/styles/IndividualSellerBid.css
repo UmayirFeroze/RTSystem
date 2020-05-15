@@ -99,11 +99,10 @@
   padding: 5px 0 10px 10px;
   width: 40%;
   display: flex;
-  /* justify-content: space-evenly; */
 }
 
 .sellerQuotation .details .bestPrice {
-  margin: 0 auto 0 50px;
+  margin: auto auto auto auto;
 }
 
 .sellerQuotation .buttons {
@@ -142,6 +141,9 @@
   border: 2px solid green;
   font-weight: bold;
 }
+.sellerQuotation .buttons button[name="accept"]:disabled {
+  border: 1px solid grey;
+}
 
 .sellerQuotation .buttons button[name="reject"] {
   background-color: inherit;
@@ -158,6 +160,9 @@
   border: 2px solid red;
   font-weight: bold;
 }
+.sellerQuotation .buttons button[name="reject"]:disabled {
+  border: 1px solid grey;
+}
 
 .sellerQuotation .buttons button[name="negotiate"] {
   background-color: inherit;
@@ -173,4 +178,7 @@
 .sellerQuotation .buttons button[name="negotiate"]:hover {
   border: 2px solid yellow;
   font-weight: bold;
+}
+.sellerQuotation .buttons button[name="negotiate"]:disabled {
+  border: 1px solid grey;
 }

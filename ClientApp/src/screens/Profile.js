@@ -10,13 +10,21 @@ import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
 
 import "../styles/ProfilePage.css";
+import "../styles/YourProfile.css";
+import DisableAccount from "../components/DisableAccount";
 
 export class Profile extends Component {
   constructor(props) {
     super(props);
 
+    this.openPopup = this.openPopup.bind(this);
+    this.closePopup = this.closePopup.bind(this);
+
     this.state = {
       currentUser: {},
+      changePassword: false,
+      editProfile: false,
+      disableAccount: false,
     };
   }
 
@@ -30,69 +38,88 @@ export class Profile extends Component {
     }
   }
 
-  renderProfile = (currentUser) => {
+  openPopup = (event) => {
+    if (event.target.name === "changePassword")
+      this.setState({ changePassword: true });
+    if (event.target.name === "editProfile")
+      this.setState({ editProfile: true });
+    if (event.target.name === "disableAccount")
+      this.setState({ disableAccount: true });
+  };
+
+  closePopup = () => {
+    this.setState({
+      changePassword: false,
+      editProfile: false,
+      disableAccount: false,
+    });
+  };
+
+  renderNavBar = (user) => {
     return (
-      <div className="container">
-        <div className="user">
-          <img src={require("../Images/avatar-profile.png")} alt="UserAvatar" />
-          <p>{currentUser.firstName + " " + currentUser.lastName}</p>
-          <p>{currentUser.phone}</p>
-          <p>{currentUser.email}</p>
-          <Popup
-            modal
-            trigger={<button>Change Password</button>}
-            closeDocumentOnClick
-            contentStyle={{
-              border: "none",
-              padding: 0,
-              borderColor: "white",
-              borderStyle: "solid",
-            }}
-          >
-            <div>
-              <ResetPassword user={this.state.currentUser} />
-            </div>
-          </Popup>
+      <div className="yourProfile">
+        <img src={require("../Images/logo.jpg")} alt="profilePic" />
+        <button name="changePassword" onClick={this.openPopup}>
+          Change Password
+        </button>
+        <button name="editProfile" onClick={this.openPopup}>
+          Edit Profile
+        </button>
+        <button name="disableAccount" onClick={this.openPopup}>
+          Disable Account
+        </button>
 
-          <Popup
-            modal
-            trigger={<button>Edit Profile</button>}
-            closeOnDocumentClick
-            contentStyle={{
-              border: "none",
-              padding: 0,
-              borderColor: "white",
-              borderStyle: "solid",
-            }}
-          >
-            <EditUser user={this.state.currentUser} />
-          </Popup>
+        <Popup open={this.state.changePassword} onClose={this.closePopup}>
+          <ResetPassword
+            user={this.state.currentUser}
+            close={this.closePopup}
+          />
+        </Popup>
 
-          <Popup
-            modal
-            trigger={<button>Disable Account</button>}
-            closeOnDocumentClick
-          >
-            <div>Deactivate Accoutn</div>
-          </Popup>
-        </div>
-        <div className="business">
-          <div className="businessContainer">
-            <img
-              src={require("../Images/avatar-profile.png")}
-              alt="UserAvatar"
-            />
-          </div>
+        <Popup open={this.state.editProfile} onClose={this.closePopup}>
+          <EditUser user={this.state.currentUser} close={this.closePopup} />
+        </Popup>
+
+        <Popup open={this.state.disableAccount} onClose={this.closePopup}>
+          <DisableAccount
+            user={this.state.currentUser}
+            close={this.closePopup}
+          />
+        </Popup>
+      </div>
+    );
+  };
+
+  renderProfileData = (currentUser) => {
+    return (
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "60%", padding: 20 }}>
           <h1>{currentUser.businessName}</h1>
-          <h1>{currentUser.businessDescription}</h1>
-          <h3>Phone: </h3>
-          <p>{currentUser.businessPhone}</p>
+          <h2>{currentUser.businessDescription}</h2>
+
+          <h3>Owner: </h3>
+          <p style={{ marginLeft: "10%" }}>
+            {currentUser.firstName + " " + currentUser.lastName}
+          </p>
+          <h3>Mobile: </h3>
+          <p style={{ marginLeft: "10%" }}>{currentUser.phone}</p>
           <h3>Email: </h3>
-          <p>{currentUser.email}</p>
+          <p style={{ marginLeft: "10%" }}>{currentUser.email}</p>
+
+          <h3>Telephone: </h3>
+          <p style={{ marginLeft: "10%" }}>{currentUser.businessPhone}</p>
+
+          <h3>Email: </h3>
+          <p style={{ marginLeft: "10%" }}>{currentUser.email}</p>
+
           <h3>Business Address: </h3>
-          <p>{currentUser.businessAddress}</p>
+          <p style={{ marginLeft: "10%" }}>{currentUser.businessAddress}</p>
+
           <h3>Business Type: </h3>
-          <p>{currentUser.businessType}</p>
+          <p style={{ marginLeft: "10%" }}>{currentUser.businessType}</p>
+        </div>
+        <div style={{ width: "40%", textAlign: "center" }}>
+          <h3>Stats: </h3>
         </div>
       </div>
     );
@@ -101,11 +128,16 @@ export class Profile extends Component {
   render() {
     const { currentUser } = this.state;
     return (
-      <div>
+      <div className="themePage">
         <Header />
         <NavBar />
         <h1>Your Profile</h1>
-        <div className="profilePage">{this.renderProfile(currentUser)}</div>
+        <div className="container">
+          <div className="sideNav" style={{ paddingTop: 0 }}>
+            {this.renderNavBar(currentUser)}
+          </div>
+          <div className="data">{this.renderProfileData(currentUser)}</div>
+        </div>
       </div>
     );
   }

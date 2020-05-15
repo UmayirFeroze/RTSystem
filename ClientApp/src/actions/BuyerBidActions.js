@@ -111,7 +111,7 @@ export const getBuyerBidsNotByUserId = () => (dispatch) => {
       dispatch(getBuyerBidsNotByUserIdSuccess(response));
     })
     .catch((error) => {
-      dispatch(getBuyerBidsNotByUserIdFailure(error.data));
+      dispatch(getBuyerBidsNotByUserIdFailure(error));
     });
 };
 

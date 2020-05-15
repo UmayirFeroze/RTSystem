@@ -52,7 +52,7 @@ export class BuyerCreateBid extends Component {
   render() {
     return (
       <div className="createBid">
-        <form id="createBidForm" onSubmit={this.handleSubmit}>
+        <form id="form" onSubmit={this.handleSubmit}>
           <h2>Make A Request</h2>
           <select
             name="quality"
@@ -104,7 +104,7 @@ export class BuyerCreateBid extends Component {
             <option value="3 Weeks">3 Weeks</option>
             <option value="4 Weeks">4 Weeks</option>
           </select>
-          <button>Create Bid</button>
+          <button>Request</button>
         </form>
       </div>
     );

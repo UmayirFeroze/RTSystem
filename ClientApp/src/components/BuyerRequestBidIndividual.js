@@ -205,13 +205,14 @@ class BuyerRequestBidIndividual extends Component {
             <p>{new Date(buyerBid.timeStamp).toLocaleDateString()}</p>
           </div>
           <div>
-            <p>
-              <b>Quality: </b>
-              {buyerBid.quality}
+            <p style={{ marginTop: "auto" }}>
+              Quality: <b>{buyerBid.quality} </b>
             </p>
             <p>
-              <b>Quantity: </b>
-              {buyerBid.quantity}
+              Quantity: <b>{buyerBid.quantity}</b> {"T"}
+            </p>
+            <p>
+              Price: Rs<b> {buyerBid.price}</b>
             </p>
           </div>
         </div>

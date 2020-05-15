@@ -76,18 +76,9 @@ export class SellerCreateBid extends Component {
     window.location.reload();
   };
 
-  handleDates = (e) => ({
-    _onFocus: function (e) {
-      e.currentTarget.type = "date";
-    },
-    _onBlur: function (e) {
-      e.currentTarget.type = "text";
-      e.currentTarget.placeholder = "Enter a Date";
-    },
-  });
-
   renderForm = () => {
     console.log("State: ", this.props.sellerBids.data);
+
     return (
       <form className="form" onSubmit={this.CreateSellerBid}>
         <h3>Quote your Price</h3>
@@ -110,17 +101,21 @@ export class SellerCreateBid extends Component {
         <input
           type="date"
           name="validityPeriod"
-          placeholder
+          placeholder="Validity Period"
+          value={this.state.sellerBid.validityPeriod}
           onChange={this.SetBidState}
           required
+          style={{ borderRadius: 4 }}
         />
 
         <input
           type="date"
           name="deliveryDate"
-          placeholderText="Delivery Date"
+          placeholder="Delivery Date"
+          value={this.state.sellerBid.deliveryDate}
           onChange={this.SetBidState}
           required
+          style={{ marginTop: 10, borderRadius: 4 }}
         />
         <button>Submit</button>
       </form>

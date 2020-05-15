@@ -4,7 +4,9 @@ import Navbar from "../components/Navbar";
 import BuyerBids from "../components/BuyerBids";
 import { connect } from "react-redux";
 import { getUserByUserId } from "../actions/userAction";
-import { getBuyerBidsByUserId } from "../actions/BuyerBidActions";
+import { getAllBids } from "../actions/BuyerBidActions";
+import "../styles/ThemePage.css";
+import "../styles/YourProfile.css";
 
 class ViewUserProfile extends Component {
   constructor(props) {
@@ -14,9 +16,8 @@ class ViewUserProfile extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log(id);
     this.props.getUserByUserId(id);
-    this.props.getBuyerBidsByUserId(id);
+    this.props.getAllBids();
   }
 
   componentDidUpdate(prevProps) {
@@ -24,16 +25,23 @@ class ViewUserProfile extends Component {
       this.setState({ user: this.props.users.data });
     }
     if (prevProps.buyerBids.data !== this.props.buyerBids.data) {
-      this.setState({ buyerBids: this.props.buyerBids.data });
+      this.setState({
+        buyerBids: this.props.buyerBids.data.filter(
+          (buyerBid) => buyerBid.userId === parseInt(this.props.match.params.id)
+        ),
+      });
     }
   }
 
   renderUser = (user) => {
     return (
-      <div>
-        <div>
-          <img src={require("../Images/logo.jpg")} alt="profilePic" />
-        </div>
+      <div className="yourProfile">
+        <img
+          src={require("../Images/logo.jpg")}
+          alt="profilePic"
+          style={{ marginTop: 0 }}
+        />
+
         <div>
           <h2>{user.businessName}</h2>
           <h3>{user.businessDescription}</h3>
@@ -67,11 +75,7 @@ class ViewUserProfile extends Component {
   };
 
   renderBuyerBidsComponent = (buyerBids, user) => {
-    // console.log("infunction:", buyerBids, Array.isArray(user));
-
     if (Array.isArray(buyerBids)) {
-      // console.log(buyerBids, user); // at this point the array becomes empty
-
       return <BuyerBids buyerBidsList={buyerBids} usersList={user} />;
     }
   };
@@ -79,30 +83,31 @@ class ViewUserProfile extends Component {
   render() {
     const { buyerBids, user } = this.state;
     const userRendered =
-      this.props.users.loading || user.length === 0 ? (
+      this.props.users.loading || this.props.buyerBids.loading ? (
         <p>Loading...</p>
       ) : (
         this.renderUser(user)
       );
 
-    const buyerBidsRendered =
-      this.props.buyerBids.loading || this.state.buyerBids.length === 0 ? (
-        <p>Loading...</p>
-      ) : (
-        this.renderBuyerBidsComponent(buyerBids, user)
-      );
+    console.log(buyerBids);
+    const buyerBidsRendered = this.props.buyerBids.loading ? (
+      <p>Loading...</p>
+    ) : !buyerBids.length ? (
+      <p>This user has not posted any bids yet</p>
+    ) : (
+      this.renderBuyerBidsComponent(buyerBids, user)
+    );
 
     return (
-      <div>
+      <div className="themePage">
         <Header />
         <Navbar />
-        <div style={{ border: "1px solid red", display: "flex" }}>
-          <div style={{ border: "1px solid blue", width: "30%" }}>
+        <h1>{user.businessName}</h1>
+        <div className="container">
+          <div className="sideNav" style={{ paddingTop: 0 }}>
             {userRendered}
           </div>
-          <div style={{ border: "1px solid yellow", width: "70%" }}>
-            {buyerBidsRendered}
-          </div>
+          <div className="data">{buyerBidsRendered}</div>
         </div>
       </div>
     );
@@ -112,5 +117,5 @@ class ViewUserProfile extends Component {
 const mapStateToProps = ({ users, buyerBids }) => ({ users, buyerBids });
 export default connect(mapStateToProps, {
   getUserByUserId,
-  getBuyerBidsByUserId,
+  getAllBids,
 })(ViewUserProfile);
