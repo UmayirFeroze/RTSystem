@@ -11,7 +11,7 @@ import Home from "./screens/Home";
 import Profile from "./screens/Profile";
 import Register from "./screens/Register";
 import Transactions from "./screens/Transactions";
-import UserManual from "./screens/UserManual";
+// import UserManual from "./screens/UserManual";
 import OurPartners from "./screens/OurPartners";
 import BuyerBids from "./components/BuyerBids";
 import IndividualBuyerBid from "./components/IndividualBuyerBid";
@@ -65,7 +65,7 @@ const App = () => (
         render={(props) => <MyQuotations {...props} />}
       />
 
-      <Route exact path="/help" component={UserManual} />
+      {/* <Route exact path="/help" component={UserManual} /> */}
 
       <Route
         exact

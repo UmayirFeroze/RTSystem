@@ -13,7 +13,7 @@ class NavBar extends Component {
         <NavLink to="/requests">My Requests</NavLink>
         <NavLink to="/quotations">My Quotations</NavLink>
         <NavLink to="/our-partners">Our Partners</NavLink>
-        <NavLink to="/help">User Manual</NavLink>
+        {/* <NavLink to="/help">User Manual</NavLink> */}
         <NavLink
           to="/"
           style={{

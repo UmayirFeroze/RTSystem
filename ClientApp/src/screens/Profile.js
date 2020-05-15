@@ -80,7 +80,11 @@ export class Profile extends Component {
           <EditUser user={this.state.currentUser} close={this.closePopup} />
         </Popup>
 
-        <Popup open={this.state.disableAccount} onClose={this.closePopup}>
+        <Popup
+          open={this.state.disableAccount}
+          onClose={this.closePopup}
+          contentStyle={{ backgroundColor: "inherit", border: "none" }}
+        >
           <DisableAccount
             user={this.state.currentUser}
             close={this.closePopup}
@@ -118,6 +122,7 @@ export class Profile extends Component {
           <h3>Business Type: </h3>
           <p style={{ marginLeft: "10%" }}>{currentUser.businessType}</p>
         </div>
+        <div className="vertical"></div>
         <div style={{ width: "40%", textAlign: "center" }}>
           <h3>Stats: </h3>
         </div>
