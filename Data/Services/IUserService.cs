@@ -10,6 +10,9 @@ namespace RTSystem.Data
         Users GetUserById(int userId);
         void RegisterUser(Users user);
         void UpdateUser(int userId, UserUpdateModel user);
+        void ResetPassword(int userId, ResetPasswordModel password);
+        void UploadImage(int userId, ImageUploadModel profileImage);
+        void DeactivateAccount(int userId);
         void DeleteUser(int userId);
     }
 }

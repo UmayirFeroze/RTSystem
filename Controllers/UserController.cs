@@ -114,7 +114,7 @@ namespace RTSystem.Controllers
 
         [HttpPut("UpdateUser/{userId}")]
         [AllowAnonymous]
-        public IActionResult UpdateUser(int userId, [FromForm]UserUpdateModel user)
+        public IActionResult UpdateUser(int userId, [FromBody]UserUpdateModel user)
         {
             try
             {
@@ -132,6 +132,65 @@ namespace RTSystem.Controllers
             }
 
         }
+
+        [HttpPut("{userId}/ResetPassword")]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(int userId, [FromBody]ResetPasswordModel password)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("");
+                }
+
+                _service.ResetPassword(userId, password);
+                return Ok(_service.GetUserById(userId));
+            }
+            catch (Exception resetPasswordError)
+            {
+                return Conflict(resetPasswordError.Message);
+            }
+
+        }
+
+        [HttpPut("{userId}/UploadImage")]
+        [AllowAnonymous]
+        public IActionResult UploadProfileImage(int userId, [FromForm]ImageUploadModel image)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("");
+                }
+
+                _service.UploadImage(userId, image);
+                return Ok(_service.GetUserById(userId));
+            }
+            catch (Exception uploadImageError)
+            {
+                return Conflict(uploadImageError.Message);
+            }
+
+        }
+
+        [AllowAnonymous]
+        [HttpPut("{userId}/DeactivateAccount")]
+        public IActionResult DeactivateAccount(int userId)
+        {
+            try
+            {
+                _service.DeactivateAccount(userId);
+                return Ok("Successfully Deactivated Account");
+            }
+            catch (Exception deactivateUserError)
+            {
+                return NotFound(deactivateUserError.Message);
+            }
+
+        }
+
         [AllowAnonymous]
         [HttpDelete("DeleteUser/{userId}")]
         public IActionResult DeleteUser(int userId)

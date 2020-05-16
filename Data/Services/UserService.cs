@@ -26,6 +26,12 @@ namespace RTSystem.Data
             {
                 throw new Exception("Incorrect Email or Password");
             }
+            if (userExists.Status == "deactivated")
+            {
+                userExists.Status = "active";
+            }
+
+            _RTSystemContext.SaveChanges();
 
             return userExists;
         }
@@ -67,6 +73,8 @@ namespace RTSystem.Data
             var passwordHash = HashPassword(user.Password);
             user.Password = passwordHash;
 
+            user.Status = "active";
+
             _RTSystemContext.Users.Add(user);
             _RTSystemContext.SaveChanges();
         }
@@ -102,20 +110,6 @@ namespace RTSystem.Data
 
                 userToUpdate.Email = user.Email;
             }
-            if (!string.IsNullOrWhiteSpace(user.CurrentPassword) && !string.IsNullOrWhiteSpace(user.NewPassword))
-            {
-                // if (!VerifyPassword(userToUpdate.Password, user.CurrentPassword))
-                // {
-                //     throw new Exception("Current Password is Incorrect");
-                // }
-                // if (VerifyPassword(userToUpdate.Password, user.CurrentPassword))
-                // {
-                //     throw new Exception("Your new password cannot be the same as your current password");
-                // }
-
-                var passwordHash = HashPassword(user.NewPassword);
-                userToUpdate.Password = passwordHash;
-            }
             if (!string.IsNullOrWhiteSpace(user.BusinessName) && user.BusinessName != userToUpdate.BusinessName)
             {
                 if (_RTSystemContext.Users.Any(u => u.BusinessName == user.BusinessName))
@@ -141,21 +135,81 @@ namespace RTSystem.Data
             {
                 userToUpdate.BusinessType = user.BusinessType;
             }
-            if (user.UserImage != null && user.UserImage.Length > 0)
+            
+            _RTSystemContext.SaveChanges();
+        }
+
+        public void ResetPassword(int userId, ResetPasswordModel password)
+        {
+            var userToUpdate = _RTSystemContext.Users
+                .FirstOrDefault(u => u.UserId == userId);
+
+            if (userToUpdate == null)
             {
-                var userImageStream = new MemoryStream();
-                user.UserImage.CopyTo(userImageStream);
-                userToUpdate.UserImage = userImageStream.ToArray();
+                throw new Exception("Failed to Update");
             }
-            if (user.BusinessImage != null && user.BusinessImage.Length > 0)
+
+            if (string.IsNullOrWhiteSpace(password.CurrentPassword) || string.IsNullOrWhiteSpace(password.NewPassword) || string.IsNullOrWhiteSpace(password.ConfirmNewPassword))
             {
-                var businessImageStream = new MemoryStream();
-                user.BusinessImage.CopyTo(businessImageStream);
-                userToUpdate.BusinessImage = businessImageStream.ToArray();
+                throw new Exception("All feilds required");
             }
+
+            if (!VerifyPassword(userToUpdate.Password, password.CurrentPassword))
+            {
+                throw new Exception("Current password is incorrect");
+            }
+
+            if (password.CurrentPassword == password.NewPassword)
+            {
+                throw new Exception("Your new password cannot be the same as your current password");
+            }
+
+            if (password.NewPassword != password.ConfirmNewPassword)
+            {
+                throw new Exception("New password and its confirmation do not match");
+            }
+
+            var passwordHash = HashPassword(password.NewPassword);
+            userToUpdate.Password = passwordHash;
 
             _RTSystemContext.SaveChanges();
         }
+        
+        public void UploadImage(int userId, ImageUploadModel profileImage)
+        {
+            var userToUpdate = _RTSystemContext.Users
+                .FirstOrDefault(u => u.UserId == userId);
+
+            if (userToUpdate == null)
+            {
+                throw new Exception("Failed to Update");
+            }
+
+            if (profileImage.Image == null || profileImage.Image.Length < 0)
+            {
+                throw new Exception("No image file detected");
+            }
+
+            var userImageStream = new MemoryStream();
+            profileImage.Image.CopyTo(userImageStream);
+            userToUpdate.UserImage = userImageStream.ToArray();
+
+            _RTSystemContext.SaveChanges();
+        }
+
+        public void DeactivateAccount(int userId)
+        {
+            var userToDeactivate = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (userToDeactivate == null)
+            {
+                throw new Exception("User Not Found");
+            }
+
+            userToDeactivate.Status = "deactivated";
+            _RTSystemContext.SaveChanges();
+        }
+
         public void DeleteUser(int userId)
         {
             var userToDelete = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
