@@ -16,6 +16,7 @@ export class OurPartners extends Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.state = {
+      currentUser: {},
       users: [],
       dealers: [],
       exporters: [],
@@ -29,6 +30,8 @@ export class OurPartners extends Component {
   }
 
   componentDidMount() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    this.setState({ currentUser: user.userId });
     this.props.getAllUsers();
     this.props.getAllBids();
   }
@@ -100,7 +103,12 @@ export class OurPartners extends Component {
 
   renderUser = (users, buyerBids) => {
     return users.map((user) => (
-      <User key={user.userId} user={user} buyerBids={buyerBids} />
+      <User
+        key={user.userId}
+        user={user}
+        buyerBids={buyerBids}
+        currentUser={this.state.currentUser}
+      />
     ));
   };
 
