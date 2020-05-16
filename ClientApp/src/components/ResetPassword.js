@@ -48,6 +48,9 @@ export class ResetPassword extends Component {
 
     return (
       <div className="resetPassword">
+        <div>
+          <button onClick={this.props.close}>&times;</button>
+        </div>
         <h1>Reset Password</h1>
         <form onSubmit={this.ResetPassword} encType="multipart/form-data">
           <input

@@ -1,18 +1,4 @@
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOGOUT_USER,
-  REGISTER_USER_REQUEST,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAILURE,
-  USER_BY_ID_REQUEST,
-  USER_BY_ID_SUCCESS,
-  USER_BY_ID_FAILURE,
-  UPDATE_USER_REQUEST,
-  UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILURE,
-} from "../actions/authAction";
+import { userConstants } from "../constants/userConstants";
 
 const INITIAL_STATE = {
   loading: false,
@@ -22,16 +8,16 @@ const INITIAL_STATE = {
 };
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST: // Log In User
+    case userConstants.LOGIN_REQUEST: // Log In User
       return { ...state, loading: true, loggedIn: false };
-    case LOGIN_SUCCESS:
+    case userConstants.LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
         loggedIn: true,
         data: action.payload,
       };
-    case LOGIN_FAILURE:
+    case userConstants.LOGIN_FAILURE:
       return {
         ...state,
         laoding: false,
@@ -39,26 +25,26 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
 
-    case LOGOUT_USER: //Logout User
+    case userConstants.LOGOUT_USER: //Logout User
       return state;
 
-    case REGISTER_USER_REQUEST: // Register user
+    case userConstants.REGISTER_USER_REQUEST: // Register user
       return { ...state, loading: true };
-    case REGISTER_USER_SUCCESS:
+    case userConstants.REGISTER_USER_SUCCESS:
       return { ...state, loading: false, data: action.payload };
-    case REGISTER_USER_FAILURE:
+    case userConstants.REGISTER_USER_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
-    case USER_BY_ID_REQUEST: // Get Logged In User
+    case userConstants.USER_BY_ID_REQUEST: // Get Logged In User
       return { ...state, loading: true };
-    case USER_BY_ID_SUCCESS:
+    case userConstants.USER_BY_ID_SUCCESS:
       return {
         ...state,
         loading: false,
         loggedIn: true,
         data: action.payload,
       };
-    case USER_BY_ID_FAILURE:
+    case userConstants.USER_BY_ID_FAILURE:
       return {
         ...state,
         loading: false,
@@ -66,11 +52,18 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload,
       };
 
-    case UPDATE_USER_REQUEST: // Update User
+    case userConstants.UPDATE_USER_REQUEST: // Update User
       return { ...state, loading: true };
-    case UPDATE_USER_SUCCESS:
+    case userConstants.UPDATE_USER_SUCCESS:
       return { ...state, loading: false, data: action.payload };
-    case UPDATE_USER_FAILURE:
+    case userConstants.UPDATE_USER_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    case userConstants.DISABLE_ACCOUNT_REQUEST: // Disable Account
+      return { ...state, loading: true };
+    case userConstants.DISABLE_ACCOUNT_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case userConstants.DISABLE_ACCOUNT_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
     default:
