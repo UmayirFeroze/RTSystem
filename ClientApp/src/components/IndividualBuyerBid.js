@@ -24,7 +24,6 @@ class IndividualBuyerBid extends Component {
   }
 
   componentDidMount() {
-    console.log("Buyer:", this.props.buyer); // to be cleaned
     if (this.props.buyer === null || this.props.buyer === undefined) {
       window.location.reload();
     }
@@ -70,14 +69,12 @@ class IndividualBuyerBid extends Component {
               onClose={this.closeMakeBid}
               contentStyle={{ border: "none", backgroundColor: "inherit" }}
             >
-              <div className="sellerBidComponent">
-                <SellerCreateBid
-                  buyerBid={buyerBid}
-                  buyer={buyer}
-                  seller={seller}
-                  closeMakeBid={this.closeMakeBid}
-                />
-              </div>
+              <SellerCreateBid
+                buyerBid={buyerBid}
+                buyer={buyer}
+                seller={seller}
+                closeMakeBid={this.closeMakeBid}
+              />
             </Popup>
           </div>
         ) : (

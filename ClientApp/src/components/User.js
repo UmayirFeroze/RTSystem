@@ -13,7 +13,6 @@ class User extends Component {
     this.state = {
       user: [],
       buyerBids: [],
-
       viewUser: false,
     };
   }
@@ -68,7 +67,11 @@ class User extends Component {
           onClose={this.closeViewUser}
           contentStyle={{ border: "none", backgroundColor: "inherit" }}
         >
-          <ViewSellerPopup seller={user} closePopup={this.closeViewUser} />
+          <ViewSellerPopup
+            seller={user}
+            closePopup={this.closeViewUser}
+            currentUser={this.props.currentUser}
+          />
         </Popup>
       </div>
     );

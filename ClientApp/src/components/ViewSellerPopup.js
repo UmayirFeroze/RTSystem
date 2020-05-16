@@ -11,17 +11,19 @@ class ViewSellerPopup extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log("user@viewSeller", this.props.seller);
-  }
-
   closeViewParent = () => {
     this.props.closePopup();
   };
 
   handleViewProfile = (userId) => {
-    history.push("/our-partners/" + userId);
-    window.location.reload();
+    console.log(this.props.currentUser);
+    if (this.props.currentUser === userId) {
+      history.push("/profile");
+      window.location.reload();
+    } else {
+      history.push("/our-partners/" + userId);
+      window.location.reload();
+    }
   };
 
   render() {
