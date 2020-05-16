@@ -70,4 +70,5 @@ body {
   overflow-x: hidden;
   overflow-x: auto;
   background-color: #181818;
+  border-top: 3px solid #181818;
 }
