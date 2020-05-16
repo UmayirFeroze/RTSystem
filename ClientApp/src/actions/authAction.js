@@ -131,6 +131,26 @@ export const UpdateUser = (user) => (dispatch) => {
     });
 };
 
+// Reset Password
+const ResetPasswordSuccess = (payload) => ({
+  type: userConstants.RESET_PASSWORD_SUCCESS,
+  payload,
+});
+const ResetPasswordFailure = (payload) => ({
+  type: userConstants.RESET_PASSWORD_FAILURE,
+  payload,
+});
+export const ResetPassword = (passwords) => (dispatch) => {
+  dispatch({ type: userConstants.RESET_PASSWORD_REQUEST });
+  return axios
+    .put()
+    .then((res) => {
+      const response = res.data;
+      dispatch(ResetPasswordSuccess(response));
+    })
+    .catch((error) => dispatch(ResetPasswordFailure(error)));
+};
+
 //Disable user account
 const DisableAccountSuccess = (payload) => ({
   type: userConstants.DISABLE_ACCOUNT_SUCCESS,

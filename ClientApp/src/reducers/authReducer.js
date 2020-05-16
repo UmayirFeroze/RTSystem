@@ -59,6 +59,13 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case userConstants.UPDATE_USER_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
+    case userConstants.RESET_PASSWORD_REQUEST: // Reset Password
+      return { ...state, loading: true };
+    case userConstants.RESET_PASSWORD_SUCCESS:
+      return { ...state, loading: false, data: action.payload };
+    case userConstants.RESET_PASSWORD_FAILURE:
+      return { ...state, laoding: false, error: action.payload };
+
     case userConstants.DISABLE_ACCOUNT_REQUEST: // Disable Account
       return { ...state, loading: true };
     case userConstants.DISABLE_ACCOUNT_SUCCESS:
