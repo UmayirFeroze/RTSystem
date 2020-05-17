@@ -87,7 +87,7 @@ export class Profile extends Component {
           </button>
         </div>
         <div>
-          <Popup
+          {/* <Popup
             open={this.state.addProfilePicture}
             onClose={this.closePopup}
             contentStyle={{ border: "none", backgroundColor: "inherit" }}
@@ -115,7 +115,7 @@ export class Profile extends Component {
               user={this.state.currentUser}
               close={this.closePopup}
             />
-          </Popup>
+          </Popup> */}
         </div>
       </div>
     );
@@ -154,6 +154,39 @@ export class Profile extends Component {
         <div style={{ width: "40%", textAlign: "center" }}>
           <h3>Stats: </h3>
         </div>
+        <Popup
+          open={this.state.addProfilePicture}
+          onClose={this.closePopup}
+          contentStyle={{ border: "none", backgroundColor: "inherit" }}
+        >
+          <AddProfilePicture close={this.closePopup} />
+        </Popup>
+
+        <Popup
+          open={this.state.changePassword}
+          onClose={this.closePopup}
+          contentStyle={{ border: "none", backgroundColor: "inherit" }}
+        >
+          <ResetPassword
+            user={this.state.currentUser}
+            close={this.closePopup}
+          />
+        </Popup>
+
+        <Popup open={this.state.editProfile} onClose={this.closePopup}>
+          <EditUser user={this.state.currentUser} close={this.closePopup} />
+        </Popup>
+
+        <Popup
+          open={this.state.disableAccount}
+          onClose={this.closePopup}
+          contentStyle={{ backgroundColor: "inherit", border: "none" }}
+        >
+          <DisableAccount
+            user={this.state.currentUser}
+            close={this.closePopup}
+          />
+        </Popup>
       </div>
     );
   };

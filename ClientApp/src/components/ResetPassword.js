@@ -43,15 +43,18 @@ export class ResetPassword extends Component {
 
   render() {
     console.log("Error: ", this.state.updatedUser);
-    const errorMessage =
-      this.state.error !== null ? <p>{this.state.error}</p> : null;
+    const errorMessage = this.props.authUser.error ? (
+      <p>Current Password is Incorrect</p>
+    ) : !this.state.error ? (
+      <p>{this.state.error}</p>
+    ) : null;
 
     return (
       <div className="resetPassword">
-        <div>
-          <button onClick={this.prop}>&times;</button>
+        <div className="header">
+          <h2>Reset Password</h2>
+          <button onClick={this.props.close}>&times;</button>
         </div>
-        <h1>Reset Password</h1>
         <form onSubmit={this.ResetPassword} encType="multipart/form-data">
           <input
             type="password"
@@ -76,12 +79,12 @@ export class ResetPassword extends Component {
             onChange={this.HandleChange}
             required
           />
-          <div>{errorMessage}</div>
+          <div style={{ color: "red" }}>{errorMessage}</div>
           <button>Reset</button>
         </form>
       </div>
     );
   }
 }
-const mapStateToProps = ({ users }) => ({ users });
+const mapStateToProps = ({ authUser }) => ({ authUser });
 export default connect(mapStateToProps, { resetPassword })(ResetPassword);
