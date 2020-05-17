@@ -29,7 +29,9 @@ export class YourProfile extends Component {
       <div className="yourProfile">
         {currentUser.userImage === null ? (
           <img src={require("../Images/avatar-profile.png")} alt="UserAvatar" />
-        ) : null}
+        ) : (
+          <img src={require("../Images/avatar-profile.png")} alt="UserAvatar" />
+        )}
 
         <div>
           <h2>{currentUser.businessName}</h2>

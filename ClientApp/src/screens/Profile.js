@@ -12,6 +12,7 @@ import { getAuthUser } from "../actions/authAction";
 import "../styles/ProfilePage.css";
 import "../styles/YourProfile.css";
 import DisableAccount from "../components/DisableAccount";
+import AddProfilePicture from "../components/AddProfilePicture";
 
 export class Profile extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export class Profile extends Component {
       changePassword: false,
       editProfile: false,
       disableAccount: false,
+      addProfilePicture: false,
     };
   }
 
@@ -45,6 +47,8 @@ export class Profile extends Component {
       this.setState({ editProfile: true });
     if (event.target.name === "disableAccount")
       this.setState({ disableAccount: true });
+    if (event.target.name === "addProfilePicture")
+      this.setState({ addProfilePicture: true });
   };
 
   closePopup = () => {
@@ -52,49 +56,73 @@ export class Profile extends Component {
       changePassword: false,
       editProfile: false,
       disableAccount: false,
+      addProfilePicture: false,
     });
   };
 
   renderNavBar = (user) => {
     return (
-      <div className="yourProfile">
-        <img src={require("../Images/logo.jpg")} alt="profilePic" />
-        <button name="changePassword" onClick={this.openPopup}>
-          Change Password
-        </button>
-        <button name="editProfile" onClick={this.openPopup}>
-          Edit Profile
-        </button>
-        <button name="disableAccount" onClick={this.openPopup}>
-          Disable Account
-        </button>
+      <div>
+        <div className="yourProfile">
+          {user.userImage ? (
+            <img
+              src={require(`../Images/avatar-profile.png`)}
+              alt="userImage"
+            />
+          ) : (
+            <img src={require("../Images/logo.jpg")} alt="profilePic" />
+          )}
 
-        <Popup open={this.state.changePassword} onClose={this.closePopup}>
-          <ResetPassword
-            user={this.state.currentUser}
-            close={this.closePopup}
-          />
-        </Popup>
+          <button name="addProfilePicture" onClick={this.openPopup}>
+            Add Profile Picture
+          </button>
+          <button name="changePassword" onClick={this.openPopup}>
+            Change Password
+          </button>
+          <button name="editProfile" onClick={this.openPopup}>
+            Edit Profile
+          </button>
+          <button name="disableAccount" onClick={this.openPopup}>
+            Disable Account
+          </button>
+        </div>
+        <div>
+          <Popup
+            open={this.state.addProfilePicture}
+            onClose={this.closePopup}
+            contentStyle={{ border: "none", backgroundColor: "inherit" }}
+          >
+            <AddProfilePicture close={this.closePopup} />
+          </Popup>
 
-        <Popup open={this.state.editProfile} onClose={this.closePopup}>
-          <EditUser user={this.state.currentUser} close={this.closePopup} />
-        </Popup>
+          <Popup open={this.state.changePassword} onClose={this.closePopup}>
+            <ResetPassword
+              user={this.state.currentUser}
+              close={this.closePopup}
+            />
+          </Popup>
 
-        <Popup
-          open={this.state.disableAccount}
-          onClose={this.closePopup}
-          contentStyle={{ backgroundColor: "inherit", border: "none" }}
-        >
-          <DisableAccount
-            user={this.state.currentUser}
-            close={this.closePopup}
-          />
-        </Popup>
+          <Popup open={this.state.editProfile} onClose={this.closePopup}>
+            <EditUser user={this.state.currentUser} close={this.closePopup} />
+          </Popup>
+
+          <Popup
+            open={this.state.disableAccount}
+            onClose={this.closePopup}
+            contentStyle={{ backgroundColor: "inherit", border: "none" }}
+          >
+            <DisableAccount
+              user={this.state.currentUser}
+              close={this.closePopup}
+            />
+          </Popup>
+        </div>
       </div>
     );
   };
 
   renderProfileData = (currentUser) => {
+    console.log(currentUser);
     return (
       <div style={{ display: "flex" }}>
         <div style={{ width: "60%", padding: 20 }}>

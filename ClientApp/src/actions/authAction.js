@@ -35,7 +35,6 @@ export const loginUser = (user) => (dispatch) => {
         localStorage.clear();
         localStorage.setItem("user", JSON.stringify(res.data));
       }
-      console.log(localStorage.getItem("user", JSON.stringify(res.data)));
       history.push("/home");
       window.location.reload();
     })
@@ -71,8 +70,6 @@ export const resgisterUser = (user) => (dispatch) => {
     })
     .catch((error) => {
       dispatch(registerFailure(error));
-      console.log("error", error);
-      // history.push("/register"); //Must not relaoad, must wheo erorr messages by clesring data
     });
 };
 
@@ -98,6 +95,29 @@ export const getAuthUser = () => (dispatch) => {
     });
 };
 
+// Add Profile Picture
+const AddPicSuccess = (payload) => ({
+  type: userConstants.ADD_PROPIC_SUCCESS,
+  payload,
+});
+const AddPicFailure = (payload) => ({
+  type: userConstants.ADD_PROPIC_FAILURE,
+  payload,
+});
+export const AddProPic = (image) => (dispatch) => {
+  const userId = getUserId();
+  dispatch({ type: userConstants.ADD_PROPIC_REQUEST });
+  return axios
+    .put(`api/user/${userId}/UploadImage`, image)
+    .then((res) => {
+      const response = res.data;
+      dispatch(AddPicSuccess(response));
+    })
+    .catch((error) => {
+      dispatch(AddPicFailure(error));
+    });
+};
+
 // Update User Information
 const UpdateUserSuccess = (payload) => ({
   type: userConstants.UPDATE_USER_SUCCESS,
@@ -108,7 +128,6 @@ const UpdateUserFailure = (payload) => ({
   payload,
 });
 export const UpdateUser = (user) => (dispatch) => {
-  console.log("Entry Check: ", user);
   const userId = getUserId();
   dispatch({ type: userConstants.UPDATE_USER_REQUEST });
   return axios
