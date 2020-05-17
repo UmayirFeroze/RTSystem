@@ -91,28 +91,30 @@ export class Profile extends Component {
       <div style={{ display: "flex" }}>
         <div style={{ width: "60%", padding: 20 }}>
           <h1>{currentUser.businessName}</h1>
-          <h2>{currentUser.businessDescription}</h2>
+          <h3 style={{ marginBottom: 30 }}>
+            {currentUser.businessDescription}
+          </h3>
 
-          <h3>Owner: </h3>
-          <p style={{ marginLeft: "10%" }}>
+          <h4>Owner: </h4>
+          <p style={{ marginLeft: "25%" }}>
             {currentUser.firstName + " " + currentUser.lastName}
           </p>
-          <h3>Mobile: </h3>
-          <p style={{ marginLeft: "10%" }}>{currentUser.phone}</p>
-          <h3>Email: </h3>
-          <p style={{ marginLeft: "10%" }}>{currentUser.email}</p>
+          <h4>Mobile: </h4>
+          <p style={{ marginLeft: "25%" }}>{currentUser.phone}</p>
+          <h4>Email: </h4>
+          <p style={{ marginLeft: "25%" }}>{currentUser.email}</p>
 
-          <h3>Telephone: </h3>
-          <p style={{ marginLeft: "10%" }}>{currentUser.businessPhone}</p>
+          <h4>Telephone: </h4>
+          <p style={{ marginLeft: "25%" }}>{currentUser.businessPhone}</p>
 
-          <h3>Email: </h3>
-          <p style={{ marginLeft: "10%" }}>{currentUser.email}</p>
+          <h4>Email: </h4>
+          <p style={{ marginLeft: "25%" }}>{currentUser.email}</p>
 
-          <h3>Business Address: </h3>
-          <p style={{ marginLeft: "10%" }}>{currentUser.businessAddress}</p>
+          <h4>Business Address: </h4>
+          <p style={{ marginLeft: "25%" }}>{currentUser.businessAddress}</p>
 
-          <h3>Business Type: </h3>
-          <p style={{ marginLeft: "10%" }}>{currentUser.businessType}</p>
+          <h4>Business Type: </h4>
+          <p style={{ marginLeft: "25%" }}>{currentUser.businessType}</p>
         </div>
         <div className="vertical"></div>
         <div style={{ width: "40%", textAlign: "center" }}>
