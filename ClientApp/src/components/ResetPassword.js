@@ -80,7 +80,7 @@ export class ResetPassword extends Component {
             required
           />
           <div style={{ color: "red" }}>{errorMessage}</div>
-          <button>Reset</button>
+          <button name="reset">Reset</button>
         </form>
       </div>
     );
