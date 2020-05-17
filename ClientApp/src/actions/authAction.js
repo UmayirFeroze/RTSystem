@@ -77,7 +77,6 @@ export const resgisterUser = (user) => (dispatch) => {
 };
 
 // Get user by Id
-
 const getUserByIdSuccess = (payload) => ({
   type: userConstants.USER_BY_ID_SUCCESS,
   payload,
@@ -100,11 +99,6 @@ export const getAuthUser = () => (dispatch) => {
 };
 
 // Update User Information
-const headers = {
-  "Content-Type": "multipart/form-data",
-  type: "formData",
-};
-
 const UpdateUserSuccess = (payload) => ({
   type: userConstants.UPDATE_USER_SUCCESS,
   payload,
@@ -114,20 +108,18 @@ const UpdateUserFailure = (payload) => ({
   payload,
 });
 export const UpdateUser = (user) => (dispatch) => {
+  console.log("Entry Check: ", user);
   const userId = getUserId();
   dispatch({ type: userConstants.UPDATE_USER_REQUEST });
   return axios
-    .put(`api/user/updateUser/${userId}`, user, {
-      headers: headers,
-    })
+    .put(`api/user/updateUser/${userId}`, user)
     .then((res) => {
       const response = res.data;
       dispatch(UpdateUserSuccess(response));
-      console.log("Password Updated!");
+      window.location.reload();
     })
     .catch((error) => {
       dispatch(UpdateUserFailure(error));
-      console.log("Failed to Update");
     });
 };
 

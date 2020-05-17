@@ -21,14 +21,15 @@ export class EditUser extends Component {
         businessDescription: "",
         businessPhone: "",
         businessAddress: "",
+        businessType: "",
       },
     };
   }
 
   handleChange = (event) => {
-    const { updatedUser } = this.state;
+    let { updateUser } = this.state;
     this.setState({
-      updatedUser: { ...updatedUser, [event.target.name]: event.target.value },
+      updateUser: { ...updateUser, [event.target.name]: event.target.value },
     });
   };
 
@@ -37,13 +38,13 @@ export class EditUser extends Component {
     this.props.UpdateUser(this.state.updateUser);
   };
 
-  // Have to set all values to state
   render() {
     const { user } = this.props;
+
     return (
       <div className="editUser">
         <h1>Update Profile</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <div className="allInputs">
             <div className="ownerDetails">
               <h2>Owner Details</h2>
@@ -51,6 +52,7 @@ export class EditUser extends Component {
               <input
                 type="text"
                 name="firstName"
+                value={this.state.updateUser.firstName}
                 placeholder={user.firstName}
                 onChange={this.handleChange}
               />
@@ -58,6 +60,7 @@ export class EditUser extends Component {
               <input
                 type="text"
                 name="lastName"
+                value={this.state.updateUser.lastName}
                 placeholder={user.lastName}
                 onChange={this.handleChange}
               />
@@ -67,6 +70,7 @@ export class EditUser extends Component {
                 name="phone"
                 pattern="[0-9]{10}"
                 maxLength="10"
+                value={this.state.updateUser.phone}
                 placeholder={user.phone}
                 onChange={this.handleChange}
               />
@@ -74,11 +78,10 @@ export class EditUser extends Component {
               <input
                 type="email"
                 name="email"
+                value={this.state.updateUser.email}
                 placeholder={user.email}
                 onChange={this.handleChange}
               />
-
-              <button>Update</button>
             </div>
             <div className="businessDetails">
               <h2>Business Details</h2>
@@ -86,6 +89,7 @@ export class EditUser extends Component {
               <input
                 type="text"
                 name="businessName"
+                value={this.state.updateUser.businessName}
                 placeholder={user.businessName}
                 onChange={this.handleChange}
               />
@@ -93,6 +97,7 @@ export class EditUser extends Component {
               <input
                 type="text"
                 name="businessDescription"
+                value={this.state.updateUser.businessDescription}
                 placeholder={user.businessDescription}
                 onChange={this.handleChange}
               />
@@ -102,6 +107,7 @@ export class EditUser extends Component {
                 name="businessPhone"
                 pattern="[0-9]{10}"
                 maxLength="10"
+                value={this.state.updateUser.businessPhone}
                 placeholder={user.businessPhone}
                 onChange={this.handleChange}
               />
@@ -109,6 +115,7 @@ export class EditUser extends Component {
               <input
                 type="text"
                 name="businessAddress"
+                value={this.state.updateUser.businessAddress}
                 placeholder={user.businessAddress}
                 onChange={this.handleChange}
               />
@@ -125,6 +132,7 @@ export class EditUser extends Component {
               </select>
             </div>
           </div>
+          <button onClick={this.handleSubmit}>Update</button>
         </form>
       </div>
     );
@@ -132,5 +140,4 @@ export class EditUser extends Component {
 }
 
 const mapStateToProps = ({ authUser }) => ({ authUser });
-
 export default connect(mapStateToProps, { UpdateUser })(EditUser);

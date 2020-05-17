@@ -20,7 +20,6 @@ export class LogIn extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state); // TO BE CLEANED
     this.props.logoutUser();
   }
 
@@ -33,7 +32,6 @@ export class LogIn extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.user); // to be cleaned
     this.props.loginUser(this.state.user);
   };
 
@@ -69,9 +67,7 @@ export class LogIn extends Component {
   }
 }
 
-const mapStateToProps = ({ authUser }) => ({
-  authUser,
-});
+const mapStateToProps = ({ authUser }) => ({ authUser });
 
 const mapDispatchToProps = (dispatch) => ({
   logoutUser: (user) => dispatch(logoutUser()),
