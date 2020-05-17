@@ -140,18 +140,21 @@ const ResetPasswordFailure = (payload) => ({
   type: userConstants.RESET_PASSWORD_FAILURE,
   payload,
 });
-export const ResetPassword = (passwords) => (dispatch) => {
+export const resetPassword = (passwords) => (dispatch) => {
+  const userId = getUserId();
   dispatch({ type: userConstants.RESET_PASSWORD_REQUEST });
   return axios
-    .put()
+    .put(`/api/user/${userId}/resetPassword`, passwords)
     .then((res) => {
       const response = res.data;
       dispatch(ResetPasswordSuccess(response));
     })
-    .catch((error) => dispatch(ResetPasswordFailure(error)));
+    .catch((error) => {
+      dispatch(ResetPasswordFailure(error));
+    });
 };
 
-//Disable user account
+// Disable user account
 const DisableAccountSuccess = (payload) => ({
   type: userConstants.DISABLE_ACCOUNT_SUCCESS,
   payload,
@@ -160,14 +163,16 @@ const DisableAccountFailure = (payload) => ({
   type: userConstants.DISABLE_ACCOUNT_FAILURE,
   payload,
 });
-export const DisableAccount = () => (dispatch) => {
+export const disableAccount = () => (dispatch) => {
   const userId = getUserId();
   dispatch({ type: userConstants.DISABLE_ACCOUNT_REQUEST });
   return axios
-    .put()
+    .put(`/api/user/${userId}/deactivateAccount`)
     .then((res) => {
       const response = res.data;
       dispatch(DisableAccountSuccess(response));
+      history.push("/");
+      window.location.reload();
     })
     .catch((error) => {
       dispatch(DisableAccountFailure(error));

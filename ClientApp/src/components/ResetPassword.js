@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { UpdateUser } from "../actions/authAction";
+import { resetPassword } from "../actions/authAction";
 
 import "../styles/ResetPassword.css";
 
@@ -16,7 +16,7 @@ export class ResetPassword extends Component {
       updatedUser: {
         currentPassword: "",
         newPassword: "",
-        retypePassword: "",
+        confirmNewPassword: "",
       },
       error: "",
     };
@@ -32,12 +32,12 @@ export class ResetPassword extends Component {
   ResetPassword = (event) => {
     event.preventDefault();
     const { updatedUser } = this.state;
-    if (updatedUser.newPassword !== updatedUser.retypePassword) {
+    if (updatedUser.newPassword !== updatedUser.confirmNewPassword) {
       this.setState({ error: "Passwords Must Match!" });
     } else if (updatedUser.newPassword === updatedUser.currentPassword) {
       this.setState({ error: "New Password must not be the same!" });
     } else {
-      this.props.UpdateUser(updatedUser);
+      this.props.resetPassword(updatedUser);
     }
   };
 
@@ -49,7 +49,7 @@ export class ResetPassword extends Component {
     return (
       <div className="resetPassword">
         <div>
-          <button onClick={this.props.close}>&times;</button>
+          <button onClick={this.prop}>&times;</button>
         </div>
         <h1>Reset Password</h1>
         <form onSubmit={this.ResetPassword} encType="multipart/form-data">
@@ -71,7 +71,7 @@ export class ResetPassword extends Component {
 
           <input
             type="password"
-            name="retypePassword"
+            name="confirmNewPassword"
             placeholder="Re-enter New Password"
             onChange={this.HandleChange}
             required
@@ -84,4 +84,4 @@ export class ResetPassword extends Component {
   }
 }
 const mapStateToProps = ({ users }) => ({ users });
-export default connect(mapStateToProps, { UpdateUser })(ResetPassword);
+export default connect(mapStateToProps, { resetPassword })(ResetPassword);
