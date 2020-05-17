@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AddProPic } from "../actions/authAction";
+import "../styles/AddProfilePicture.css";
 
 class AddProfilePicture extends Component {
   constructor(props) {
@@ -29,21 +30,20 @@ class AddProfilePicture extends Component {
   render() {
     console.log(this.state.image);
     return (
-      <div style={{ backgroundColor: "black" }}>
-        <div>
-          <p>Add Profile Picture</p>
+      <div className="addProfilePicture">
+        <div className="header">
+          <h2>Add Profile Picture</h2>
           <button onClick={this.props.close}>&times;</button>
         </div>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={this.handleChange}
-            ></input>
-            <button>Upload</button>
-          </form>
-        </div>
+
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={this.handleChange}
+          ></input>
+          <button>Upload</button>
+        </form>
       </div>
     );
   }

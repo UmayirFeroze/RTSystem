@@ -43,7 +43,10 @@ export class EditUser extends Component {
 
     return (
       <div className="editUser">
-        <h1>Update Profile</h1>
+        <div className="header">
+          <h2>Update Profile</h2>
+          <button onClick={this.props.close}>&times;</button>
+        </div>
         <form>
           <div className="allInputs">
             <div className="ownerDetails">
@@ -82,7 +85,10 @@ export class EditUser extends Component {
                 placeholder={user.email}
                 onChange={this.handleChange}
               />
+
+              <button onClick={this.handleSubmit}>Update</button>
             </div>
+
             <div className="businessDetails">
               <h2>Business Details</h2>
               <hr />
@@ -132,7 +138,6 @@ export class EditUser extends Component {
               </select>
             </div>
           </div>
-          <button onClick={this.handleSubmit}>Update</button>
         </form>
       </div>
     );

@@ -1,0 +1,41 @@
+.addProfilePicture {
+  background-color: #181818;
+}
+
+.addProfilePicture .header {
+  background-color: black;
+  display: flex;
+}
+
+.addProfilePicture .header button {
+  float: right;
+  margin: 0 0 0 auto;
+  background-color: inherit;
+  border: none;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  width: auto;
+}
+
+.addProfilePicture form {
+  padding: 20px;
+  text-align: center;
+}
+
+.addProfilePicture button {
+  background-color: inherit;
+  border: 2px solid #1682db;
+  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 10px 0 10px 0;
+  width: auto;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.addProfilePicture button:hover {
+  border: 3px solid #1682db;
+  font-weight: bold;
+}

@@ -62,61 +62,25 @@ export class Profile extends Component {
 
   renderNavBar = (user) => {
     return (
-      <div>
-        <div className="yourProfile">
-          {user.userImage ? (
-            <img
-              src={require(`../Images/avatar-profile.png`)}
-              alt="userImage"
-            />
-          ) : (
-            <img src={require("../Images/logo.jpg")} alt="profilePic" />
-          )}
+      <div className="yourProfile">
+        {user.userImage ? (
+          <img src={require(`../Images/avatar-profile.png`)} alt="userImage" />
+        ) : (
+          <img src={require("../Images/logo.jpg")} alt="profilePic" />
+        )}
 
-          <button name="addProfilePicture" onClick={this.openPopup}>
-            Add Profile Picture
-          </button>
-          <button name="changePassword" onClick={this.openPopup}>
-            Change Password
-          </button>
-          <button name="editProfile" onClick={this.openPopup}>
-            Edit Profile
-          </button>
-          <button name="disableAccount" onClick={this.openPopup}>
-            Disable Account
-          </button>
-        </div>
-        <div>
-          {/* <Popup
-            open={this.state.addProfilePicture}
-            onClose={this.closePopup}
-            contentStyle={{ border: "none", backgroundColor: "inherit" }}
-          >
-            <AddProfilePicture close={this.closePopup} />
-          </Popup>
-
-          <Popup open={this.state.changePassword} onClose={this.closePopup}>
-            <ResetPassword
-              user={this.state.currentUser}
-              close={this.closePopup}
-            />
-          </Popup>
-
-          <Popup open={this.state.editProfile} onClose={this.closePopup}>
-            <EditUser user={this.state.currentUser} close={this.closePopup} />
-          </Popup>
-
-          <Popup
-            open={this.state.disableAccount}
-            onClose={this.closePopup}
-            contentStyle={{ backgroundColor: "inherit", border: "none" }}
-          >
-            <DisableAccount
-              user={this.state.currentUser}
-              close={this.closePopup}
-            />
-          </Popup> */}
-        </div>
+        <button name="addProfilePicture" onClick={this.openPopup}>
+          Add Profile Picture
+        </button>
+        <button name="changePassword" onClick={this.openPopup}>
+          Change Password
+        </button>
+        <button name="editProfile" onClick={this.openPopup}>
+          Edit Profile
+        </button>
+        <button name="disableAccount" onClick={this.openPopup}>
+          Disable Account
+        </button>
       </div>
     );
   };
@@ -173,7 +137,11 @@ export class Profile extends Component {
           />
         </Popup>
 
-        <Popup open={this.state.editProfile} onClose={this.closePopup}>
+        <Popup
+          open={this.state.editProfile}
+          onClose={this.closePopup}
+          contentStyle={{ backgroundColor: "inherit", border: "none" }}
+        >
           <EditUser user={this.state.currentUser} close={this.closePopup} />
         </Popup>
 
