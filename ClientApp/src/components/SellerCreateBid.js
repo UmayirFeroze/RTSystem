@@ -76,7 +76,7 @@ export class SellerCreateBid extends Component {
     window.location.reload();
   };
 
-  renderForm = () => {
+  renderForm = (error) => {
     console.log("State: ", this.props.sellerBids.data);
 
     return (
@@ -86,7 +86,7 @@ export class SellerCreateBid extends Component {
           type="number"
           step="any"
           name="quantity"
-          placeholder="Quantity"
+          placeholder="Quantity in Tonnes"
           onChange={this.SetBidState}
           required
         />
@@ -117,6 +117,7 @@ export class SellerCreateBid extends Component {
           required
           style={{ marginTop: 10, borderRadius: 4 }}
         />
+        <div style={{ color: "red" }}>{error}</div>
         <button>Submit</button>
       </form>
     );
@@ -128,8 +129,16 @@ export class SellerCreateBid extends Component {
 
   render() {
     const { buyerBid, buyer } = this.props;
+    const { sellerBid } = this.state;
+    const today = new Date().toLocaleDateString();
     console.log("BuyerBid Details: ", this.state.buyerBid);
-
+    let dateValidation =
+      (sellerBid.validityPeriod &&
+        sellerBid.deliveryDate &&
+        sellerBid.deliveryDate < sellerBid.validityPeriod) ||
+      sellerBid.validityPeriod < today ? (
+        <p>Enter a Valid Date</p>
+      ) : null;
     return (
       <div className="sellerBidComponent">
         <div className="sellerBidComponentHeader">
@@ -150,7 +159,7 @@ export class SellerCreateBid extends Component {
           <div className="Details">
             {this.renderBidDetails(buyerBid)}
             <div className="vertical"> </div>
-            {this.renderForm()}
+            {this.renderForm(dateValidation)}
           </div>
         </div>
       </div>

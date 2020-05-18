@@ -1,8 +1,7 @@
-// The login Page
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./../styles/LogIn.css";
 import { loginUser, logoutUser } from "../actions/authAction";
+import "./../styles/LogIn.css";
 
 export class LogIn extends Component {
   constructor(props) {
