@@ -171,7 +171,7 @@ export class MyRequests extends Component {
     const buyerBidsRendered = propsLoadingCheck ? (
       <p>Loading...</p>
     ) : propsLengthCheck && !stateLengthCheck ? (
-      <p>You havent Posted Any Bids Yet</p>
+      <p>You havent Posted Any Requests Yet</p>
     ) : status === "allBids" ? (
       this.renderBuyerBids(buyerBids, users)
     ) : status === "openedBids" ? (
