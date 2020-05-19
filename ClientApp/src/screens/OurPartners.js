@@ -4,6 +4,7 @@ import NavBar from "../components/Navbar";
 import User from "../components/User";
 
 import { connect } from "react-redux";
+import { getUserId } from "../actions/authAction";
 import { getAllUsers } from "../actions/userAction";
 import { getAllBids } from "../actions/BuyerBidActions";
 
@@ -30,8 +31,9 @@ export class OurPartners extends Component {
   }
 
   componentDidMount() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    this.setState({ currentUser: user.userId });
+    const userId = getUserId();
+    this.setState({ currentUser: userId });
+
     this.props.getAllUsers();
     this.props.getAllBids();
   }
@@ -46,7 +48,6 @@ export class OurPartners extends Component {
   }
 
   handleChange = (event) => {
-    console.log("handle Change:", event.target.value);
     if (event.target.value) {
       const value = event.target.value.toLowerCase();
       this.setState({
@@ -124,10 +125,6 @@ export class OurPartners extends Component {
       searchResults,
     } = this.state;
 
-    console.log("State: ", this.state.searchCriteria);
-    console.log("Search State:", searchState);
-    console.log("Search Results:", searchResults);
-
     let content =
       this.props.users.loading || this.props.buyerBids.loading ? (
         <p>Loading...</p>
@@ -183,7 +180,10 @@ export class OurPartners extends Component {
   }
 }
 
-const mapStateToProps = ({ users, buyerBids }) => ({ users, buyerBids });
-export default connect(mapStateToProps, { getAllUsers, getAllBids })(
+const mapStateToProps = ({ users, buyerBids }) => ({
+  users,
+  buyerBids,
+});
+export default connect(mapStateToProps, { getAllUsers, getAllBids, getUserId })(
   OurPartners
 );
