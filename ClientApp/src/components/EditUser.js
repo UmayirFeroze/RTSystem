@@ -72,6 +72,7 @@ export class EditUser extends Component {
                 type="tel"
                 name="phone"
                 pattern="[0-9]{10}"
+                minLength="10"
                 maxLength="10"
                 value={this.state.updateUser.phone}
                 placeholder={user.phone}
@@ -112,6 +113,7 @@ export class EditUser extends Component {
                 type="tel"
                 name="businessPhone"
                 pattern="[0-9]{10}"
+                minLength="10"
                 maxLength="10"
                 value={this.state.updateUser.businessPhone}
                 placeholder={user.businessPhone}

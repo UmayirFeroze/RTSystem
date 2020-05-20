@@ -1,3 +1,5 @@
+// Disablee Account must have no open orders and all quotations must be delivered
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { disableAccount } from "../actions/authAction";

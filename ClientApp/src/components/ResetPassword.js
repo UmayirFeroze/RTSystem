@@ -35,7 +35,7 @@ export class ResetPassword extends Component {
     if (updatedUser.newPassword !== updatedUser.confirmNewPassword) {
       this.setState({ error: "Passwords Must Match!" });
     } else if (updatedUser.newPassword === updatedUser.currentPassword) {
-      this.setState({ error: "New Password must not be the same!" });
+      this.setState({ error: "Passwords cannot not be the same!" });
     } else {
       this.props.resetPassword(updatedUser);
     }
