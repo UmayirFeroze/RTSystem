@@ -12,11 +12,42 @@ class DisableAccount extends Component {
     this.handleDeactivate = this.handleDeactivate.bind(this);
 
     this.state = {
+      status: true,
       error: "",
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const buyerBids = this.props.buyerBids.data;
+    const sellerBids = this.props.sellerBids.data;
+    const today = new Date().toLocaleDateString();
+    function checkDisable() {
+      if (Array.isArray(buyerBids) && Array.isArray(sellerBids)) {
+        if (buyerBids.length !== 0) {
+          buyerBids.forEach((buyerBid) => {
+            if (buyerBid.status === "open") {
+              return false;
+            }
+          });
+        }
+        if (sellerBids.length !== 0) {
+          sellerBids.forEach((sellerBid) => {
+            if (
+              sellerBid.status === "accepted" &&
+              sellerBid.deliveryDate <= today
+            ) {
+              return false;
+            }
+          });
+        }
+      } else {
+        return true;
+      }
+    }
+    if (!checkDisable) {
+      this.setState({ status: false });
+    }
+  }
 
   handleDeactivate = (event) => {
     event.preventDefault();
@@ -32,7 +63,11 @@ class DisableAccount extends Component {
         <h1>Are you sure you want to disable your account?</h1>
 
         <div className="buttons">
-          <button name="yes" onClick={this.handleDeactivate}>
+          <button
+            name="yes"
+            onClick={this.handleDeactivate}
+            disabled={!this.state.status}
+          >
             Yes
           </button>
           <button name="no" onClick={this.props.close}>

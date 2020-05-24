@@ -27,7 +27,9 @@
   border: 2px solid red;
   color: red;
 }
-
+.confirmPopup .buttons button[name="yes"]:disabled {
+  border: 2px solid grey;
+}
 .confirmPopup .buttons button[name="no"] {
   background-color: inherit; /* to be inheritted*/
   color: white;

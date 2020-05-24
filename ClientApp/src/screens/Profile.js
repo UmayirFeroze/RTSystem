@@ -202,6 +202,8 @@ export class Profile extends Component {
           <DisableAccount
             user={this.state.currentUser}
             close={this.closePopup}
+            buyerBids={this.props.buyerBids.data}
+            sellerBids={this.props.sellerBids.data}
           />
         </Popup>
       </div>
