@@ -44,16 +44,14 @@ class User extends Component {
 
     return (
       <div className="userSingleCard">
-        <div className="userDetails">
+        <div className="userDetails" style={{ paddingLeft: 10 }}>
           <p>
             <b>{user.businessName}</b>
           </p>
           <p>
-            <b>Type:</b>
-            {user.businessType}
+            <b>Contact:</b> {user.phone + " / " + user.businessPhone}
           </p>
           <p>
-            <b>Contact:</b> {user.phone + " / " + user.businessPhone}{" "}
             <b>Address:</b> {user.businessAddress}
           </p>
         </div>

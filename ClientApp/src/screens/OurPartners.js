@@ -171,7 +171,12 @@ export class OurPartners extends Component {
           </div>
 
           <div className="data">
-            <input type="text" name="searchBox" onChange={this.handleChange} />
+            <input
+              type="text"
+              name="searchBox"
+              placeHolder="Looking for Someone...?"
+              onChange={this.handleChange}
+            />
             {content}
           </div>
         </div>
