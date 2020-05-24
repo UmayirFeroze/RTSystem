@@ -220,7 +220,13 @@ class BuyerRequestBidIndividual extends Component {
           <button name="sellerbids" onClick={this.handleChange}>
             View Quotations
           </button>
-          <button name="closebid" value="close" onClick={this.handleChange}>
+
+          <button
+            name="closebid"
+            value="close"
+            onClick={this.handleChange}
+            disabled={this.state.buyerBid.status === "closed"}
+          >
             Close Bid
           </button>
 

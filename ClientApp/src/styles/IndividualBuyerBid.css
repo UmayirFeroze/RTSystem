@@ -107,6 +107,9 @@
 .myRequestBuyerBid .bidOperations button[name="closebid"]:hover {
   border: 4px solid #1682db;
 }
+.myRequestBuyerBid .bidOperations button[name="closebid"]:disabled {
+  border: 2px solid grey;
+}
 
 .myRequestBuyerBid .bidOperations button[name="deletebid"] {
   background-color: inherit;
