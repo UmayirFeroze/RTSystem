@@ -164,10 +164,12 @@ namespace RTSystem.Data
         {
             var userToDeactivate = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
 
-            if (userToDeactivate == null)
-            {
-                throw new Exception("User Not Found");
-            }
+            var buyerBidCheck = _RTSystemContext.BuyerBids.Where(b => b.UserId == userId && b.Status == "open");
+            var sellerBidCheck = _RTSystemContext.SellerBids.Where(s => s.UserId == userId && s.Status == "accepted");
+
+            if (userToDeactivate == null) { throw new Exception("User Not Found"); }
+
+            if (buyerBidCheck == null || sellerBidCheck == null) { throw new Exception("Unable to Deactivate Account!"); }
 
             userToDeactivate.Status = "deactivated";
             _RTSystemContext.SaveChanges();
