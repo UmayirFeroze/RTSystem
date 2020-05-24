@@ -97,28 +97,32 @@ export class Profile extends Component {
     );
   };
 
-  renderProfileData = (currentUser) => {
-    const { buyerBids, sellerBids } = this.props;
-    const totalRequests = buyerBids.data.length;
-    const totalQuotations = sellerBids.data.length;
-    const openRequests = buyerBids.data.filter(
+  renderProfileData = (currentUser, buyerBids, sellerBids) => {
+    const today = new Date().toLocaleDateString();
+    const totalRequests = buyerBids.length;
+    const totalQuotations = sellerBids.length;
+    const openRequests = buyerBids.filter(
       (buyerBid) => buyerBid.status === "open"
     ).length;
 
     const acceptanceRate =
-      (sellerBids.data.filter((sellerBid) => sellerBid.status === "accepted")
+      (sellerBids.filter((sellerBid) => sellerBid.status === "accepted")
         .length *
         100) /
       totalQuotations;
 
     const rejectionRate =
-      (sellerBids.data.filter((sellerBid) => sellerBid.status === "rejected")
+      (sellerBids.filter((sellerBid) => sellerBid.status === "rejected")
         .length *
         100) /
       totalQuotations;
 
-    const negotiatedQuotations = sellerBids.data.filter(
+    const negotiatedQuotations = sellerBids.filter(
       (sellerBid) => sellerBid.status === "negotiated"
+    ).length;
+
+    const deliveryDue = sellerBids.filter(
+      (sellerBid) => sellerBid.deliveryDate <= today
     ).length;
 
     return (
@@ -165,6 +169,9 @@ export class Profile extends Component {
           </h4>
           <h4>Rejection Rate: {totalQuotations === 0 ? 0 : rejectionRate}%</h4>
           <h4>In Negotiation: {negotiatedQuotations}</h4>
+          <h3 style={{ marginTop: 50 }}>Orders</h3>
+          <hr />
+          <h4>To be Delivered: {deliveryDue}</h4>
         </div>
 
         <Popup
@@ -202,8 +209,8 @@ export class Profile extends Component {
           <DisableAccount
             user={this.state.currentUser}
             close={this.closePopup}
-            buyerBids={this.props.buyerBids.data}
-            sellerBids={this.props.sellerBids.data}
+            buyerBids={openRequests}
+            sellerBids={deliveryDue}
           />
         </Popup>
       </div>
@@ -211,7 +218,7 @@ export class Profile extends Component {
   };
 
   render() {
-    const { currentUser } = this.state;
+    const { currentUser, buyerBids, sellerBids } = this.state;
 
     return (
       <div className="themePage">
@@ -222,7 +229,9 @@ export class Profile extends Component {
           <div className="sideNav" style={{ paddingTop: 0 }}>
             {this.renderNavBar(currentUser)}
           </div>
-          <div className="data">{this.renderProfileData(currentUser)}</div>
+          <div className="data">
+            {this.renderProfileData(currentUser, buyerBids, sellerBids)}
+          </div>
         </div>
       </div>
     );

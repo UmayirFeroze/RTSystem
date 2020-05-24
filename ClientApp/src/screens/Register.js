@@ -28,10 +28,6 @@ export class Register extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log(this.state); // to be cleaned
-  }
-
   handleChange = (event) => {
     let { user } = this.state;
     this.setState({
@@ -43,7 +39,6 @@ export class Register extends Component {
     event.preventDefault();
     const { user } = this.state;
     this.props.resgisterUser(user);
-    console.log(this.state.user); //tbc
   };
 
   render() {

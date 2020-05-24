@@ -42,7 +42,6 @@ export class ResetPassword extends Component {
   };
 
   render() {
-    console.log("Error: ", this.state.updatedUser);
     const errorMessage = this.props.authUser.error ? (
       <p>Current Password is Incorrect</p>
     ) : !this.state.error ? (

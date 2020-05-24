@@ -77,8 +77,6 @@ export class SellerCreateBid extends Component {
   };
 
   renderForm = (error) => {
-    console.log("State: ", this.props.sellerBids.data);
-
     return (
       <form className="form" onSubmit={this.CreateSellerBid}>
         <h3>Quote your Price</h3>
@@ -131,7 +129,7 @@ export class SellerCreateBid extends Component {
     const { buyerBid, buyer } = this.props;
     const { sellerBid } = this.state;
     const today = new Date().toLocaleDateString();
-    console.log("BuyerBid Details: ", this.state.buyerBid);
+
     let dateValidation =
       (sellerBid.validityPeriod &&
         sellerBid.deliveryDate &&

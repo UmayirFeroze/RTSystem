@@ -16,7 +16,6 @@ class ViewSellerPopup extends Component {
   };
 
   handleViewProfile = (userId) => {
-    console.log(this.props.currentUser);
     if (this.props.currentUser === userId) {
       history.push("/profile");
       window.location.reload();

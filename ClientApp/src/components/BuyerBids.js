@@ -12,8 +12,6 @@ export class BuyerBids extends Component {
   }
 
   componentDidMount() {
-    console.log("Props Buyerbids: ", this.props.buyerBidsList); // tbc
-    console.log("Props Users: ", this.props.usersList); // tbc
     this.setState({
       buyerBids: this.props.buyerBidsList.filter(
         (buyerBid) => buyerBid.status !== "closed"
@@ -24,7 +22,6 @@ export class BuyerBids extends Component {
 
   renderAllPostedBuyerBids = (buyerBids, users) => {
     if (Array.isArray(buyerBids)) {
-      console.log("Array: ", Array.isArray(users));
       if (Array.isArray(users)) {
         return buyerBids.map((buyerBid) => (
           <IndividualBuyerBid
@@ -53,8 +50,6 @@ export class BuyerBids extends Component {
       ) : (
         <p>No one has posted any buyer bids yet</p>
       );
-
-    console.log("State:", this.state.buyerBids); // to be cleaned
 
     return (
       <div>

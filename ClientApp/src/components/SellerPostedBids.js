@@ -21,7 +21,6 @@ class SellerPostedBids extends Component {
     if (this.state.seller !== this.props.sellerBid) {
       this.setState({ sellerBid: this.props.sellerBid });
     }
-    console.log("Check Bid: ", this.props.sellerBid);
   }
 
   handleChange = (event) => {

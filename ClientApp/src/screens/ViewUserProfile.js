@@ -89,7 +89,6 @@ class ViewUserProfile extends Component {
         this.renderUser(user)
       );
 
-    console.log(buyerBids);
     const buyerBidsRendered = this.props.buyerBids.loading ? (
       <p>Loading...</p>
     ) : !buyerBids.length ? (

@@ -18,33 +18,7 @@ class DisableAccount extends Component {
   }
 
   componentDidMount() {
-    const buyerBids = this.props.buyerBids.data;
-    const sellerBids = this.props.sellerBids.data;
-    const today = new Date().toLocaleDateString();
-    function checkDisable() {
-      if (Array.isArray(buyerBids) && Array.isArray(sellerBids)) {
-        if (buyerBids.length !== 0) {
-          buyerBids.forEach((buyerBid) => {
-            if (buyerBid.status === "open") {
-              return false;
-            }
-          });
-        }
-        if (sellerBids.length !== 0) {
-          sellerBids.forEach((sellerBid) => {
-            if (
-              sellerBid.status === "accepted" &&
-              sellerBid.deliveryDate <= today
-            ) {
-              return false;
-            }
-          });
-        }
-      } else {
-        return true;
-      }
-    }
-    if (!checkDisable) {
+    if (this.props.buyerBids !== 0 || this.props.sellerBids !== 0) {
       this.setState({ status: false });
     }
   }
@@ -61,6 +35,12 @@ class DisableAccount extends Component {
     return (
       <div className="confirmPopup">
         <h1>Are you sure you want to disable your account?</h1>
+
+        <div style={{ color: "red" }}>
+          {this.state.status ? null : (
+            <p>You have Open Requests or Pending Deliveries </p>
+          )}
+        </div>
 
         <div className="buttons">
           <button

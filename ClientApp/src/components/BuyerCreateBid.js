@@ -44,7 +44,6 @@ export class BuyerCreateBid extends Component {
   };
 
   handleSubmit = (event) => {
-    console.log(this.state.buyerBid); //to be cleaned
     event.preventDefault();
     this.props.createBid(this.state.buyerBid);
   };

@@ -86,13 +86,9 @@ export const GetSellerBidsByUserId = () => (dispatch) => {
     .then((res) => {
       const response = res.data;
       dispatch(GetSellerBidByUserIdSuccess(response));
-      // console.log("Response: ", response); //tbc
-      // console.log("Get State: ", store.getState()); //tbc
     })
     .catch((error) => {
       dispatch(GetSellerBidByUserIdFailure(error));
-      // console.log("Error:", error); //tbc
-      // return Promise.reject({});
     });
 };
 
