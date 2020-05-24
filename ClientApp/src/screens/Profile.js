@@ -8,6 +8,8 @@ import EditUser from "../components/EditUser";
 
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
+import { getBuyerBidsByUserId } from "../actions/BuyerBidActions";
+import { GetSellerBidsByUserId } from "../actions/SellerBidActions";
 
 import "../styles/ProfilePage.css";
 import "../styles/YourProfile.css";
@@ -23,6 +25,8 @@ export class Profile extends Component {
 
     this.state = {
       currentUser: {},
+      buyerBids: [],
+      sellerBids: [],
       changePassword: false,
       editProfile: false,
       disableAccount: false,
@@ -32,11 +36,19 @@ export class Profile extends Component {
 
   componentDidMount() {
     this.props.getAuthUser();
+    this.props.getBuyerBidsByUserId();
+    this.props.GetSellerBidsByUserId();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.authUser.data !== this.props.authUser.data) {
       this.setState({ currentUser: this.props.authUser.data });
+    }
+    if (prevProps.buyerBids.data !== this.props.buyerBids.data) {
+      this.setState({ buyerBids: this.props.buyerBids.data });
+    }
+    if (prevProps.sellerBids.data !== this.props.sellerBids.data) {
+      this.setState({ sellerBids: this.props.sellerBids.data });
     }
   }
 
@@ -86,7 +98,29 @@ export class Profile extends Component {
   };
 
   renderProfileData = (currentUser) => {
-    console.log(currentUser);
+    const { buyerBids, sellerBids } = this.props;
+    const totalRequests = buyerBids.data.length;
+    const totalQuotations = sellerBids.data.length;
+    const openRequests = buyerBids.data.filter(
+      (buyerBid) => buyerBid.status === "open"
+    ).length;
+
+    const acceptanceRate =
+      (sellerBids.data.filter((sellerBid) => sellerBid.status === "accepted")
+        .length *
+        100) /
+      totalQuotations;
+
+    const rejectionRate =
+      (sellerBids.data.filter((sellerBid) => sellerBid.status === "rejected")
+        .length *
+        100) /
+      totalQuotations;
+
+    const negotiatedQuotations = sellerBids.data.filter(
+      (sellerBid) => sellerBid.status === "negotiated"
+    ).length;
+
     return (
       <div style={{ display: "flex" }}>
         <div style={{ width: "60%", padding: 20 }}>
@@ -117,9 +151,22 @@ export class Profile extends Component {
           <p style={{ marginLeft: "25%" }}>{currentUser.businessType}</p>
         </div>
         <div className="vertical"></div>
-        <div style={{ width: "40%", textAlign: "center" }}>
-          <h3>Stats: </h3>
+        <div style={{ width: "40%", color: "grey", padding: 10 }}>
+          <h2>Stats </h2>
+          <h3 style={{ marginTop: 50 }}>Requests</h3>
+          <hr />
+          <h4>Total Requests: {totalRequests}</h4>
+          <h4>Opened Requets: {openRequests}</h4>
+          <h3 style={{ marginTop: 50 }}>Quotations</h3>
+          <hr />
+          <h4>Total Quotations: {totalQuotations}</h4>
+          <h4>
+            Acceptance Rate: {totalQuotations === 0 ? 0 : acceptanceRate}%
+          </h4>
+          <h4>Rejection Rate: {totalQuotations === 0 ? 0 : rejectionRate}%</h4>
+          <h4>In Negotiation: {negotiatedQuotations}</h4>
         </div>
+
         <Popup
           open={this.state.addProfilePicture}
           onClose={this.closePopup}
@@ -163,6 +210,7 @@ export class Profile extends Component {
 
   render() {
     const { currentUser } = this.state;
+
     return (
       <div className="themePage">
         <Header />
@@ -179,8 +227,14 @@ export class Profile extends Component {
   }
 }
 
-const mapStateToProps = ({ authUser }) => ({
+const mapStateToProps = ({ authUser, buyerBids, sellerBids }) => ({
   authUser,
+  buyerBids,
+  sellerBids,
 });
 
-export default connect(mapStateToProps, { getAuthUser })(Profile);
+export default connect(mapStateToProps, {
+  getAuthUser,
+  getBuyerBidsByUserId,
+  GetSellerBidsByUserId,
+})(Profile);
