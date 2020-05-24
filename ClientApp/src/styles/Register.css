@@ -114,3 +114,21 @@ select {
   padding: 20px;
   /* margin: 0 0 0 5px; */
 }
+
+button {
+  background-color: inherit;
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0 10px 0;
+  border: 2px solid #1682db;
+  border-radius: 4px;
+  width: 10%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  width: 30%;
+}
+
+button:hover {
+  border: 3px solid #1682db;
+  font-weight: bold;
+}

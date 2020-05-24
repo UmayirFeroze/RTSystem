@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { UpdateSellerBid } from "../actions/SellerBidActions";
-
+import "../styles/Register.css";
 class DetailedQuotationPopup extends Component {
   constructor(props) {
     super(props);
@@ -110,15 +110,17 @@ class DetailedQuotationPopup extends Component {
               <form onSubmit={this.negotiateBid}>
                 <div>
                   <h5>What is You Best Price? </h5>
-                  <input
-                    type="number"
-                    step="any"
-                    name="BestPrice"
-                    placeholder="Best Price in LKR"
-                    onChange={this.handleChange}
-                    required
-                  />
-                  <button>Negotiate</button>
+                  <div>
+                    <input
+                      type="number"
+                      step="any"
+                      name="BestPrice"
+                      placeholder="Best Price in LKR"
+                      onChange={this.handleChange}
+                      required
+                    />
+                    <button>Negotiate</button>
+                  </div>
                 </div>
               </form>
             ) : null
