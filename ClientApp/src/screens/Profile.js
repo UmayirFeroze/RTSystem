@@ -5,6 +5,8 @@ import Popup from "reactjs-popup";
 
 import ResetPassword from "../components/ResetPassword";
 import EditUser from "../components/EditUser";
+import DisableAccount from "../components/DisableAccount";
+import AddProfilePicture from "../components/AddProfilePicture";
 
 import { connect } from "react-redux";
 import { getAuthUser } from "../actions/authAction";
@@ -13,8 +15,6 @@ import { GetSellerBidsByUserId } from "../actions/SellerBidActions";
 
 import "../styles/ProfilePage.css";
 import "../styles/YourProfile.css";
-import DisableAccount from "../components/DisableAccount";
-import AddProfilePicture from "../components/AddProfilePicture";
 
 export class Profile extends Component {
   constructor(props) {
