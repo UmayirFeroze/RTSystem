@@ -25,12 +25,17 @@ export class YourProfile extends Component {
 
   render() {
     const { currentUser } = this.state;
+    console.log(currentUser.userImage);
+
     return (
       <div className="yourProfile">
         {currentUser.userImage === null ? (
           <img src={require("../Images/avatar-profile.png")} alt="UserAvatar" />
         ) : (
-          <img src={require("../Images/avatar-profile.png")} alt="UserAvatar" />
+          <img
+            src={`data:image/jpeg;base64,${currentUser.userImage}`}
+            alt="ProfilePicture"
+          />
         )}
 
         <div>

@@ -76,9 +76,12 @@ export class Profile extends Component {
     return (
       <div className="yourProfile">
         {user.userImage ? (
-          <img src={require(`../Images/avatar-profile.png`)} alt="userImage" />
+          <img
+            src={`data:image/jpeg;base64,${user.userImage}`}
+            alt="userImage"
+          />
         ) : (
-          <img src={require("../Images/logo.jpg")} alt="profilePic" />
+          <img src={require("../Images/avatar-profile.png")} alt="profilePic" />
         )}
 
         <button name="addProfilePicture" onClick={this.openPopup}>

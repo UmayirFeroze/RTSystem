@@ -112,6 +112,7 @@ export const AddProPic = (image) => (dispatch) => {
     .then((res) => {
       const response = res.data;
       dispatch(AddPicSuccess(response));
+      window.location.reload();
     })
     .catch((error) => {
       dispatch(AddPicFailure(error));
