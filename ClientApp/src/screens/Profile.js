@@ -125,7 +125,8 @@ export class Profile extends Component {
     ).length;
 
     const deliveryDue = sellerBids.filter(
-      (sellerBid) => sellerBid.deliveryDate <= today
+      (sellerBid) =>
+        sellerBid.deliveryDate <= today && sellerBid.status === "accepted"
     ).length;
 
     return (
