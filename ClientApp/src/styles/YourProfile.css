@@ -7,6 +7,7 @@
 .yourProfile img {
   width: 100%;
   height: 20%;
+  min-height: 20%;
 }
 
 .yourProfile div {
