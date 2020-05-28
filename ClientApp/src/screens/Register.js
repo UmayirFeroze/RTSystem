@@ -95,6 +95,7 @@ export class Register extends Component {
                   name="password"
                   placeholder="Password"
                   value={this.state.user.password}
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$"
                   onChange={this.handleChange}
                   required
                 />

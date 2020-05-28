@@ -59,6 +59,7 @@ export class ResetPassword extends Component {
             type="password"
             name="currentPassword"
             placeholder="Current Password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$"
             onChange={this.HandleChange}
             required
           />
@@ -67,6 +68,7 @@ export class ResetPassword extends Component {
             type="password"
             name="newPassword"
             placeholder="New Password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$"
             onChange={this.HandleChange}
             required
           />
@@ -75,6 +77,7 @@ export class ResetPassword extends Component {
             type="password"
             name="confirmNewPassword"
             placeholder="Re-enter New Password"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$"
             onChange={this.HandleChange}
             required
           />
