@@ -37,7 +37,7 @@ class ViewUserProfile extends Component {
     return (
       <div className="yourProfile">
         <img
-          src={require("../Images/logo.jpg")}
+          src={require("../Images/avatar-profile.png")}
           alt="profilePic"
           style={{ marginTop: 0 }}
         />
