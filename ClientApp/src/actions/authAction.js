@@ -160,6 +160,7 @@ export const resetPassword = (passwords) => (dispatch) => {
     .then((res) => {
       const response = res.data;
       dispatch(ResetPasswordSuccess(response));
+      window.location.reload();
     })
     .catch((error) => {
       dispatch(ResetPasswordFailure(error));

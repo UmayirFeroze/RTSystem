@@ -25,7 +25,6 @@ export class YourProfile extends Component {
 
   render() {
     const { currentUser } = this.state;
-    console.log(currentUser.userImage);
 
     return (
       <div className="yourProfile">

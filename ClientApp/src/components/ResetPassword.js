@@ -36,6 +36,8 @@ export class ResetPassword extends Component {
       this.setState({ error: "Passwords Must Match!" });
     } else if (updatedUser.newPassword === updatedUser.currentPassword) {
       this.setState({ error: "Passwords cannot not be the same!" });
+    } else if (updatedUser.newPassword.length < 8) {
+      this.setState({ error: "Password is too short!" });
     } else {
       this.props.resetPassword(updatedUser);
     }
@@ -59,7 +61,6 @@ export class ResetPassword extends Component {
             type="password"
             name="currentPassword"
             placeholder="Current Password"
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$"
             onChange={this.HandleChange}
             required
           />

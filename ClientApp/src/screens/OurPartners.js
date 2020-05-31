@@ -174,7 +174,7 @@ export class OurPartners extends Component {
             <input
               type="text"
               name="searchBox"
-              placeHolder="Looking for Someone...?"
+              placeholder="Looking for Someone...?"
               onChange={this.handleChange}
             />
             {content}
