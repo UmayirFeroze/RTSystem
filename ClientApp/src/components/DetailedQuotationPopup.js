@@ -110,7 +110,15 @@ class DetailedQuotationPopup extends Component {
               <form onSubmit={this.negotiateBid}>
                 <div>
                   <h5>What is You Best Price? </h5>
-                  <div>
+                  <div
+                    className="footer"
+                    style={{
+                      padding: 0,
+                      marginTop: 0,
+                      display: "flex",
+                      marginBottom: 10,
+                    }}
+                  >
                     <input
                       type="number"
                       step="any"
@@ -119,7 +127,9 @@ class DetailedQuotationPopup extends Component {
                       onChange={this.handleChange}
                       required
                     />
-                    <button>Negotiate</button>
+                    <button style={{ marginLeft: 5, width: "100%" }}>
+                      Negotiate
+                    </button>
                   </div>
                 </div>
               </form>
