@@ -105,7 +105,7 @@ class BuyerRequestBidIndividual extends Component {
   handleSellerBidUpdate = (childData) => {
     const backupUpdate = this.state.sellerBids;
     backupUpdate.forEach((sellerBid) => {
-      if (sellerBid.buyerBidId === childData.sellerBidId) {
+      if (sellerBid.sellerBidId === childData.sellerBidId) {
         sellerBid.status = childData.status;
         sellerBid.bestPrice = childData.bestPrice;
       }

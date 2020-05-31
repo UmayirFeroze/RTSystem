@@ -18,13 +18,15 @@ class SellerPostedBids extends Component {
     };
   }
   componentDidMount() {
-    if (this.state.seller !== this.props.sellerBid) {
+    if (this.state.sellerBid !== this.props.sellerBid) {
       this.setState({ sellerBid: this.props.sellerBid });
     }
   }
 
   handleChange = (event) => {
+    event.preventDefault();
     const { sellerBid } = this.state;
+
     if (event.target.name === "viewSeller") {
       this.setState({ viewSeller: true });
     }
@@ -41,6 +43,7 @@ class SellerPostedBids extends Component {
         this.updateStatus
       );
     }
+
     if (event.target.name === "reject") {
       this.setState(
         {
@@ -54,6 +57,7 @@ class SellerPostedBids extends Component {
         this.updateStatus
       );
     }
+
     if (event.target.name === "negotiate") {
       this.setState(
         {
