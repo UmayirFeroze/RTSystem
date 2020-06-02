@@ -169,9 +169,13 @@ export class Profile extends Component {
           <hr />
           <h4>Total Quotations: {totalQuotations}</h4>
           <h4>
-            Acceptance Rate: {totalQuotations === 0 ? 0 : acceptanceRate}%
+            Acceptance Rate:{" "}
+            {totalQuotations === 0 ? 0 : acceptanceRate.toFixed(2)}%
           </h4>
-          <h4>Rejection Rate: {totalQuotations === 0 ? 0 : rejectionRate}%</h4>
+          <h4>
+            Rejection Rate:{" "}
+            {totalQuotations === 0 ? 0 : rejectionRate.toFixed(2)}%
+          </h4>
           <h4>In Negotiation: {negotiatedQuotations}</h4>
           <h3 style={{ marginTop: 50 }}>Orders</h3>
           <hr />

@@ -100,7 +100,7 @@ export class SellerCreateBid extends Component {
           type="date"
           name="validityPeriod"
           placeholder="Validity Period"
-          value={this.state.sellerBid.validityPeriod}
+          value={this.state.sellerBid.validityPeriod || ""}
           onChange={this.SetBidState}
           required
           style={{ borderRadius: 4 }}
@@ -110,7 +110,7 @@ export class SellerCreateBid extends Component {
           type="date"
           name="deliveryDate"
           placeholder="Delivery Date"
-          value={this.state.sellerBid.deliveryDate}
+          value={this.state.sellerBid.deliveryDate || ""}
           onChange={this.SetBidState}
           required
           style={{ marginTop: 10, borderRadius: 4 }}
@@ -131,12 +131,14 @@ export class SellerCreateBid extends Component {
     const today = new Date().toLocaleDateString();
 
     let dateValidation =
-      (sellerBid.validityPeriod &&
-        sellerBid.deliveryDate &&
-        sellerBid.deliveryDate < sellerBid.validityPeriod) ||
-      sellerBid.validityPeriod < today ? (
-        <p>Enter a Valid Date</p>
+      sellerBid.validityPeriod <= today || sellerBid.deliveryDate <= today ? (
+        <p>1 Invalid Date Entered!</p>
+      ) : sellerBid.deliveryDate === null ? (
+        sellerBid.validityPeriod < sellerBid.deliveryDate ? (
+          <p>2 Invalid Date Entered!</p>
+        ) : null
       ) : null;
+
     return (
       <div className="sellerBidComponent">
         <div className="sellerBidComponentHeader">
