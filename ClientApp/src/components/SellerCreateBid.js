@@ -125,19 +125,29 @@ export class SellerCreateBid extends Component {
     this.props.closeMakeBid();
   };
 
+  validateDate = (today, validityPeriod, deliveryDate) => {
+    if (!deliveryDate) {
+      if (validityPeriod < today) {
+        return null;
+      }
+    } else {
+      if (deliveryDate < today && deliveryDate < validityPeriod) {
+        return <p>Invalid Dates entered!</p>;
+      } else {
+        return null;
+      }
+    }
+  };
   render() {
     const { buyerBid, buyer } = this.props;
     const { sellerBid } = this.state;
     const today = new Date().toLocaleDateString();
 
-    let dateValidation =
-      sellerBid.validityPeriod <= today || sellerBid.deliveryDate <= today ? (
-        <p>1 Invalid Date Entered!</p>
-      ) : sellerBid.deliveryDate === null ? (
-        sellerBid.validityPeriod < sellerBid.deliveryDate ? (
-          <p>2 Invalid Date Entered!</p>
-        ) : null
-      ) : null;
+    let dateValidation = this.validateDate(
+      today,
+      sellerBid.validityPeriod,
+      sellerBid.deliveryDate
+    );
 
     return (
       <div className="sellerBidComponent">
