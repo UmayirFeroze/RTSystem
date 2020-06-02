@@ -228,7 +228,7 @@ export class Profile extends Component {
       <div className="themePage">
         <Header />
         <NavBar />
-        <h1>Your Profile</h1>
+        <h1 style={{ paddingLeft: 10 }}>Your Profile</h1>
         <div className="container">
           <div className="sideNav" style={{ paddingTop: 0 }}>
             {this.renderNavBar(currentUser)}

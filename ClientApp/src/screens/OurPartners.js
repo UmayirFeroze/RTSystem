@@ -145,7 +145,7 @@ export class OurPartners extends Component {
     return (
       <div className="themePage">
         <Header /> <NavBar />
-        <h1>Our Partners</h1>
+        <h1 style={{ paddingLeft: 10 }}>Our Partners</h1>
         <div className="container">
           <div className="sideNav">
             <button name="allUsers" value="allUsers" onClick={this.handleClick}>

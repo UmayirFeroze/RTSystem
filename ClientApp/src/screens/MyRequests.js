@@ -184,17 +184,17 @@ export class MyRequests extends Component {
       <div className="themePage">
         <Header />
         <Navbar />
-        <h1>My Requested Bids</h1>
+        <h1 style={{ paddingLeft: 10 }}>My Requested Bids</h1>
         <div className="container">
           <div className="sideNav">
             <button name="allBids" value="allBids" onClick={this.handleClick}>
               All Requests
             </button>
             <button name="openedBids" value="open" onClick={this.handleClick}>
-              Opened Requests
+              Open
             </button>
             <button name="closedBids" value="closed" onClick={this.handleClick}>
-              Closed Requests
+              Closed
             </button>
           </div>
 

@@ -147,26 +147,26 @@ export class MyQuotations extends Component {
       <div className="themePage">
         <Header />
         <Navbar />
-        <h1>My Quotations</h1>
+        <h1 style={{ paddingLeft: 10 }}>My Quotations</h1>
         <div className="container">
           <div className="sideNav">
             <button name="allSellerBids" onClick={this.handleClick}>
-              All Bids
+              All Quotations
             </button>
             <button name="pending" onClick={this.handleClick}>
               Pending
             </button>
             <button name="accepted" onClick={this.handleClick}>
-              Accepted Bids
+              Accepted
             </button>
             <button name="rejected" onClick={this.handleClick}>
-              Rejected Bids
+              Rejected
             </button>
             <button name="negotiated" onClick={this.handleClick}>
-              Negotiated Bids
+              Negotiated
             </button>
             <button name="invalid" onClick={this.handleClick}>
-              Expired Bids
+              Expired
             </button>
           </div>
           <div className="data">{content}</div>

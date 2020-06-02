@@ -58,7 +58,7 @@ export class Home extends Component {
       <div>
         <Header />
         <NavBar />
-        <h1>Welcome To Trade Portal</h1>
+        <h1 style={{ paddingLeft: 10 }}>Welcome To Trade Portal</h1>
         <div className="container">
           <div className="profile">
             <YourProfile />
