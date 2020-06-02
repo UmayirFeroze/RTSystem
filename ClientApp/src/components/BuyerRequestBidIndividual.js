@@ -34,13 +34,10 @@ class BuyerRequestBidIndividual extends Component {
 
   componentDidMount() {
     let { buyerBid, users } = this.props;
-
     if (this.state.buyerBid !== buyerBid) {
       this.setState({ buyerBid: buyerBid });
     }
-
     this.setState({ users: users });
-
     this.props.GetAllSellerBids();
   }
 
@@ -48,7 +45,6 @@ class BuyerRequestBidIndividual extends Component {
     if (this.state.buyerBid !== this.props.buyerBid) {
       this.setState({ buyerBid: this.props.buyerBid, viewQuotations: true });
     }
-
     if (
       prevProps.sellerBids.data !== this.props.sellerBids.data &&
       Array.isArray(this.props.sellerBids.data)
@@ -119,7 +115,10 @@ class BuyerRequestBidIndividual extends Component {
   renderViewQuotations = (buyerBid, sellerBids) => {
     if (Array.isArray(sellerBids) && buyerBid !== null) {
       return (
-        <div className="viewQuotations">
+        <div
+          className="viewQuotations"
+          style={{ overflow: "hidden", overflow: "auto" }}
+        >
           <div className="header">
             <h2>All Quotations for Your Request</h2>
             <button onClick={this.closeView}>&times;</button>
