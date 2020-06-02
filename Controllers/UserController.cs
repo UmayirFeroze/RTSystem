@@ -27,7 +27,7 @@ namespace RTSystem.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace RTSystem.Controllers
 
         [HttpPost("RegisterUser")]
         [AllowAnonymous]
-        public IActionResult RegisterUser([FromBody]Users user)
+        public IActionResult RegisterUser([FromBody] Users user)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace RTSystem.Controllers
 
         [HttpPut("UpdateUser/{userId}")]
         [AllowAnonymous]
-        public IActionResult UpdateUser(int userId, [FromBody]UserUpdateModel user)
+        public IActionResult UpdateUser(int userId, [FromBody] UserUpdateModel user)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace RTSystem.Controllers
 
         [HttpPut("{userId}/ResetPassword")]
         [AllowAnonymous]
-        public IActionResult ResetPassword(int userId, [FromBody]ResetPasswordModel password)
+        public IActionResult ResetPassword(int userId, [FromBody] ResetPasswordModel password)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace RTSystem.Controllers
 
         [HttpPut("{userId}/UploadImage")]
         [AllowAnonymous]
-        public IActionResult UploadProfileImage(int userId, [FromForm]ImageUploadModel image)
+        public IActionResult UploadProfileImage(int userId, [FromForm] ImageUploadModel image)
         {
             try
             {

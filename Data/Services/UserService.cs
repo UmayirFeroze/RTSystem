@@ -69,6 +69,10 @@ namespace RTSystem.Data
             {
                 throw new Exception("This Business is Already Registered");
             }
+            if (user.Password.Length < 8)
+            {
+                throw new Exception("Password Too Short");
+            }
 
             var passwordHash = HashPassword(user.Password);
             user.Password = passwordHash;
