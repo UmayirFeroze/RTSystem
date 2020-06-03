@@ -17,7 +17,6 @@ class AddProfilePicture extends Component {
 
   handleChange = (event) => {
     this.setState({ image: event.target.files[0] });
-    console.log(event.target.files[0]); // to be cleaned
   };
 
   handleSubmit = (event) => {
@@ -28,7 +27,6 @@ class AddProfilePicture extends Component {
   };
 
   render() {
-    console.log(this.state.image);
     return (
       <div className="addProfilePicture">
         <div className="header">
