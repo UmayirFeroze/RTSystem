@@ -30,7 +30,7 @@ class ViewSellerPopup extends Component {
     return (
       <div className="viewSellerPopup">
         <div className="header">
-          <h2>Quoted By:</h2>
+          <h2>User:</h2>
           <button onClick={this.closeViewParent} style={{ marginLeft: "auto" }}>
             &times;
           </button>
@@ -52,7 +52,7 @@ class ViewSellerPopup extends Component {
             <h4>{seller.businessDescription}</h4>
             <p>
               <b> {seller.businessType} : </b>
-              {seller.firstName + seller.lastName}
+              {seller.firstName + " " + seller.lastName}
             </p>
 
             <p>
