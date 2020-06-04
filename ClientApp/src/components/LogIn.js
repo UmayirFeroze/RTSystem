@@ -39,7 +39,7 @@ export class LogIn extends Component {
       <div className="loginComponent">
         <h1>Sign In</h1>
         <form onSubmit={this.handleSubmit}>
-          <label for="email" style={{ color: "inherit" }}>
+          <label for="email">
             <input
               id="email"
               type="email"
@@ -50,7 +50,7 @@ export class LogIn extends Component {
               required
             />
           </label>
-          <label for="password" style={{ color: "inherit" }}>
+          <label for="password">
             <input
               id="password"
               type="password"
