@@ -39,28 +39,26 @@ export class LogIn extends Component {
       <div className="loginComponent">
         <h1>Sign In</h1>
         <form onSubmit={this.handleSubmit}>
-          <label for="email">
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={this.state.user.email}
-              placeholder="Email"
-              onChange={this.handleChange}
-              required
-            />
-          </label>
-          <label for="password">
-            <input
-              id="password"
-              type="password"
-              name="password"
-              value={this.state.user.password}
-              placeholder="Password"
-              onChange={this.handleChange}
-              required
-            />
-          </label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={this.state.user.email}
+            placeholder="Email"
+            onChange={this.handleChange}
+            required
+          />
+
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={this.state.user.password}
+            placeholder="Password"
+            onChange={this.handleChange}
+            required
+          />
+
           {this.props.authUser.error ? (
             <p>Incorrect Email or Password</p>
           ) : null}

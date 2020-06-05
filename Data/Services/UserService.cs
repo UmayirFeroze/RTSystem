@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RTSystem.Helpers;
+using System.Text.RegularExpressions;
 
 namespace RTSystem.Data
 {
@@ -56,7 +57,8 @@ namespace RTSystem.Data
 
         public void RegisterUser(Users user)
         {
-
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$";
+            bool isPasswordValid = Regex.IsMatch(user.Password, passwordPattern);
             if (user.FirstName == null || user.LastName == null || user.Phone == null || user.Email == null || user.Password == null || user.BusinessName == null || user.BusinessPhone == null || user.BusinessAddress == null || user.BusinessType == null)
             {
                 throw new Exception("All Data is Required");
@@ -72,6 +74,10 @@ namespace RTSystem.Data
             if (user.Password.Length < 8)
             {
                 throw new Exception("Password Too Short");
+            }
+            if (!isPasswordValid)
+            {
+                throw new Exception("This Password is not in correct format!");
             }
 
             var passwordHash = HashPassword(user.Password);

@@ -115,10 +115,7 @@ class BuyerRequestBidIndividual extends Component {
   renderViewQuotations = (buyerBid, sellerBids) => {
     if (Array.isArray(sellerBids) && buyerBid !== null) {
       return (
-        <div
-          className="viewQuotations"
-          style={{ overflow: "hidden", overflow: "auto" }}
-        >
+        <div className="viewQuotations" style={{ overflow: "auto" }}>
           <div className="header">
             <h2>All Quotations for Your Request</h2>
             <button onClick={this.closeView}>&times;</button>
