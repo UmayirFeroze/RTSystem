@@ -51,18 +51,18 @@ export class OurPartners extends Component {
     if (event.target.value) {
       const value = event.target.value.toLowerCase();
       this.setState({
-        searchCriteria: event.target.value,
+        searchCriteria: event.target.value.toLowerCase(),
         searchState: true,
         searchResults: this.state.users.filter(
           (user) =>
-            user.firstName.toLowerCase() === value ||
-            user.lastName.toLowerCase() === value ||
-            user.email.toLowerCase() === value ||
-            user.phone === value ||
-            user.businessName.toLowerCase() === value ||
-            user.businessPhone === value ||
-            user.businessAddress.toLowerCase() === value ||
-            user.businessType.toLowerCase() === value
+            user.firstName.toLowerCase().includes(value) ||
+            user.lastName.toLowerCase().includes(value) ||
+            user.email.toLowerCase().includes(value) ||
+            user.phone.includes(value) ||
+            user.businessName.toLowerCase().includes(value) ||
+            user.businessPhone.includes(value) ||
+            user.businessAddress.toLowerCase().includes(value) ||
+            user.businessType.toLowerCase().includes(value)
         ),
       });
     } else {
