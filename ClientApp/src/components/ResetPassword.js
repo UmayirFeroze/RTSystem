@@ -23,7 +23,7 @@ export class ResetPassword extends Component {
   }
 
   HandleChange = (event) => {
-    let { updatedUser } = this.state;
+    const { updatedUser } = this.state;
     this.setState({
       updatedUser: { ...updatedUser, [event.target.name]: event.target.value },
     });
