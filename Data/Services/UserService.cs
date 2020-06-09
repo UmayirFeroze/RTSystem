@@ -121,9 +121,8 @@ namespace RTSystem.Data
 
         public void ResetPassword(int userId, ResetPasswordModel password)
         {
-            var userToUpdate = _RTSystemContext.Users.FirstOrDefault(u => u.UserId == userId);
-            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&]{8,}$";
-            bool isPasswordValid = Regex.IsMatch(password.NewPassword, passwordPattern);
+            var userToUpdate = _RTSystemContext.Users
+                .FirstOrDefault(u => u.UserId == userId);
 
             if (userToUpdate == null)
             {
@@ -149,8 +148,6 @@ namespace RTSystem.Data
             {
                 throw new Exception("New password and its confirmation do not match");
             }
-
-            if (!isPasswordValid) { throw new Exception("New Password doesn not match the correct format!"); }
 
             var passwordHash = HashPassword(password.NewPassword);
             userToUpdate.Password = passwordHash;
